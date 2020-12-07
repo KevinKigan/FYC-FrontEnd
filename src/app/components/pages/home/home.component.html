@@ -1,38 +1,120 @@
-<div id="carouselExampleIndicators" class="carousel slide img-fluid" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block img-fluid" src="https://wallpapercave.com/wp/wp3750336.jpg" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Carretera 1</h5>
-        <p>Carretera 1</p>
-      </div>
+<div class="scrolling-navbar scrollbar-lady-lips">
+  <div class="force-overflow">
+    <div id="carouselExampleIndicators" class="carousel slide img-fluid" style="min-width: 100%; max-height: 75%" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+        <!--    <mdb-carousel-item>-->
+        <!--      <video class="video-fluid" autoplay loop muted>-->
+        <!--        <source src="assets/clips/1.mp4" type="video/mp4" />-->
+        <!--      </video>-->
+        <!--    </mdb-carousel-item>-->
+        <mdb-carousel-item>
+          <video class="video-fluid" autoplay loop muted>
+            <source src="assets/clips/2.mp4" type="video/mp4"/>
+          </video>
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <video class="video-fluid" autoplay loop muted>
+            <source src="assets/clips/pru.mp4" type="video/mp4"/>
+          </video>
+        </mdb-carousel-item>
+      </mdb-carousel>
     </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="https://images.alphacoders.com/546/thumb-1920-546091.jpg" alt="Second slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Carretera 2</h5>
-        <p>Carretera 2</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="https://eskipaper.com/images/road-wallpaper-20.jpg" alt="Third slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Carretera 3</h5>
-        <p>Carretera 3</p>
-      </div>
-    </div>
+
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Anterior</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Siguiente</span>
-  </a>
+  <!--  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">-->
+  <!--&lt;!&ndash;    <mdb-carousel-item>&ndash;&gt;-->
+  <!--&lt;!&ndash;      <div class="view">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <video class="video-fluid" autoplay loop>&ndash;&gt;-->
+  <!--&lt;!&ndash;            <source src="assets/clips/1.mp4" type="video/mp4" />&ndash;&gt;-->
+  <!--&lt;!&ndash;        </video>&ndash;&gt;-->
+  <!--&lt;!&ndash;        <div class="mask rgba-indigo-light waves-light" mdbWavesEffect></div>&ndash;&gt;-->
+  <!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;      <div class="carousel-caption">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <div class="animated fadeInDown delay-0.5s">&ndash;&gt;-->
+  <!--&lt;!&ndash;          <h3 class="h3-responsive">Light mask</h3>&ndash;&gt;-->
+  <!--&lt;!&ndash;          <p>First text</p>&ndash;&gt;-->
+  <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+  <!--&lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--&lt;!&ndash;    </mdb-carousel-item>&ndash;&gt;-->
+  <!--    <mdb-carousel-item>-->
+  <!--      <div class="view">-->
+  <!--        <video class="video-fluid" autoplay loop>-->
+  <!--          <source src="assets/clips/2.mp4" type="video/mp4" />-->
+  <!--        </video>-->
+  <!--        <div class="mask rgba-purple-slight waves-light" mdbWavesEffect></div>-->
+  <!--      </div>-->
+
+  <!--      <div class="carousel-caption">-->
+  <!--        <div class="animated fadeInDown delay-1s">-->
+  <!--          <h3 class="h3-responsive">Super light mask</h3>-->
+  <!--          <p>Secondary text</p>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </mdb-carousel-item>-->
+  <!--    <mdb-carousel-item>-->
+  <!--      <div class="view">-->
+  <!--        <video class="video-fluid" autoplay loop>-->
+  <!--          <source src="assets/clips/3.mp4" type="video/mp4" />-->
+  <!--        </video>-->
+  <!--        <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>-->
+  <!--      </div>-->
+
+  <!--      <div class="carousel-caption">-->
+  <!--        <div class="animated fadeInDown delay-1s">-->
+  <!--          <h3 class="h3-responsive">Strong mask</h3>-->
+  <!--          <p>Third text</p>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </mdb-carousel-item>-->
+  <!--  </mdb-carousel>-->
+  <!--  <div class="carousel-inner">-->
+  <!--    <div class="carousel-item active">-->
+  <!--      <img class="d-block img-fluid" src="https://wallpapercave.com/wp/wp3750336.jpg" alt="First slide">-->
+  <!--      <div class="carousel-caption d-none d-md-block">-->
+  <!--        <h5>Carretera 1</h5>-->
+  <!--        <p>Carretera 1</p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="carousel-item">-->
+  <!--      <img class="d-block img-fluid" src="https://images.alphacoders.com/546/thumb-1920-546091.jpg" alt="Second slide">-->
+  <!--      <div class="carousel-caption d-none d-md-block">-->
+  <!--        <h5>Carretera 2</h5>-->
+  <!--        <p>Carretera 2</p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="carousel-item">-->
+  <!--      <img class="d-block img-fluid" src="https://eskipaper.com/images/road-wallpaper-20.jpg" alt="Third slide">-->
+  <!--      <div class="carousel-caption d-none d-md-block">-->
+  <!--        <h5>Carretera 3</h5>-->
+  <!--        <p>Carretera 3</p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+  <!--    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+  <!--    <span class="sr-only">Anterior</span>-->
+  <!--  </a>-->
+  <!--  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+  <!--    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+  <!--    <span class="sr-only">Siguiente</span>-->
+  <!--  </a>-->
+  <!--</div>-->
+
+  <div style="display: block">
+    <canvas mdbChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets"
+            [labels]="chartLabels"
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="true"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
 </div>
