@@ -10,5 +10,4 @@ export class MotorCombustion{
   combustible: Combustible;
   emisiones: Emisiones;
   hp: number;
-
 }

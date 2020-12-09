@@ -9,15 +9,17 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-// @ts-ignore
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { CochesComponent } from './components/pages/coches/coches.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CochesComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     HttpClientModule,
     FormsModule,
     MDBBootstrapModule.forRoot(),
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

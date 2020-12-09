@@ -4,6 +4,6 @@ import {HP_Electrico} from './HP_Electrico';
 export class MotorElectrico{
   idMotorElectrico: number;
   tCarga220v: number;
-  potenciasElectricas: Array<PotenciaElectrica> []
+  potenciasElectricas: Array<PotenciaElectrica> [];
   hps: Array<HP_Electrico> [];
 }

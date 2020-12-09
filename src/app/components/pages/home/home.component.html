@@ -1,6 +1,7 @@
 <div class="scrolling-navbar scrollbar-lady-lips">
   <div class="force-overflow">
-    <div id="carouselExampleIndicators" class="carousel slide img-fluid" style="min-width: 100%; max-height: 75%" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide img-fluid" style="min-width: 100%; max-height: 75%"
+         data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -25,6 +26,35 @@
     </div>
 
   </div>
+  <nav aria-label="Page navigation ">
+    <ul class="pagination pagination-circle">
+      <li class="page-item disabled">
+        <a class="page-link" style="color: #3cb8e6" mdbWavesEffect>Primera</a>
+      </li>
+      <li class="page-item disabled">
+        <a class="page-link" aria-label="Previous" mdbWavesEffect>
+          <span aria-hidden="true" style="color: #3cb8e6">&laquo;</span>
+          <span class="sr-only" style="color: #3cb8e6">Previous</span>
+        </a>
+      </li>
+      <li class="page-item active"><a class="page-link" mdbWavesEffect>1</a></li>
+      <li class="page-item"><a class="page-link persoText" style="color: #3cb8e6" mdbWavesEffect>2</a></li>
+      <li class="page-item"><a class="page-link persoText" style="color: #3cb8e6" mdbWavesEffect>3</a></li>
+      <li class="page-item"><a class="page-link persoText" style="color: #3cb8e6" mdbWavesEffect>4</a></li>
+      <li class="page-item"><a class="page-link persoText" style="color: #3cb8e6" mdbWavesEffect>5</a></li>
+      <li class="page-item">
+        <a class="page-link" aria-label="Next" mdbWavesEffect>
+          <span aria-hidden="true" style="color: #3cb8e6">&raquo;</span>
+          <span class="sr-only" style="color: #3cb8e6">Next</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" style="color: #3cb8e6" mdbWavesEffect>Última</a>
+      </li>
+    </ul>
+  </nav>
+
+
   <!--  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">-->
   <!--&lt;!&ndash;    <mdb-carousel-item>&ndash;&gt;-->
   <!--&lt;!&ndash;      <div class="view">&ndash;&gt;-->
@@ -105,7 +135,7 @@
   <!--  </a>-->
   <!--</div>-->
 
-  <div style="display: block">
+  <div style="display: block; background-color: white">
     <canvas mdbChart
             [chartType]="chartType"
             [datasets]="chartDatasets"

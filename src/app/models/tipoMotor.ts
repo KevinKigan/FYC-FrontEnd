@@ -5,5 +5,6 @@ export class TipoMotor{
   idTipoMotor: number;
   motorCombustion: MotorCombustion;
   motorElectrico: MotorElectrico;
-
 }
+
+

@@ -3,6 +3,16 @@
   width: 100%;
 }
 
+.example .pagination>li>a,
+.example .pagination>li>span {
+  border: 1px solid purple;
+}
+.pagination>li.active>a {
+  background: #3cb8e6;
+  color: #fff;
+}
+
+
 .scrollbar-juicy-peach::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background-color: #F5F5F5;
