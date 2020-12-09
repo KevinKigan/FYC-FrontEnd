@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+/*!*body {*!*/
+/*!*  background-color: rgba(255, 0, 0, 0.5);*!*/
+/*!*  font-family: Consolas;*!*/
+/*!*}*!*/
+
+/*.content {*/
+/*  height: 200vh;*/
+/*  background: rgba(0, 0, 0, 0.5);*/
+/*  padding: 8px;*/
+/*  color: transparent;*/
+/*}*/
+
+/*!* Gradient Scrollbar *!*/
+/*body::-webkit-scrollbar {*/
+/*  width: 10px;*/
+/*  border-radius: 2px;*/
+/*  background: transparent;*/
+/*}*/
+
+/*body::-webkit-scrollbar-track {*/
+/*  background: transparent;*/
+
+/*}*/
+
+/*body::-webkit-scrollbar-thumb {*/
+   /* opacity: 0; should do the thing either */
+  /*background:  linear-gradient(0deg, #3cb8e6, #5d2bb1);*/
+  /*border-radius: 3em/3em;*/
+  /*box-shadow: transparent;*/
+/*}*/
+
+
+body::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 2px;
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background:  linear-gradient(0deg, #3cb8e6, #5d2bb1);
+  border-radius: 3em/3em;
+  box-shadow: transparent;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body {
+  background-color: #414141;
+
+}
+
+

@@ -1,0 +1,30 @@
+nav img{
+  margin-top: -0.3em;
+  margin-bottom: -0.3em;
+  margin-right: 0.5em;
+  width: 5.5%;
+  height: 5.5%;
+  /*background-color: #1b1e21*/
+}
+a {
+  font-size: 1.2em;
+}
+span{
+  text-decoration-color: white;
+}
+nav{
+  background: linear-gradient(to right, #330370, transparent);
+  /**/
+}
+.navbar.navbar-default {
+  background-color: #99ccff;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar.navbar-default .navbar-collapse {
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

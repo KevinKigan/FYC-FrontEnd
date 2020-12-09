@@ -1,17 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" [routerLink]="['/home']">FYC</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar fixed-top navbar-dark navbar-expand-lg font-weight-bold font-weight-light">
+  <img [routerLink]="['/home']" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen"
+       class="img-fluid rounded">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+  <div class="align-items-left">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/home/direccion1']">Dirección 1 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="['/coches']">Coches <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/home/direccion2']">Dirección 2 <span class="sr-only">(current)</span></a>
@@ -22,9 +19,43 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/home/direccion4']">Conóceme <span class="sr-only">(current)</span></a>
       </li>
-
-    </ul>
-    <ul class="navbar-nav navbar-right">
     </ul>
   </div>
 </nav>
+<!--<mdb-navbar class="navbar fixed-top navbar-expand-lg text-color-dark scrolling-navbar intro-fixed-nav" style="-->
+<!--    background: linear-gradient(to right, #5d2bb1 , transparent);" [containerInside]="false">-->
+<!--  <div>-->
+<!--    <mdb-navbar-brand>-->
+<!--      <a class="navbar-brand">-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+
+<!--          <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item">-->
+<!--              <img [routerLink]="['/home']" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen" class="img-thumbnail rounded" style="width: 5%;   height: 5%">-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" [routerLink]="['/home/direccion1']">Dirección 1 <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" [routerLink]="['/home/direccion2']">Dirección 2 <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" [routerLink]="['/home/direccion3']">Dirección 3 <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" [routerLink]="['/home/direccion4']">Conóceme <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+
+<!--          </ul>-->
+<!--          <ul class="navbar-nav navbar-left">-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--    </mdb-navbar-brand>-->
+<!--  </div>-->
+
+<!--</mdb-navbar>-->
+
