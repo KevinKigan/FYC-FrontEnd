@@ -1,0 +1,14 @@
+nav{
+  background: rgb(76,150,215);
+  background: radial-gradient(circle, rgba(76,150,215,1) 0%, rgba(79,53,82,1) 100%);
+  height: 60px;
+  border-radius: 50px;
+  width: 50%;
+  margin: auto;
+}
+li{
+  margin: auto;
+}
+a{
+  vertical-align: middle;
+}

@@ -1,0 +1,40 @@
+<nav aria-label="Page navigation example" class="font-weight-bold">
+  <ul *ngIf="pages?.length>0" class="pagination pg-blue-grey justify-content-center" style="height: 100%">
+    <li [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
+      <a [routerLink]="['/modelos/page',0]" class="page-link"
+         style="border-radius: 50px; color: #3a273c;font-size: 20px" tabindex="-1" mdbWavesEffect>Primera</a>
+    </li>
+    <li [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
+      <a [routerLink]="['/modelos/page',paginaActual-1]" class="page-link" style="border-radius: 50px;font-size: 20px"
+         aria-label="Previous" mdbWavesEffect>
+        <span aria-hidden="true" style="color: #3a273c;font-size: 20px">&laquo;</span>
+        <span class="sr-only" style="color: #3a273c">Previous</span>
+      </a>
+
+    </li>
+    <li *ngFor="let page of pages" [ngClass]="page-1 == paginator.number? 'page-item active':'page-item'">
+      <a [routerLink]="['/modelos/page',page-1]" (click)="actualizarPagina(page)" class="page-link"
+         style="border-radius: 50px; " mdbWavesEffect>{{page}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" aria-label="Next" style="border-radius: 50px;font-size: 20px" mdbWavesEffect>
+        <span aria-hidden="true" style="color: #3a273c">&raquo;</span>
+        <span class="sr-only" style="color: #3a273c">Next</span>
+      </a>
+    </li>
+    <li [ngClass]="paginator.last? 'disabled page-item': 'page-item'">
+      <a [routerLink]="['/modelos/page',paginator.totalPages-1]" class="page-link"
+         style="border-radius: 50px; color: #3a273c;font-size: 20px" tabindex="-1" mdbWavesEffect>Última</a>
+    </li>
+    <li class="page-item">
+      <button class="page-link " style="border-radius: 50px;font-size: 20px; color: #3a273c;" mat-button [matMenuTriggerFor]="menu">
+        Elemetos: {{itemsPorPagina}}</button>
+      <mat-menu #menu="matMenu" style="color: #7abaff">
+        <button [routerLink]="['/redirect']" *ngFor="let size of opcionesDePagina" mat-menu-item
+                (click)="paginatorActualizado(size)">{{size}}</button>
+
+      </mat-menu>
+    </li>
+  </ul>
+</nav>
+
