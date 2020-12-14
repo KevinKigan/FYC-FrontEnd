@@ -26,11 +26,9 @@ export class ModelosComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let page = +params.get('page'); // El operador suma transforma el string en un number
-      console.log('pagina antes '+page);
       if (!page || page<0) {
         page = 0;
       }
-      console.log('pagina despues '+page);
       this.cochesService.getModelos(page).subscribe(response => {
         this.modelos = response.content as Modelo[];
         this.paginator = response;

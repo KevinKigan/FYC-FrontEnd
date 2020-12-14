@@ -44,7 +44,9 @@ export class PaginatorComponent implements OnInit {
       this.totalPaginas = this.paginator.totalPages;
       this.paginaActual = this.paginator.number+1;
       this.itemsPorPagina = this.paginator.size;
-      this.from = Math.min(Math.max(1, this.paginator.number - 4), this.paginator.totalPages - 5);
+
+
+      this.from = Math.min(Math.max(1, this.paginator.number - 2), this.paginator.totalPages - 5);
       this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + 4), 6);
 
       if (this.paginator.totalPages > 5) {

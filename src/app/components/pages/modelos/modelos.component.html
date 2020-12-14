@@ -1,7 +1,7 @@
 <div style="margin-top: 7%">
 
 </div>
-<app-paginator *ngIf="paginator" [paginator] = paginator></app-paginator>
+<app-paginator id="test1" *ngIf="paginator" [paginator] = paginator></app-paginator>
 
 <div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
@@ -27,4 +27,5 @@
     </mdb-card-body>
   </mdb-card>
 </div>
-<app-paginator *ngIf="paginator" [paginator] = paginator></app-paginator>
+<app-paginator  *ngIf="paginator" [paginator] = paginator></app-paginator>
+<div style="margin: 20px"></div>

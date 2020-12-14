@@ -13,7 +13,7 @@ span{
   text-decoration-color: white;
 }
 nav{
-  background: linear-gradient(to right, #330370, transparent);
+  background: linear-gradient(to right, #2f2f2e, transparent);
   font-size: 150%;
   /**/
 }
@@ -247,13 +247,39 @@ section {
 }
 
 .styleA:hover {
-  color: #4686d9;
-  box-shadow: 0 0 20px #4686d9;
-  text-shadow: 0 0 20px #4686d9;
+  color: #ffee10;
+  box-shadow: 0 0 20px #ffee10;
+  text-shadow: 0 0 20px #ffee10;
+}
+.styleB:hover::before {
+  /*transform: scale(1.1);*/
+  /*box-shadow: 0 0 15px #ffee10;*/
+}
+
+.styleB:hover {
+  color: #ffee10;
+  box-shadow: 0 0 20px #ffee10;
+  text-shadow: 0 0 20px #ffee10;
 }
 
 .flex{
   display: flex;
+}
+a {
+  text-decoration: none;
+  background-image: linear-gradient(#ffee10, currentColor);
+  margin-right: 5px;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+  /*color: #ffee10;*/
+  /*box-shadow: 0 0 20px #ffee10;*/
+  /*text-shadow: 0 0 20px #ffee10;*/
+}
+
+a:hover, a:focus {
+  background-size: 100% 2px;
 }
 
 
@@ -262,8 +288,9 @@ section {
 /*-------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------*/
 .onoffswitch {
-  position: relative; width: 20%;
+  position: relative; width: 50%;
   height: 100%;
+  right: 0;
   -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
@@ -281,8 +308,8 @@ section {
 }
 .onoffswitch-label:before {
   content: "";
-  display: block; width: 50%; height: 82%; ;
-  background: #ffe300;
+  display: block; width: 50%; height: 80%;
+  background: #ffffff;
   position: absolute; top: 0; bottom: 0;
   right: 50%;
   border: 2px solid #000000; border-radius: 50px;
@@ -301,4 +328,48 @@ section {
 .padre {
   display: flex;
   align-items: center;
+}
+// gradient: https://www.gradientmagic.com/collection/rainbowstandard
+@import url("https://fonts.googleapis.com/css?family=Lato:300");
+
+
+
+.gradient-border {
+  --border-width: 3px;
+
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 120%;
+  height: 0px;
+  bottom: 0;
+  left: -10%;
+
+  border-radius: var(--border-width);
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: calc(-1 * var(--border-width));
+    left: calc(-1 * var(--border-width));
+    z-index: -1;
+    width: calc(100% + var(--border-width) * 2);
+    height: 3px;
+    background: linear-gradient(
+        60deg,
+        hsl(53, 100%, 50%),
+        hsl(38, 100%, 50%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: 20px;
+    animation: moveGradient 4s alternate infinite;
+  }
+}
+
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
+  }
 }
