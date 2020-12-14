@@ -1,19 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {urlEndPointImgLogo} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   urlEndPointImgLogo = urlEndPointImgLogo;
+  tipoUsuario: string = 'Usuario';
 
   // public logo = 'G:/TFG/fyc-app/src/FYClogo.png';
-
+    panelOpenState: boolean;
   constructor() { }
 
   ngOnInit(): void {
+    this.panelOpenState = false;
+  }
+
+  alternarUsuario():void{
+    if(this.tipoUsuario.includes('Usuario')){
+      this.tipoUsuario='Administrador';
+    }else{
+      this.tipoUsuario='Usuario';
+    }
   }
 
   // comprobarNavbar():void{

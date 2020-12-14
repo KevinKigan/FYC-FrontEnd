@@ -10,6 +10,9 @@ const dns = "http://localhost:8080";
 
 export const urlEndPoint = dns+"/api";
 export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
+export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
+export const urlEndPointModelosPage = urlEndPoint+"/coches/modelos/page/";
+export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 /*
  * For easier debugging in development mode, you can import the following file

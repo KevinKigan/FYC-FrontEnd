@@ -5,7 +5,7 @@ import {TipoMotor} from './tipoMotor';
 import {Consumo} from './consumo';
 
 
-export class coche{
+export class Coche{
   idCoche: number;
   ejeMotriz: string;
   marca: Marca;
