@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './components/pages/home/home.component';
 import {ModelosComponent} from './components/pages/modelos/modelos.component';
 import {RedirectComponent} from './components/share/redirect/redirect.component';
+import {MarcasComponent} from './components/pages/marcas/marcas.component';
 
 
 const app_routes: Routes = [
@@ -11,6 +12,7 @@ const app_routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'redirect', component: RedirectComponent},
   {path: 'modelos', component: ModelosComponent},
+  {path: 'marcas', component: MarcasComponent},
   {path: 'modelos/page/:page', component: ModelosComponent},
   {path: 'home/direccion2', component: HomeComponent},
   {path: 'home/direccion3', component: HomeComponent},

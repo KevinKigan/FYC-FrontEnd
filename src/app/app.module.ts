@@ -23,6 +23,7 @@ import {MatMenuModule} from '@angular/material/menu';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
+import { MarcasComponent } from './components/pages/marcas/marcas.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RedirectComponent } from './components/share/redirect/redirect.componen
     FooterComponent,
     ModelosComponent,
     PaginatorComponent,
-    RedirectComponent
+    RedirectComponent,
+    MarcasComponent
   ],
   imports: [
     BrowserModule,

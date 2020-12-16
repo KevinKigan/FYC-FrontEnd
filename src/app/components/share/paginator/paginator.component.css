@@ -16,8 +16,9 @@ a{
   border-radius: 50px;
   color: white;
   font-size: 20px;
+  text-shadow: 2px 2px #1b1e21;
 }
 
-button:hover,a:hover{
+a:hover{
   text-shadow: 2px 2px #1b1e21;
 }
