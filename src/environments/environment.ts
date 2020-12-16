@@ -14,6 +14,7 @@ export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
 export const urlEndPointImgMarcaLogo = urlEndPoint+"/img/marcaslogo/";
 export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
 export const urlEndPointModelosPage = urlEndPoint+"/coches/modelos/page/";
+export const urlEndPointModelosPorMarcaPage = urlEndPoint+"/coches/modelospormarca/idmarca/";
 export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 /*
