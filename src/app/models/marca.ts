@@ -1,6 +1,6 @@
 
 export class Marca{
-  idMarca: number;
+  idMarca:number;
   marcaCoche: string;
-  url: string;
+  url:string;
 }

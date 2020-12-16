@@ -1,0 +1,25 @@
+<div style="margin-top: 7%"></div>
+<div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
+
+  <!-- Card -->
+
+  <mdb-card *ngFor="let marca of global" style="width: 18rem;max-width: 18rem;height: 20rem;max-height: 20rem">
+    <div class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
+      <!-- Card img -->
+      <img [routerLink]="['/home']" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen" class="img-fluid rounded">
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!--Card content-->
+    <mdb-card-body class="bg-perso" >
+      <mdb-card-title>
+        <h1 style="@media (min-width: 100px)">{{marca.marcaCoche}}</h1>
+      </mdb-card-title>
+      <mdb-card-text>
+<!--        <h2>{{marca.url}}</h2>-->
+      </mdb-card-text>
+      <button mdbBtn type="button" color="warning" class="styleA" rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>
+    </mdb-card-body>
+  </mdb-card>
+</div>

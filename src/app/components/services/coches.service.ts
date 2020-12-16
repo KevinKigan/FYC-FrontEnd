@@ -2,17 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {urlEndPointActualizarItemsPorPagina, urlEndPointModelosPage} from '../../../environments/environment';
+import {urlEndPointActualizarItemsPorPagina,urlEndPointMarcas, urlEndPointModelosPage} from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
+import {Marca} from '../../models/marca';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CochesService {
-
-  urlEndPointModelosPage = urlEndPointModelosPage;
-  urlEndPointActualizarItemsPorPagina = urlEndPointActualizarItemsPorPagina;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -27,6 +25,18 @@ export class CochesService {
       })
     );
   }
+
+  getMarcas(): Observable<any> {
+    return this.http.get<Marca[]>('http://localhost:8080/api/coches/marcas').pipe(
+      map((response: any) => {
+        (response as Marca[]).map(marca=>{
+          return marca;
+        });
+        return response;
+      })
+    );
+  }
+
 
   updateItemsPorPagina(size: number):Observable<any>{
     return this.http.put(urlEndPointActualizarItemsPorPagina,size).pipe(

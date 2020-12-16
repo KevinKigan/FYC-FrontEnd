@@ -1,13 +1,11 @@
-<div style="margin-top: 7%">
-
-</div>
+<div style="margin-top: 7%"></div>
 <app-paginator id="test1" *ngIf="paginator" [paginator] = paginator></app-paginator>
 
 <div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
   <!-- Card -->
 
-  <mdb-card *ngFor="let modelo of global" style="max-width: 30rem">
+  <mdb-card *ngFor="let modelo of global" style="width: 20rem;max-width: 20rem;height: 25rem;max-height: 25rem">
     <div class="view rgba-white-slight waves-light" mdbWavesEffect>
       <!-- Card img -->
       <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap"></mdb-card-img>
@@ -23,7 +21,7 @@
       <mdb-card-text>
         <h2>{{modelo.marca.marcaCoche}}</h2>
       </mdb-card-text>
-      <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+      <button mdbBtn type="button" color="warning" class="styleA" rounded="true" mdbWavesEffect>{{modelo.modelo}}</button>
     </mdb-card-body>
   </mdb-card>
 </div>

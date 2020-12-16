@@ -9,7 +9,9 @@ export const environment = {
 const dns = "http://localhost:8080";
 
 export const urlEndPoint = dns+"/api";
+export const urlEndPointMarcas = urlEndPoint+"/coches/marcas";
 export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
+export const urlEndPointImgMarcaLogo = urlEndPoint+"/img/marcaslogo/";
 export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
 export const urlEndPointModelosPage = urlEndPoint+"/coches/modelos/page/";
 export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
