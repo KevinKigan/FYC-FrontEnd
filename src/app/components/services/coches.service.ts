@@ -47,6 +47,22 @@ export class CochesService {
       })
     );
   }
+  /**
+   * Metodo para buscar todos los modelos de una marca
+   *
+   * @param marca
+   *
+   */
+  getModelosPorMarcaSinPaginar(marca: number): Observable<any> {
+    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage+marca).pipe(
+      map((response: any) => {
+        (response as Modelo[]).map(modelo=>{
+          return modelo;
+        });
+        return response;
+      })
+    );
+  }
 
   /**
    * Metodo para crear la ruta de la marca en el componente modelo

@@ -1,5 +1,36 @@
-<div style="margin-top: 7%"></div>
-<app-paginator id="test1" *ngIf="paginator" [paginator] = paginator [paths]= paths></app-paginator>
+<div style="margin-top: 4.5%"></div>
+<div class="paralelogramo forma" style="margin-left: -2.5%">
+  <div class="normal">
+    <form class="example-form">
+      <mat-form-field class="example-full-width placeholder" style="color: white">
+        <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large">Marca</mat-placeholder>
+<!--        <input *ngIf="marcaSelected==''" style="Font-family: fantasy; font-size: 20px" type="text" aria-label="Number" matInput [formControl]="controlMarca" [matAutocomplete]="autoMarca">-->
+        <input (click)="borrarValor($event)" style="Font-family: fantasy; font-size: 20px" type="text" aria-label="Number" value="{{marcaSelected}}" matInput [formControl]="controlMarca" [matAutocomplete]="autoMarca">
+        <mat-autocomplete autoActiveFirstOption #autoMarca="matAutocomplete" (autocomplete)="false" (optionSelected)="selectionMarca($event)">
+          <mat-option *ngFor="let option of opcionesMarca | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<div class="paralelogramo forma" style="margin-left: -0.85%">
+  <div class="normal">
+    <form class="example-form">
+      <mat-form-field class="example-full-width" style="color: white">
+        <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large;">Modelo</mat-placeholder>
+        <input (click)="borrarValor($event)" style="margin-left: -0.85%; Font-family: fantasy; font-size: 20px" type="text" aria-label="Number" value="{{modeloSelected}}" matInput [formControl]="controlModelo" [matAutocomplete]="autoModelo">
+        <mat-autocomplete autoActiveFirstOption #autoModelo="matAutocomplete" (autocomplete)="false" (optionSelected)="selectionModelo($event)">
+          <mat-option *ngFor="let option of opcionesModelo | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<app-paginator id="test1" *ngIf="paginator && mostrarPaginator" [paginator]=paginator [paths]=paths></app-paginator>
 
 <div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
@@ -21,9 +52,11 @@
       <mdb-card-text>
         <h2>{{modelo.marca.marcaCoche}}</h2>
       </mdb-card-text>
-      <button mdbBtn type="button" color="warning" class="styleA" rounded="true" mdbWavesEffect>{{modelo.modelo}}</button>
+      <button mdbBtn type="button" color="warning" class="styleA" rounded="true"
+              mdbWavesEffect>{{modelo.modelo}}</button>
     </mdb-card-body>
   </mdb-card>
 </div>
-<app-paginator  *ngIf="paginator && paginator.totalPages>1" [paginator] = paginator [paths]= paths></app-paginator>
+<div style="margin-bottom: 4.5%"></div>
+<app-paginator *ngIf="paginator && paginator.totalPages>1 && mostrarPaginator" [paginator]=paginator [paths]=paths></app-paginator>
 <div style="margin: 20px"></div>
