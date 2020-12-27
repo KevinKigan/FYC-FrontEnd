@@ -25,6 +25,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
 import { MarcasComponent } from './components/pages/marcas/marcas.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SidebarComponent } from './components/pages/modelos/sidebar/sidebar.component';
+import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { AppiComponent } from './components/pages/modelos/appi/appi.component';
+
 
 @NgModule({
   declarations: [
@@ -35,28 +40,34 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ModelosComponent,
     PaginatorComponent,
     RedirectComponent,
-    MarcasComponent
+    MarcasComponent,
+    SidebarComponent,
+    AppiComponent
   ],
-  imports: [
-    BrowserModule,
-    RouterModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    MDBBootstrapModule.forRoot(),
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatExpansionModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatDatepickerModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        MDBBootstrapModule.forRoot(),
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatExpansionModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatDatepickerModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        PerfectScrollbarModule,
+        BrowserAnimationsModule,
+        BsDropdownModule.forRoot(),
+        PerfectScrollbarModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

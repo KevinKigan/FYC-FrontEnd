@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {SidebarService} from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-coches',
@@ -36,11 +37,13 @@ export class ModelosComponent implements OnInit {
   nombre_modelos:string[]=[];
   marcaSelected: string = '';
   modeloSelected: string = '';
+  slide = 'slideOff';
 
   constructor(
     private cochesService: CochesService,
     private activatedRoute: ActivatedRoute,
-    private router:Router
+    private router:Router,
+    public sidebarservice: SidebarService,
   ) {
   }
 
@@ -48,6 +51,10 @@ export class ModelosComponent implements OnInit {
     this.iniciar()
   }
 
+  /**
+   * Metodo para iniciarlizar el componente
+   *
+   */
   iniciar():void{
     this.activatedRoute.paramMap.subscribe(params => {
       let page  = +params.get('page'); // El operador suma transforma el string en un number
@@ -86,6 +93,11 @@ export class ModelosComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para que los items se muestren en formato
+   * de cinco elementos por fila
+   *
+   */
   configurarItems() {
     let listaDeCinco: Modelo[] = [];
     let listaGlobalAux = [];
@@ -103,6 +115,12 @@ export class ModelosComponent implements OnInit {
     this.listaGlobal = listaGlobalAux;
   }
 
+  /**
+   * Metodo para que se actualize el componente
+   * cuando se actualiza el paginador
+   *
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges) {
     let paginatorActualizado = changes['paginator'];
 
@@ -112,6 +130,14 @@ export class ModelosComponent implements OnInit {
 
   }
 
+  /**
+   * metodo para filtrar los modelos o marcas
+   * y comprobar si se encuentran en el array
+   *
+   * @param value nomrbe de la marca o modelo a filtrar
+   * @param parametro tipo de parametro a filtrar
+   * @private
+   */
   private _filter(value: string, parametro: string): string[] {
     const filterValue = value.toLowerCase();
     if(parametro=='modelo'){
@@ -144,6 +170,12 @@ export class ModelosComponent implements OnInit {
   }
 
 
+  /**
+   * Metodo para que se autoactualice la lista de modelos
+   * segun la marca seleccionada
+   *
+   * @param event
+   */
   selectionModelo(event: MatAutocompleteSelectedEvent): void {
     this.modeloSelected = event.option.value as string;
     let idMarca = -1;
@@ -206,6 +238,13 @@ export class ModelosComponent implements OnInit {
     });
 
   }
+
+  /**
+   * Metodo para borrar el valor del selector
+   * cuando se ha dejado de hacer focus en el
+   *
+   * @param event
+   */
   borrarValor(event):void{
     event.target.value='';
     this.opcionesMarca = this.controlMarca.valueChanges.pipe(
@@ -217,6 +256,38 @@ export class ModelosComponent implements OnInit {
       map(value => this._filter(value,'modelo'))
     );
   }
+
+  /**
+   * Metodo para retornar el estado del slide
+   *
+   */
+  getSlide(){
+    return this.slide;
+  }
+
+  /**
+   * Metodo para actualizar el estado del slide
+   * al contrario al que tuviera previamente
+   *
+   */
+  setSlide(){
+    if(this.slide=='slideIn'){
+      this.slide = 'slideOut';
+    }else{
+      this.slide = 'slideIn';
+    }
+    this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
+  }
+
+  getSideBarState() {
+    return this.sidebarservice.getSidebarState();
+  }
+
+  hideSidebar() {
+    this.sidebarservice.setSidebarState(true);
+  }
+
 }
+
 
 
