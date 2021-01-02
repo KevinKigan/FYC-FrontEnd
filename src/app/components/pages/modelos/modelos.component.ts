@@ -51,6 +51,8 @@ export class ModelosComponent implements OnInit {
     this.iniciar()
   }
 
+
+
   /**
    * Metodo para iniciarlizar el componente
    *
@@ -179,7 +181,6 @@ export class ModelosComponent implements OnInit {
   selectionModelo(event: MatAutocompleteSelectedEvent): void {
     this.modeloSelected = event.option.value as string;
     let idMarca = -1;
-    console.log('marca selected '+this.marcaSelected);
     this.marcas.forEach(marca=>{
 
       if(marca.marcaCoche==this.marcaSelected){

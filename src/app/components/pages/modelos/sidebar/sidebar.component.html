@@ -2,42 +2,43 @@
   <img class="styleImg" src="assets/images/sidebarBg.png">
   <div class="sidebar-content">
     <perfect-scrollbar>
-      <div class="sidebar-header">
-        <a [routerLink]="['sidebar']">Pro Sidebar</a>
-      </div>
+<!--      <div class="sidebar-header">-->
+<!--        <a [routerLink]="['sidebar']">Pro Sidebar</a>-->
+<!--      </div>-->
 
-      <div class="sidebar-profile">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
-        </div>
-        <div class="user-info">
-          <span class="user-name">Jhon
-            <strong>Smith</strong>
-          </span>
-          <span class="user-role">Administrator</span>
-          <span class="user-status">
-            <i class="fa fa-circle"></i>
-            <span>Online</span>
-          </span>
-        </div>
-      </div>
-      <div class="sidebar-search">
-        <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class="sidebar-profile">-->
+<!--        <div class="user-pic">-->
+<!--          <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">-->
+<!--        </div>-->
+<!--        <div class="user-info">-->
+<!--          <span class="user-name">Jhon-->
+<!--            <strong>Smith</strong>-->
+<!--          </span>-->
+<!--          <span class="user-role">Administrator</span>-->
+<!--          <span class="user-status">-->
+<!--            <i class="fa fa-circle"></i>-->
+<!--            <span>Online</span>-->
+<!--          </span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="sidebar-search">-->
+<!--        <div>-->
+<!--          <div class="input-group">-->
+<!--            <input type="text" class="form-control search-menu" placeholder="Search...">-->
+<!--            <div class="input-group-append">-->
+<!--              <span class="input-group-text">-->
+<!--                <i class="fa fa-search" aria-hidden="true"></i>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
       <div class="sidebar-menu">
         <ul>
           <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}" >
             <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
-            <a *ngIf="menu.type !== 'header'" [routerLink]="['sidebar']" (click)='toggle(menu)'>
+            <a *ngIf="menu.type !== 'header'" (click)='toggle(menu)'>
               <i class="{{menu.icon}}"></i>
               <span>{{menu.title}}</span>
               <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
@@ -45,8 +46,16 @@
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
                 <li *ngFor="let submenu of menu.submenus" >
-                  <a [routerLink]="['sidebar']"> {{submenu.title}}
+                  <a *ngIf="menu.slider"> {{submenu.title}}
                     <span *ngIf="submenu.badge" class="badge badge-pill" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                    <mat-slider *ngIf="submenu.title=='Desde'" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,'desde')" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
+                    <mat-slider *ngIf="submenu.title=='Hasta'" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,'hasta')" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
+                  </a>
+                  <a *ngIf="!menu.slider && menu.title=='Carroceria'" [ngClass]="submenu.class" class="catSel" style="width: 80%" (click)="seleccionado(menu.title,submenu.title)">
+                    {{submenu.title}}
+                  </a>
+                  <a *ngIf="!menu.slider && menu.title!='Carroceria'" (click)="seleccionado(menu.title,submenu.title)">
+                    {{submenu.title}}
                   </a>
                 </li>
               </ul>
@@ -54,6 +63,9 @@
           </li>
         </ul>
       </div>
+
+
+
     </perfect-scrollbar>
   </div>
   <div class="sidebar-footer">
@@ -193,3 +205,4 @@
     </div>
   </div>
 </nav>
+

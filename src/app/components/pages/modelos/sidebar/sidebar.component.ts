@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {Component, OnInit} from '@angular/core';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 import {SidebarService} from '../../../services/sidebar.service';
 
 // import { MenusService } from './menus.service';
@@ -10,19 +10,22 @@ import {SidebarService} from '../../../services/sidebar.service';
   styleUrls: ['./sidebar.component.scss'],
   animations: [
     trigger('slide', [
-      state('up', style({ height: 0 })),
-      state('down', style({ height: '*' })),
+      state('up', style({height: 0})),
+      state('down', style({height: '*'})),
       transition('up <=> down', animate(200))
     ])
   ]
 })
 export class SidebarComponent implements OnInit {
   menus = [];
+  precio: string = '';
+
   constructor(public sidebarservice: SidebarService) {
     this.menus = sidebarservice.getMenuList();
   }
 
   ngOnInit() {
+    this.sidebarservice.getCarrocerias();
   }
 
   getSideBarState() {
@@ -54,4 +57,36 @@ export class SidebarComponent implements OnInit {
     return this.sidebarservice.hasBackgroundImage;
   }
 
+  /**
+   * Metodo para actualizar el estado del slide
+   * al contrario al que tuviera previamente
+   *
+   */
+  setSlide() {
+    this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
+  }
+
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      this.precio = Math.round(value / 1000) + 'k';
+    } else {
+      this.precio = value.toString();
+    }
+    return this.precio;
+  }
+
+  setPrecio(precio: number, tipo: string) {
+    if (tipo == 'desde') {
+      this.sidebarservice.setPrecio(precio,'desde');
+    } else if (tipo == 'hasta') {
+      this.sidebarservice.setPrecio(precio,'hasta');
+    }
+  }
+
+  seleccionado(menu: string, value:string){
+    if(menu == 'Carroceria'){
+      this.sidebarservice.selecionarCarroceria(value);
+    }
+  }
 }

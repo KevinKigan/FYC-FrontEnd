@@ -178,6 +178,7 @@
           &:hover>i::before {
             display: inline-block;
             animation: swing ease-in-out .5s 1 alternate;
+            color: #ffee10;
           }
 
           span.label,
@@ -547,7 +548,7 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
 
 }
 
-.styleImg{
+.styleImg {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -556,4 +557,17 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
   filter: brightness(50%);
   position: absolute;
   z-index: -1;
+}
+
+
+.selecccionado{
+  transform: scale(1.1);
+  text-shadow: 0 0 20px #ffee10;
+  box-shadow: 0 0 10px #ffee10;
+  border-radius: 50px;
+  border-style: solid;
+  border-color: #aca224;
+}
+
+.catSel{
 }

@@ -2,10 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {urlEndPointActualizarItemsPorPagina,urlEndPointModelosPorMarcaPage,urlEndPointMarcas, urlEndPointModelosPage} from '../../../environments/environment';
+import {
+  urlEndPointActualizarItemsPorPagina,
+  urlEndPointModelosPorMarcaPage,
+  urlEndPointMarcas,
+  urlEndPointModelosPage,
+  urlEndPointCarrocerias
+} from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
 import {Marca} from '../../models/marca';
+import {Carroceria} from '../../models/carroceria';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +97,21 @@ export class CochesService {
       map((response: any) => {
         (response as Marca[]).map(marca=>{
           return marca;
+        });
+        return response;
+      })
+    );
+  }
+
+  /**
+   * Metodo para obtener todas las carrocerias
+   *
+   */
+  getCarrocerias(): Observable<any> {
+    return this.http.get<Carroceria[]>(urlEndPointCarrocerias).pipe(
+      map((response: any) => {
+        (response as Carroceria[]).map(carroceria=>{
+          return carroceria;
         });
         return response;
       })

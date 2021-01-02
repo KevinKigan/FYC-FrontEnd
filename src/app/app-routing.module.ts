@@ -5,14 +5,13 @@ import {ModelosComponent} from './components/pages/modelos/modelos.component';
 import {RedirectComponent} from './components/share/redirect/redirect.component';
 import {MarcasComponent} from './components/pages/marcas/marcas.component';
 import {SidebarComponent} from './components/pages/modelos/sidebar/sidebar.component';
-import {AppiComponent} from './components/pages/modelos/appi/appi.component';
 
 
 const app_routes: Routes = [
-  {path: '#', component: AppiComponent},
-  {path: '#/', component: AppiComponent},
+  {path: '#', component: HomeComponent},
+  {path: '#/', component: HomeComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'sidebar', component: AppiComponent},
+  {path: 'sidebar', component: HomeComponent},
   {path: 'redirect/marca/:marca', component: RedirectComponent},
   {path: 'modelos', component: ModelosComponent},
   {path: 'marcas', component: MarcasComponent},

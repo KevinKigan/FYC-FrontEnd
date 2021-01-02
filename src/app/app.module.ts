@@ -28,7 +28,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SidebarComponent } from './components/pages/modelos/sidebar/sidebar.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import { AppiComponent } from './components/pages/modelos/appi/appi.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 @NgModule({
@@ -41,33 +41,33 @@ import { AppiComponent } from './components/pages/modelos/appi/appi.component';
     PaginatorComponent,
     RedirectComponent,
     MarcasComponent,
-    SidebarComponent,
-    AppiComponent
+    SidebarComponent
   ],
-    imports: [
-        BrowserModule,
-        RouterModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        MDBBootstrapModule.forRoot(),
-        MatPaginatorModule,
-        MatFormFieldModule,
-        MatExpansionModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatDatepickerModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        PerfectScrollbarModule,
-        BrowserAnimationsModule,
-        BsDropdownModule.forRoot(),
-        PerfectScrollbarModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MDBBootstrapModule.forRoot(),
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatDatepickerModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    PerfectScrollbarModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    PerfectScrollbarModule,
+    MatSliderModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
