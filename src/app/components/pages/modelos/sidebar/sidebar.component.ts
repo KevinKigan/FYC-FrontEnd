@@ -18,6 +18,7 @@ import {SidebarService} from '../../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
   menus = [];
+  submenu = [];
   precio: string = '';
 
   constructor(public sidebarservice: SidebarService) {
@@ -39,6 +40,21 @@ export class SidebarComponent implements OnInit {
           currentMenu.active = !currentMenu.active;
         } else {
           element.active = false;
+        }
+      });
+    }
+  }
+
+  toggleSubmenu(menu, submenu) {
+    if (submenu.type === 'dropdown') {
+      this.menus.forEach(element => {
+        if (element === menu) {
+          this.submenu = element;
+          element.submenus.forEach(element2 => {
+            if (element2 === submenu) {
+              submenu.active = !submenu.active;
+            }
+          });
         }
       });
     }
@@ -77,16 +93,27 @@ export class SidebarComponent implements OnInit {
   }
 
   setPrecio(precio: number, tipo: string) {
-    if (tipo == 'desde') {
-      this.sidebarservice.setPrecio(precio,'desde');
-    } else if (tipo == 'hasta') {
-      this.sidebarservice.setPrecio(precio,'hasta');
+    if (tipo == 'Desde') {
+      this.sidebarservice.setPrecio(precio, 'desde');
+    } else if (tipo == 'Hasta') {
+      this.sidebarservice.setPrecio(precio, 'hasta');
     }
   }
 
-  seleccionado(menu: string, value:string){
-    if(menu == 'Carroceria'){
+  seleccionado(menu: string, value: string) {
+    if (menu == 'Carroceria') {
       this.sidebarservice.selecionarCarroceria(value);
     }
+    else if (menu == 'Sobrealimentacion'){
+      this.sidebarservice.selecionarSobrealimentacion(value);
+    }
+  }
+
+  filtrar() {
+    this.sidebarservice.filtrar();
+  }
+
+  setMotor(value: any, submenu: any) {
+    this.sidebarservice.setMotor(value, submenu);
   }
 }

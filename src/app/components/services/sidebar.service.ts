@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CochesService} from './coches.service';
 import {Carroceria} from '../../models/carroceria';
+import {Modelo} from '../../models/modelo';
 
 
 
@@ -10,11 +11,22 @@ import {Carroceria} from '../../models/carroceria';
 export class SidebarService {
   toggled = false;
   _hasBackgroundImage = true;
-  carrocerias = [];
+  private carrocerias = [];
+  private sobrealimentaciones = [
+  {
+    selected: false,
+    value: 'Turbo',
+    class: ''
+  },
+  {
+    selected: false,
+    value: 'Supercargador',
+    class: ''
 
-  constructor(
-    private cochesService: CochesService
-  ) {}
+  }
+  ];
+
+  constructor(private cochesService: CochesService) {}
 
   precio = {
     title: 'Precio',
@@ -32,9 +44,10 @@ export class SidebarService {
         slider: true,
         minimo: '1',
         maximo: '100000',
+        interval: '1',
         badge: {
           text: 'Min ',
-          class: 'bg-info text-dark'
+          class: 'bg-info text-dark badgePerso'
         }
       },
       {
@@ -42,9 +55,10 @@ export class SidebarService {
         slider: true,
         minimo: '1',
         maximo: '100000',
+        interval: '1',
         badge: {
           text: 'Max ',
-          class: 'bg-info text-dark'
+          class: 'bg-info text-dark badgePerso'
         }
       }
     ]
@@ -70,10 +84,44 @@ export class SidebarService {
     icon: 'fas fa-wrench',
     active: false,
     type: 'dropdown',
+    slider: true,
+    badge: {
+      text: 'Sin Filtro ',
+      class: 'badge-danger'
+    },
     submenus: [
       {
-        title: 'General',
+        title: 'Cilindrada (L)',
+        slider: true,
+        minimo: '0.5',
+        interval: '0.1',
+        maximo: '12',
+        badge: {
+          text: 'Cualquiera ',
+          class: 'bg-info text-dark'
+        }
+      },
+      {
+        title: 'Cilindros ',
+        slider: true,
+        minimo: '2',
+        maximo: '12',
+        badge: {
+          text: 'Cualquiera ',
+          class: 'bg-info text-dark'
+        }
+      },
+      {
+        title: 'Sobrealimentacion',
         slider: false,
+        icon: 'fas fa-wrench',
+        active: false,
+        type: 'dropdown',
+        badge: {
+          text: 'Cualquiera ',
+          class: 'bg-info text-dark'
+        },
+        subs: this.sobrealimentaciones
       }
     ]
   };
@@ -161,6 +209,19 @@ export class SidebarService {
   set hasBackgroundImage(hasBackgroundImage) {
     this._hasBackgroundImage = hasBackgroundImage;
   }
+  setMotor(value:any, tipo:any){
+    let titulo = tipo.title.toString();
+    this.motor.badge.text = 'Con Filtro ';
+    if(titulo.includes('Cilindrada')){
+      this.motor.submenus[0].badge.text = value;
+    }else if(titulo.includes('Cilindros')){
+      this.motor.submenus[1].badge.text = value;
+    }
+    // cilindrada
+    // cilindros
+    // sobrealimantacion
+
+  }
 
   setPrecio(value: number, tipo: string) {
     let precio = value.toString();
@@ -212,6 +273,7 @@ export class SidebarService {
     });
   }
 
+
   selecionarCarroceria(carroceriaSel:string):void{
     this.carrocerias.forEach(carroceria => {
       if (carroceria.title == carroceriaSel) {
@@ -230,4 +292,31 @@ export class SidebarService {
     });
   }
 
+  selecionarSobrealimentacion(sobreSel:string):void{
+    this.sobrealimentaciones.forEach(sobre => {
+      if (sobre.value == sobreSel) {
+        if(sobre.selected == false){
+          sobre.selected = true;
+          sobre.class = 'selecccionado';
+          if (sobreSel.length>8){
+            sobreSel = sobreSel.substring(0,8).concat('...')
+          }
+          this.motor.submenus[2].badge.text = sobreSel;
+        }else {
+          console.log('entramos else');
+          this.motor.submenus[2].badge.text = 'Cualquiera ';
+          sobre.selected = false;
+          sobre.class = '';
+        }
+      } else {
+        sobre.class = '';
+      }
+    });
+  }
+
+
+  filtrar(){
+    let modelos = this.cochesService.filtrar();
+    console.log(modelos);
+  }
 }

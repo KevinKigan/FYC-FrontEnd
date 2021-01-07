@@ -11,6 +11,7 @@ const dns = "http://localhost:8080";
 export const urlEndPoint = dns+"/api";
 export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
 export const urlEndPointMarcas = urlEndPoint+"/coches/marcas";
+export const urlEndPointFiltrar = urlEndPoint+"/coches/filtros";
 export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
 export const urlEndPointCarrocerias = urlEndPoint+"/carrocerias";
 export const urlEndPointImgMarcaLogo = urlEndPoint+"/img/marcaslogo/";

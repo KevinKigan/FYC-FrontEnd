@@ -35,6 +35,7 @@
 <!--      </div>-->
 
       <div class="sidebar-menu">
+        <button class="btn btn-primary" (click)="filtrar()">Filtrar</button>
         <ul>
           <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}" >
             <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
@@ -45,18 +46,40 @@
             </a>
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
-                <li *ngFor="let submenu of menu.submenus" >
-                  <a *ngIf="menu.slider"> {{submenu.title}}
-                    <span *ngIf="submenu.badge" class="badge badge-pill" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
-                    <mat-slider *ngIf="submenu.title=='Desde'" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,'desde')" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
-                    <mat-slider *ngIf="submenu.title=='Hasta'" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,'hasta')" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
+                <li *ngFor="let submenu of menu.submenus" [ngClass]="{'active': submenu.active , 'sidebar-dropdown':submenu.type === 'dropdown' , 'header-menu':submenu.type === 'header'}">
+                  <a *ngIf="menu.slider && !submenu.subs"> {{submenu.title}}
+                    <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                    <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu.title)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
+                    <mat-slider *ngIf="menu.title=='Motor' && submenu.slider" step="{{submenu.interval}}"  thumbLabel [displayWith]="formatLabel" (change)="setMotor($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
                   </a>
-                  <a *ngIf="!menu.slider && menu.title=='Carroceria'" [ngClass]="submenu.class" class="catSel" style="width: 80%" (click)="seleccionado(menu.title,submenu.title)">
+<!--                  <div *ngIf="submenu.subs">-->
+<!--                    <p style="color: #9f105c">{{submenu.subs.length}} {{submenu.subs.title}}</p>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="submenu.subs && submenu.subs.size>1 ">-->
+<!--                    <p style="color: #9f105c">entramos en div 2</p>-->
+<!--                  </div>-->
+
+<!--                  <div *ngIf="submenu.type === 'dropdown'">-->
+<!--                    <p style="color: #9f105c">{{getState(submenu)}}</p>-->
+<!--                  </div>-->
+                  <a *ngIf="submenu.title=='Sobrealimentacion'"class="sidebar-submenu" (click)='toggleSubmenu(menu,submenu)' >Alimentacion
+                    <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span></a>
+                  <div *ngIf="submenu.type === 'dropdown'"   [@slide]="getState(submenu)">
+                      <ul>
+                        <li *ngFor="let subs of submenu.subs"  >
+                          <a *ngIf="!subs.slider && submenu.title=='Sobrealimentacion'" [ngClass]="subs.class" style="width: 80%" (click)="seleccionado(submenu.title,subs.value)">
+                            {{subs.value}}
+                          </a>
+                        </li>
+                      </ul>
+                  </div>
+
+                  <a *ngIf="!menu.slider && menu.title=='Carroceria'" [ngClass]="submenu.class" style="width: 80%" (click)="seleccionado(menu.title,submenu.title)">
                     {{submenu.title}}
                   </a>
-                  <a *ngIf="!menu.slider && menu.title!='Carroceria'" (click)="seleccionado(menu.title,submenu.title)">
-                    {{submenu.title}}
-                  </a>
+<!--                  <a *ngIf="!menu.slider && menu.title!='Carroceria'" (click)="seleccionado(menu.title,submenu.title)">-->
+<!--                    {{submenu.title}}-->
+<!--                  </a>-->
                 </li>
               </ul>
             </div>

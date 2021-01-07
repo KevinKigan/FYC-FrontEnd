@@ -7,7 +7,7 @@ import {
   urlEndPointModelosPorMarcaPage,
   urlEndPointMarcas,
   urlEndPointModelosPage,
-  urlEndPointCarrocerias
+  urlEndPointCarrocerias, urlEndPointFiltrar
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -118,6 +118,7 @@ export class CochesService {
     );
   }
 
+
   /**
    * Metodo para actualizar el numero de items que
    * quiere el usuario por pagina
@@ -131,6 +132,51 @@ export class CochesService {
           return throwError(e);
         }
         return throwError(e);
+      })
+    );
+  }
+
+  filtros = [
+    {
+      title: 'precio',
+      minimo: '1',
+      maximo: '2500'
+    },
+    {
+      title: 'carroceria',
+      value: 'cabrio'
+    },
+    {
+      title: 'potencia',
+      potencia: '300'
+    },
+    {
+      title: 'emisiones',
+      emisiones: '300',
+      tipo_emisiones: 'Euro 6'
+    },
+    {
+      title: 'motor',
+      cilindrada: '2',
+      cilindros: '4',
+      sobrealimentacion: 'Turbo'
+    },
+    {
+      title: 'consumo',
+      ciudad: '7.2',
+      autopista: '6.5',
+      mixto: '7.0'
+    }
+  ];
+
+  filtrar():Observable<any>{
+    console.log('posteamos');
+    return this.http.post<any>(urlEndPointFiltrar+'/page/'+0,this.filtros).pipe(
+      map((response: any) => {
+        (response.content as Modelo[]).map(modelo=>{
+          return modelo;
+        });
+        return response;
       })
     );
   }

@@ -8,8 +8,7 @@ import {SidebarComponent} from './components/pages/modelos/sidebar/sidebar.compo
 
 
 const app_routes: Routes = [
-  {path: '#', component: HomeComponent},
-  {path: '#/', component: HomeComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'sidebar', component: HomeComponent},
   {path: 'redirect/marca/:marca', component: RedirectComponent},
