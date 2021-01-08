@@ -10,6 +10,7 @@ import {Observable, Subject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {SidebarService} from '../../services/sidebar.service';
+import {FiltroService} from '../../services/filtro.service';
 
 @Component({
   selector: 'app-coches',
@@ -27,10 +28,8 @@ export class ModelosComponent implements OnInit {
   controlMarca = new FormControl();
   mostrarPaginator: boolean=true;
   controlModelo = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
   opcionesMarca: Observable<string[]>;
   opcionesModelo: Observable<string[]>;
-  searchText = new Subject();
   results: Observable<string[]>;
   marcas:Marca[];
   nombre_marcas:string[]=[];
@@ -44,6 +43,7 @@ export class ModelosComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router:Router,
     public sidebarservice: SidebarService,
+    private filtroService: FiltroService,
   ) {
   }
 
@@ -214,6 +214,9 @@ export class ModelosComponent implements OnInit {
       this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca); // Path de peticion http
       this.paths[1] = '/modelos/marca/'+marca+'/page/'; // Path de peticion en app-routing-module
 
+    }else if(this.filtroService.getFiltro()) {
+      console.log('se filtra');
+      modelos = this.getModelosFiltrados(page);
     }else {
       modelos = this.cochesService.getModelos(page);
     }
@@ -288,6 +291,16 @@ export class ModelosComponent implements OnInit {
     this.sidebarservice.setSidebarState(true);
   }
 
+  getModelosFiltrados(page:number):Observable<any>{
+    console.log('llegamos aa aqui');
+    return this.cochesService.filtrar(this.filtroService.getFiltros(),page)
+  }
+
+  actualizarFiltros($event: any){
+    console.log(this.router.url);
+    this.router.navigate(['/modelos']);
+    this.iniciar();
+  }
 }
 
 

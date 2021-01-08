@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {CochesService} from './coches.service';
 import {Carroceria} from '../../models/carroceria';
 import {Modelo} from '../../models/modelo';
+import {FiltroService} from './filtro.service';
+import {Observable} from 'rxjs';
 
 
 
@@ -13,20 +15,24 @@ export class SidebarService {
   _hasBackgroundImage = true;
   private carrocerias = [];
   private sobrealimentaciones = [
-  {
-    selected: false,
-    value: 'Turbo',
-    class: ''
-  },
-  {
-    selected: false,
-    value: 'Supercargador',
-    class: ''
+    {
+      selected: false,
+      value: 'Turbo',
+      class: ''
+    },
+    {
+      selected: false,
+      value: 'Supercargador',
+      class: ''
 
-  }
+    }
   ];
 
-  constructor(private cochesService: CochesService) {}
+  constructor(
+    private cochesService: CochesService,
+    private filtroService: FiltroService
+  ) {
+  }
 
   precio = {
     title: 'Precio',
@@ -44,7 +50,8 @@ export class SidebarService {
         slider: true,
         minimo: '1',
         maximo: '100000',
-        interval: '1',
+        value: '1',
+        interval: '1000',
         badge: {
           text: 'Min ',
           class: 'bg-info text-dark badgePerso'
@@ -54,8 +61,9 @@ export class SidebarService {
         title: 'Hasta',
         slider: true,
         minimo: '1',
+        value: '100000',
         maximo: '100000',
-        interval: '1',
+        interval: '1000',
         badge: {
           text: 'Max ',
           class: 'bg-info text-dark badgePerso'
@@ -209,12 +217,13 @@ export class SidebarService {
   set hasBackgroundImage(hasBackgroundImage) {
     this._hasBackgroundImage = hasBackgroundImage;
   }
-  setMotor(value:any, tipo:any){
+
+  setMotor(value: any, tipo: any) {
     let titulo = tipo.title.toString();
     this.motor.badge.text = 'Con Filtro ';
-    if(titulo.includes('Cilindrada')){
+    if (titulo.includes('Cilindrada')) {
       this.motor.submenus[0].badge.text = value;
-    }else if(titulo.includes('Cilindros')){
+    } else if (titulo.includes('Cilindros')) {
       this.motor.submenus[1].badge.text = value;
     }
     // cilindrada
@@ -239,6 +248,7 @@ export class SidebarService {
       if (val >= 1000) {
         precio = Math.round(val / 1000) + 'k';
       }
+      this.precio.submenus[0].value = value.toString();
       this.precio.submenus[1].minimo = val.toString();
       if (this.precio.submenus[1].badge.text != 'Max ') {
         this.precio.submenus[1].badge.text = precio;
@@ -250,6 +260,7 @@ export class SidebarService {
 
     } else if (tipo == 'hasta') {
       precios[1] = precio;
+      this.precio.submenus[1].value = value.toString();
       this.precio.submenus[1].badge.text = precio;
     }
     this.precio.badge.text = precios[0] + ' - ' + precios[1];
@@ -259,8 +270,8 @@ export class SidebarService {
    * Metodo para pedir todas las carrocerias
    *
    */
-  getCarrocerias(): void{
-     this.cochesService.getCarrocerias().subscribe(value => {
+  getCarrocerias(): void {
+    this.cochesService.getCarrocerias().subscribe(value => {
       value.forEach(value => {
         let menuCarroceria = {
           id: value.idCarroceria,
@@ -274,35 +285,37 @@ export class SidebarService {
   }
 
 
-  selecionarCarroceria(carroceriaSel:string):void{
+  selecionarCarroceria(carroceriaSel: string): void {
     this.carrocerias.forEach(carroceria => {
       if (carroceria.title == carroceriaSel) {
-        if(carroceria.selected == false){
+        if (carroceria.selected == false) {
           carroceria.selected = true;
           carroceria.class = 'selecccionado';
           this.carroceria.badge.text = carroceriaSel;
-        }else {
+        } else {
           this.carroceria.badge.text = 'Todas';
           carroceria.selected = false;
           carroceria.class = '';
+          this.filtroService.reset('carroceria')
         }
       } else {
         carroceria.class = '';
+        carroceria.selected = false;
       }
     });
   }
 
-  selecionarSobrealimentacion(sobreSel:string):void{
+  selecionarSobrealimentacion(sobreSel: string): void {
     this.sobrealimentaciones.forEach(sobre => {
       if (sobre.value == sobreSel) {
-        if(sobre.selected == false){
+        if (sobre.selected == false) {
           sobre.selected = true;
           sobre.class = 'selecccionado';
-          if (sobreSel.length>8){
-            sobreSel = sobreSel.substring(0,8).concat('...')
+          if (sobreSel.length > 8) {
+            sobreSel = sobreSel.substring(0, 8).concat('...')
           }
           this.motor.submenus[2].badge.text = sobreSel;
-        }else {
+        } else {
           console.log('entramos else');
           this.motor.submenus[2].badge.text = 'Cualquiera ';
           sobre.selected = false;
@@ -315,8 +328,14 @@ export class SidebarService {
   }
 
 
-  filtrar(){
-    let modelos = this.cochesService.filtrar();
-    console.log(modelos);
+  actualizarFiltros() {
+    // Añade el filtro de precios
+    this.filtroService.setPrecio(this.precio.submenus);
+    // Si hay alguna carroceria seleccionada la añade al filtro
+    this.carroceria.submenus.forEach(value => {
+      if (value.selected) {
+        this.filtroService.setCarroceria(value.title);
+      }
+    });
   }
 }

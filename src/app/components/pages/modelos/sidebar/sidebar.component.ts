@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {SidebarService} from '../../../services/sidebar.service';
 
 // import { MenusService } from './menus.service';
+
+
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +19,7 @@ import {SidebarService} from '../../../services/sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+  @Output() private filtrar = new EventEmitter<boolean>();
   menus = [];
   submenu = [];
   precio: string = '';
@@ -98,6 +101,7 @@ export class SidebarComponent implements OnInit {
     } else if (tipo == 'Hasta') {
       this.sidebarservice.setPrecio(precio, 'hasta');
     }
+    this.actualizar();
   }
 
   seleccionado(menu: string, value: string) {
@@ -107,13 +111,31 @@ export class SidebarComponent implements OnInit {
     else if (menu == 'Sobrealimentacion'){
       this.sidebarservice.selecionarSobrealimentacion(value);
     }
-  }
-
-  filtrar() {
-    this.sidebarservice.filtrar();
+    this.actualizar();
   }
 
   setMotor(value: any, submenu: any) {
     this.sidebarservice.setMotor(value, submenu);
+    this.actualizar();
   }
+
+  actualizar(){
+    this.sidebarservice.actualizarFiltros();
+    this.filtrar.emit(true);
+  }
+
+  // logProgresiveSlider(position): number{
+  //     // position will be between 0 and 100
+  //     var minp = 0;
+  //     var maxp = 100;
+  //
+  //     // The result should be between 100 an 10000000
+  //     var minv = Math.log(100);
+  //     var maxv = Math.log(10000000);
+  //
+  //     // calculate adjustment factor
+  //     var scale = (maxv-minv) / (maxp-minp);
+  //
+  //     return Math.exp(minv + scale*(position-minp));
+  //   }
 }

@@ -38,6 +38,7 @@ export class CochesService {
     );
   }
 
+
   /**
    * Metodo para buscar una pagina de modelos
    *
@@ -169,9 +170,23 @@ export class CochesService {
     }
   ];
 
-  filtrar():Observable<any>{
-    console.log('posteamos');
-    return this.http.post<any>(urlEndPointFiltrar+'/page/'+0,this.filtros).pipe(
+  /**
+   * Metodo para obtener todas las carrocerias
+   *
+   */
+  // getCarrocerias(): Observable<any> {
+  //   return this.http.get<Carroceria[]>(urlEndPointCarrocerias).pipe(
+  //     map((response: any) => {
+  //       (response as Carroceria[]).map(carroceria=>{
+  //         return carroceria;
+  //       });
+  //       return response;
+  //     })
+  //   );
+  // }
+  filtrar(filtros: any, page: number):Observable<any>{
+    console.log(filtros);
+    return this.http.post<any>(`${urlEndPointFiltrar}/page/${page}`,filtros).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo=>{
           return modelo;

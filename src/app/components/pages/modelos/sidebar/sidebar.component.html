@@ -35,7 +35,6 @@
 <!--      </div>-->
 
       <div class="sidebar-menu">
-        <button class="btn btn-primary" (click)="filtrar()">Filtrar</button>
         <ul>
           <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}" >
             <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
@@ -49,7 +48,7 @@
                 <li *ngFor="let submenu of menu.submenus" [ngClass]="{'active': submenu.active , 'sidebar-dropdown':submenu.type === 'dropdown' , 'header-menu':submenu.type === 'header'}">
                   <a *ngIf="menu.slider && !submenu.subs"> {{submenu.title}}
                     <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
-                    <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu.title)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
+                    <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel  [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu.title)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
                     <mat-slider *ngIf="menu.title=='Motor' && submenu.slider" step="{{submenu.interval}}"  thumbLabel [displayWith]="formatLabel" (change)="setMotor($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
                   </a>
 <!--                  <div *ngIf="submenu.subs">-->

@@ -240,7 +240,7 @@
               .badge,
               .label {
                 float: right;
-                margin-top: 0px;
+                margin-top: auto;
               }
             }
           }
@@ -416,16 +416,17 @@
 $bg-sidebar-wrapper : #1d1d1d;
 $border-color : #2b2b2b;
 $footer-top-border-color :#3a3a3a;
+//Color de texto
 $color:#bdbdbd;
-$header-menu-color :#6c7b88;
+$header-menu-color : #fff34f;
 $hover-color:#ffffff;
 $shadow-color:#131212;
-$bg-scrollbar :#636363;
+$bg-scrollbar : linear-gradient(0deg, rgba(255,136,0,0.75) 0%, rgba(255,238,16,0.75) 100%);
 
 // colors with backgound image
 $img-bg-sidebar-wrapper : rgba(29, 29, 29, 0.8);
 $img-border-color : rgba(255, 255, 255, 0.1);
-$img-bg-footer :rgba(43, 43, 43, 0.5);
+$img-bg-footer : rgba(43, 43, 43, 0.5);
 $img-shadow-color:rgba(0, 0, 0, 0.5);
 
 
@@ -433,7 +434,7 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
 .sidebar {
 
   background-color: $bg-sidebar-wrapper;
-
+  scrollbar-color: $bg-scrollbar;
   .sidebar-profile,
   .sidebar-search,
   .sidebar-menu {
@@ -474,10 +475,11 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
   }
 
   .sidebar-menu ul li a i,
-  .sidebar-menu .sidebar-dropdown div,
+  .sidebar-menu .sidebarDropdown div,
   .sidebar-search input.search-menu,
   .sidebar-search .input-group-text {
-    background-color: $border-color;
+    //background-color: $border-color;
+    background-image: url("src/assets/images/Black Shark 2.jpg");
     border: none;
     margin-left: 1px;
   }
@@ -554,7 +556,7 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
-  filter: brightness(50%);
+  filter: brightness(30%);
   position: absolute;
   z-index: -1;
 }
@@ -572,3 +574,4 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
 .badgePerso{
   margin-top:30%;
 }
+
