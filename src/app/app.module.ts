@@ -29,6 +29,7 @@ import { SidebarComponent } from './components/pages/modelos/sidebar/sidebar.com
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {MatSliderModule} from '@angular/material/slider';
+import {LoadingComponent} from './components/share/loading/loading.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatSliderModule} from '@angular/material/slider';
     PaginatorComponent,
     RedirectComponent,
     MarcasComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

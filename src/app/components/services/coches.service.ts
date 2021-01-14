@@ -137,39 +137,6 @@ export class CochesService {
     );
   }
 
-  filtros = [
-    {
-      title: 'precio',
-      minimo: '1',
-      maximo: '2500'
-    },
-    {
-      title: 'carroceria',
-      value: 'cabrio'
-    },
-    {
-      title: 'potencia',
-      potencia: '300'
-    },
-    {
-      title: 'emisiones',
-      emisiones: '300',
-      tipo_emisiones: 'Euro 6'
-    },
-    {
-      title: 'motor',
-      cilindrada: '2',
-      cilindros: '4',
-      sobrealimentacion: 'Turbo'
-    },
-    {
-      title: 'consumo',
-      ciudad: '7.2',
-      autopista: '6.5',
-      mixto: '7.0'
-    }
-  ];
-
   /**
    * Metodo para obtener todas las carrocerias
    *

@@ -1,5 +1,5 @@
 <div class="styleSlide" [ngClass]="{'toggled' : getSideBarState()}">
-  <app-sidebar class="animation mt-8" [ngClass]="getSlide()" (filtrar)="actualizarFiltros($event)" style="top:2%;height:100%;width: 150px;"></app-sidebar>
+  <app-sidebar class="animation mt-8" [loading]="loading" [ngClass]="getSlide()" (filtrar)="actualizarFiltros($event)" style="top:2%;height:100%;width: 150px;"></app-sidebar>
 <!--  <button class="btn animation css-shapes-preview" [ngClass]="getSlide()+'Alt'"(click)="setSlide()"></button>-->
   <a class="myButton animation" [ngClass]="getSlide()+'Alt'"  (click)="setSlide()">
     <img style="filter: brightness(75%);width: 15px;height: auto" src="assets/images/filtrar.png">
@@ -77,6 +77,8 @@
 <!--</div>-->
 <app-paginator id="test1" *ngIf="paginator && mostrarPaginator" [paginator]=paginator [paths]=paths></app-paginator>
 
+<app-loading *ngIf="loading"></app-loading>
+<div style="height: 50px"></div>
 
 <div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 

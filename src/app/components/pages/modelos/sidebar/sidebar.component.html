@@ -48,7 +48,7 @@
                 <li *ngFor="let submenu of menu.submenus" [ngClass]="{'active': submenu.active , 'sidebar-dropdown':submenu.type === 'dropdown' , 'header-menu':submenu.type === 'header'}">
                   <a *ngIf="menu.slider && !submenu.subs"> {{submenu.title}}
                     <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
-                    <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel  [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu.title)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
+                    <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel  [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
                     <mat-slider *ngIf="menu.title=='Motor' && submenu.slider" step="{{submenu.interval}}"  thumbLabel [displayWith]="formatLabel" (change)="setMotor($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
                   </a>
 <!--                  <div *ngIf="submenu.subs">-->
@@ -61,19 +61,22 @@
 <!--                  <div *ngIf="submenu.type === 'dropdown'">-->
 <!--                    <p style="color: #9f105c">{{getState(submenu)}}</p>-->
 <!--                  </div>-->
-                  <a *ngIf="submenu.title=='Sobrealimentacion'"class="sidebar-submenu" (click)='toggleSubmenu(menu,submenu)' >Alimentacion
+                  <a *ngIf="submenu.title=='Sobrealimentacion'"class="sidebar-submenu" (click)='toggleSubmenu(menu,submenu)' >Alimentación
                     <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span></a>
                   <div *ngIf="submenu.type === 'dropdown'"   [@slide]="getState(submenu)">
                       <ul>
                         <li *ngFor="let subs of submenu.subs"  >
-                          <a *ngIf="!subs.slider && submenu.title=='Sobrealimentacion'" [ngClass]="subs.class" style="width: 80%" (click)="seleccionado(submenu.title,subs.value)">
+                          <a *ngIf="!subs.slider && submenu.title=='Sobrealimentacion'" [ngClass]="subs.class" style="width: 80%" (click)="seleccionado(submenu,subs.value)">
                             {{subs.value}}
                           </a>
                         </li>
                       </ul>
                   </div>
 
-                  <a *ngIf="!menu.slider && menu.title=='Carroceria'" [ngClass]="submenu.class" style="width: 80%" (click)="seleccionado(menu.title,submenu.title)">
+                  <a *ngIf="!menu.slider && menu.title=='Carroceria'" [ngClass]="submenu.class" style="width: 80%" (click)="seleccionado(menu,submenu.title)">
+                    {{submenu.title}}
+                  </a>
+                  <a *ngIf="!menu.slider && menu.title=='Consumo'" [ngClass]="submenu.class" style="width: 80%">
                     {{submenu.title}}
                   </a>
 <!--                  <a *ngIf="!menu.slider && menu.title!='Carroceria'" (click)="seleccionado(menu.title,submenu.title)">-->
@@ -163,7 +166,7 @@
         <a class="dropdown-item" [routerLink]="['sidebar']">
           <div class="message-content">
             <div class="pic">
-              <img src="assets/img/user.jpg" alt="">
+<!--              <img src="assets/img/user.jpg" alt="">-->
             </div>
             <div class="content">
               <div class="message-title">
@@ -178,7 +181,7 @@
         <a class="dropdown-item" [routerLink]="['sidebar']">
           <div class="message-content">
             <div class="pic">
-              <img src="assets/img/user.jpg" alt="">
+<!--              <img src="assets/img/user.jpg" alt="">-->
             </div>
             <div class="content">
               <div class="message-title">
@@ -193,7 +196,7 @@
         <a class="dropdown-item" [routerLink]="['sidebar']">
           <div class="message-content">
             <div class="pic">
-              <img src="assets/img/user.jpg" alt="">
+<!--              <img src="assets/img/user.jpg" alt="">-->
             </div>
             <div class="content">
               <div class="message-title">

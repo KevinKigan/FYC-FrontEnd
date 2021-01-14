@@ -11,8 +11,9 @@ export class FiltroService {
 
   private static MINIMO: string = '1';
   private static MAXIMO: string = '100000';
-  private static CUALQUIERA: string = 'cualquiera';
+  public  static CUALQUIERA: string = 'Cualquiera';
   private filtro: boolean = false;
+  private loading:boolean = true;
 
   private precio =
     {
@@ -23,14 +24,24 @@ export class FiltroService {
   ;
   private carroceria = {
     title: 'carroceria',
-    value: 'cualquiera'
+    value: FiltroService.CUALQUIERA
   };
 
-  private motor = [];
-  private consumo = [];
-  private potencia = [];
+  private motor = {
+    title: 'motor',
+    cilindrada: FiltroService.CUALQUIERA,
+    cilindros: FiltroService.CUALQUIERA,
+    sobrealimentacion: FiltroService.CUALQUIERA
+  };
+  private consumo = {};
+  private potencia = {};
 
-
+  /**
+   * Metodo para actualizar los precios en el filtro
+   * si han cambiado de los valores por defecto
+   *
+   * @param submenus
+   */
   setPrecio(submenus: any) {
     if (submenus[0].value != FiltroService.MINIMO || submenus[1].value != FiltroService.MAXIMO) {
       this.precio.minimo = submenus[0].value;
@@ -39,10 +50,32 @@ export class FiltroService {
     }
   }
 
+  /**
+   * Metodo para actualizar la carroceria en el filtro
+   * si han cambiado de los valores por defecto
+   *
+   * @param value
+   */
   setCarroceria(value: any) {
-    this.carroceria.value = value;
-    console.log(value);
+    this.motor.cilindrada = value;
     if (this.carroceria.value != FiltroService.CUALQUIERA) {
+      this.setFiltro(true);
+    }
+  }
+
+  /**
+   * Metodo para actualizar el motor en el filtro
+   * si han cambiado de los valores por defecto
+   *
+   * @param submenus
+   */
+  setMotor(submenus: any) {
+    this.motor.cilindrada = submenus[0].value;
+    this.motor.cilindros = submenus[1].value;
+    this.motor.sobrealimentacion = submenus[2].value;
+    if (this.motor.cilindrada        != FiltroService.CUALQUIERA ||
+        this.motor.cilindros         != FiltroService.CUALQUIERA ||
+        this.motor.sobrealimentacion != FiltroService.CUALQUIERA) {
       this.setFiltro(true);
     }
   }
@@ -52,6 +85,8 @@ export class FiltroService {
       this.setFiltro(false);
       this.precio.minimo = FiltroService.MINIMO;
       this.precio.maximo = FiltroService.MAXIMO;
+      this.carroceria.value = FiltroService.CUALQUIERA;
+
     } else {
       switch (filtro) {
         case 'precio':
@@ -87,6 +122,9 @@ export class FiltroService {
     if (this.comprobarFiltroCarroceria()) {
       filtro[filtro.length] = this.carroceria;
     }
+    if (this.comprobarFiltroMotor()) {
+      filtro[filtro.length] = this.motor;
+    }
 
     // this.carroceria,
     // this.motor,
@@ -101,8 +139,6 @@ export class FiltroService {
    *
    */
   comprobarFiltroPrecio(): boolean {
-    console.log('this.precio.minimo '+ this.precio.maximo);
-    console.log('FiltroService.MINIMO '+ FiltroService.MAXIMO);
     return !(this.precio.minimo == FiltroService.MINIMO && this.precio.maximo == FiltroService.MAXIMO);
   }
 
@@ -115,6 +151,17 @@ export class FiltroService {
     return !(this.carroceria.value == FiltroService.CUALQUIERA);
   }
 
+  /**
+   * Metodo para comprobar si se quiere filtrar
+   * por motor o esta inicializado por defecto
+   *
+   */
+  comprobarFiltroMotor(): boolean {
+    return !(this.motor.cilindros         == FiltroService.CUALQUIERA &&
+             this.motor.cilindrada        == FiltroService.CUALQUIERA &&
+             this.motor.sobrealimentacion == FiltroService.CUALQUIERA)
+  }
+
   private setFiltro(bool: boolean) {
     this.filtro = bool;
   }
@@ -122,5 +169,13 @@ export class FiltroService {
   getFiltro(): boolean {
     return this.filtro;
   }
+
+  getLoading():boolean{
+    return this.loading;
+  }
+  setLoading(load:boolean){
+    this.loading = load;
+  }
+
 }
 

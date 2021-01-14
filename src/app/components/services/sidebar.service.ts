@@ -17,6 +17,10 @@ export class SidebarService {
   private sobrealimentaciones = [
     {
       selected: false,
+      value: 'Atmosférico',
+      class: ''
+    },{
+      selected: false,
       value: 'Turbo',
       class: ''
     },
@@ -24,7 +28,6 @@ export class SidebarService {
       selected: false,
       value: 'Supercargador',
       class: ''
-
     }
   ];
 
@@ -104,8 +107,9 @@ export class SidebarService {
         minimo: '0.5',
         interval: '0.1',
         maximo: '12',
+        value: FiltroService.CUALQUIERA,
         badge: {
-          text: 'Cualquiera ',
+          text: FiltroService.CUALQUIERA,
           class: 'bg-info text-dark'
         }
       },
@@ -114,8 +118,9 @@ export class SidebarService {
         slider: true,
         minimo: '2',
         maximo: '12',
+        value: FiltroService.CUALQUIERA,
         badge: {
-          text: 'Cualquiera ',
+          text: FiltroService.CUALQUIERA,
           class: 'bg-info text-dark'
         }
       },
@@ -125,8 +130,9 @@ export class SidebarService {
         icon: 'fas fa-wrench',
         active: false,
         type: 'dropdown',
+        value: FiltroService.CUALQUIERA,
         badge: {
-          text: 'Cualquiera ',
+          text: FiltroService.CUALQUIERA,
           class: 'bg-info text-dark'
         },
         subs: this.sobrealimentaciones
@@ -223,22 +229,44 @@ export class SidebarService {
     this.motor.badge.text = 'Con Filtro ';
     if (titulo.includes('Cilindrada')) {
       this.motor.submenus[0].badge.text = value;
+      this.motor.submenus[0].value = value;
     } else if (titulo.includes('Cilindros')) {
       this.motor.submenus[1].badge.text = value;
-    }
-    // cilindrada
-    // cilindros
-    // sobrealimantacion
+      this.motor.submenus[1].value = value;
+    } else if (titulo.includes('Sobrealimentacion')) {
+      this.sobrealimentaciones.forEach(sobre => {
+        if (sobre.value == value) {
+          if (sobre.selected == false) {
+            sobre.selected = true;
+            sobre.class = 'selecccionado';
+            this.motor.submenus[2].value = value;
+            if (value.length > 8) {
+              value = value.substring(0, 8).concat('...')
+            }
+            this.motor.submenus[2].badge.text = value;
+          } else {
+            this.motor.submenus[2].badge.text = FiltroService.CUALQUIERA;
+            this.motor.submenus[2].value = FiltroService.CUALQUIERA;
+            sobre.selected = false;
+            sobre.class = '';
+          }
+        } else {
+          sobre.class = '';
+        }
+      });
 
+    }
   }
 
-  setPrecio(value: number, tipo: string) {
+  setPrecio(value: number, submenu: any) {
+    let tipo = submenu.title;
     let precio = value.toString();
     if (value >= 1000) {
       precio = Math.round(value / 1000) + 'k';
     }
     let precios: string[] = this.precio.badge.text.split(' - ');
-    if (tipo == 'desde') {
+    if (tipo == 'Desde') {
+      value-=1; // Ajustamos el precio
       precios[0] = precio;
       this.precio.submenus[0].badge.text = precio;
       if (precio.includes('k')) {
@@ -258,7 +286,7 @@ export class SidebarService {
       }
 
 
-    } else if (tipo == 'hasta') {
+    } else if (tipo == 'Hasta') {
       precios[1] = precio;
       this.precio.submenus[1].value = value.toString();
       this.precio.submenus[1].badge.text = precio;
@@ -315,9 +343,10 @@ export class SidebarService {
             sobreSel = sobreSel.substring(0, 8).concat('...')
           }
           this.motor.submenus[2].badge.text = sobreSel;
+          this.motor.submenus[2].value = sobreSel;
         } else {
-          console.log('entramos else');
-          this.motor.submenus[2].badge.text = 'Cualquiera ';
+          this.motor.submenus[2].badge.text = FiltroService.CUALQUIERA;
+          this.motor.submenus[2].value = FiltroService.CUALQUIERA;
           sobre.selected = false;
           sobre.class = '';
         }
@@ -337,5 +366,6 @@ export class SidebarService {
         this.filtroService.setCarroceria(value.title);
       }
     });
+    this.filtroService.setMotor(this.motor.submenus)
   }
 }

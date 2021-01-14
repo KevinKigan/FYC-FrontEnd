@@ -23,10 +23,12 @@ export class ModelosComponent implements OnInit {
   modelos: Modelo[];
   modelos_totales: Modelo[];
   listaGlobal: any[] = new Array([]);
+  loading: boolean=true;
   paginator: any;
   paths: string[];
   controlMarca = new FormControl();
   mostrarPaginator: boolean=true;
+
   controlModelo = new FormControl();
   opcionesMarca: Observable<string[]>;
   opcionesModelo: Observable<string[]>;
@@ -58,6 +60,7 @@ export class ModelosComponent implements OnInit {
    *
    */
   iniciar():void{
+    this.setLoading(true);
     this.activatedRoute.paramMap.subscribe(params => {
       let page  = +params.get('page'); // El operador suma transforma el string en un number
       let marca = +params.get('marca');
@@ -79,9 +82,9 @@ export class ModelosComponent implements OnInit {
           this.nombre_marcas.push(marca.marcaCoche);
         });
         this.marcaSeleccionada(marca,page, false);
-        // this.modelos.forEach(modelo => {
         //   this.nombre_modelos.push(modelo.modelo);
         // });
+        // this.modelos.forEach(modelo => {
         this.opcionesMarca = this.controlMarca.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value,'marca'))
@@ -115,6 +118,7 @@ export class ModelosComponent implements OnInit {
       i++;
     });
     this.listaGlobal = listaGlobalAux;
+    this.setLoading(false);
   }
 
   /**
@@ -202,6 +206,7 @@ export class ModelosComponent implements OnInit {
   marcaSeleccionada(marca:number,page:number,modelo:boolean):void{
     let modelos;
     let modelosTotales;
+    this.setLoading(true);
     if(marca){
       // Especificamos cual es la marca con la que estamos trabajando
       this.marcas.forEach(marcaF =>{
@@ -215,7 +220,6 @@ export class ModelosComponent implements OnInit {
       this.paths[1] = '/modelos/marca/'+marca+'/page/'; // Path de peticion en app-routing-module
 
     }else if(this.filtroService.getFiltro()) {
-      console.log('se filtra');
       modelos = this.getModelosFiltrados(page);
     }else {
       modelos = this.cochesService.getModelos(page);
@@ -292,14 +296,20 @@ export class ModelosComponent implements OnInit {
   }
 
   getModelosFiltrados(page:number):Observable<any>{
-    console.log('llegamos aa aqui');
     return this.cochesService.filtrar(this.filtroService.getFiltros(),page)
   }
 
   actualizarFiltros($event: any){
-    console.log(this.router.url);
     this.router.navigate(['/modelos']);
     this.iniciar();
+  }
+
+  setLoading(load: boolean) {
+    this.filtroService.setLoading(load);
+    let tiempo = new Date ();
+    console.log("ModelosComponent lo ponemos a "+load+" Milis: "+tiempo.getTime());
+    this.loading = this.filtroService.getLoading();
+    console.log('this.loading = '+this.loading);
   }
 }
 

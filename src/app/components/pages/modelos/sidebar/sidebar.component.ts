@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {SidebarService} from '../../../services/sidebar.service';
+import {FiltroService} from '../../../services/filtro.service';
 
 // import { MenusService } from './menus.service';
 
@@ -20,11 +21,12 @@ import {SidebarService} from '../../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
   @Output() private filtrar = new EventEmitter<boolean>();
+  @Input() loading:boolean;
   menus = [];
   submenu = [];
   precio: string = '';
 
-  constructor(public sidebarservice: SidebarService) {
+  constructor(public sidebarservice: SidebarService, public filtroService: FiltroService) {
     this.menus = sidebarservice.getMenuList();
   }
 
@@ -95,23 +97,20 @@ export class SidebarComponent implements OnInit {
     return this.precio;
   }
 
-  setPrecio(precio: number, tipo: string) {
-    if (tipo == 'Desde') {
-      this.sidebarservice.setPrecio(precio, 'desde');
-    } else if (tipo == 'Hasta') {
-      this.sidebarservice.setPrecio(precio, 'hasta');
-    }
+  setPrecio(precio: number, submenu: any) {
+    this.sidebarservice.setPrecio(precio,submenu);
     this.actualizar();
   }
 
-  seleccionado(menu: string, value: string) {
+  seleccionado(submenu: any, value: string) {
+    let menu = submenu.title;
     if (menu == 'Carroceria') {
       this.sidebarservice.selecionarCarroceria(value);
     }
     else if (menu == 'Sobrealimentacion'){
-      this.sidebarservice.selecionarSobrealimentacion(value);
+      // this.sidebarservice.selecionarSobrealimentacion(value);
+      this.setMotor(value,submenu);
     }
-    this.actualizar();
   }
 
   setMotor(value: any, submenu: any) {
@@ -123,6 +122,12 @@ export class SidebarComponent implements OnInit {
     this.sidebarservice.actualizarFiltros();
     this.filtrar.emit(true);
   }
+
+  // setLoading(load: boolean) {
+  //   this.filtroService.setLoading(load);
+  //   console.log("SidebarComponent lo ponemos a "+load);
+  //   this.loading = this.filtroService.getLoading();
+  // }
 
   // logProgresiveSlider(position): number{
   //     // position will be between 0 and 100
