@@ -166,10 +166,35 @@ export class SidebarService {
     icon: 'fas fa-tachometer-alt',
     active: false,
     type: 'dropdown',
-    slider: false,
+    slider: true,
+    badge: {
+      text: 'Min - Max ',
+      class: 'bg-warning text-dark'
+    },
     submenus: [
       {
-        title: 'Google maps',
+        title: 'Desde',
+        slider: true,
+        minimo: '1',
+        maximo: '1000',
+        value: FiltroService.MINIMO,
+        interval: '10',
+        badge: {
+          text: 'Min ',
+          class: 'bg-info text-dark badgePerso'
+        }
+      },
+      {
+        title: 'Hasta',
+        slider: true,
+        minimo: '1',
+        value: FiltroService.MAXIMO,
+        maximo: '1000',
+        interval: '10',
+        badge: {
+          text: 'Max ',
+          class: 'bg-info text-dark badgePerso'
+        }
       }
     ]
   };
@@ -240,12 +265,12 @@ export class SidebarService {
    * @param consumo  Valor del consumo
    * @param submenu  Submenu de consumo
    */
-  setConsumo(consumo: string, submenu: any) {
+  setConsumo(consumo: number, submenu: any) {
     let titulo = submenu.title.toString();
-    this.consumo.badge.text = consumo;
+    this.consumo.badge.text = consumo.toString();
     if (titulo.includes('consumo medio')) {
       if(this.consumo.submenus[0].title.includes('Límite de consumo medio')){
-        this.consumo.submenus[0].value = consumo;
+        this.consumo.submenus[0].value = consumo.toString();
       }
     }
   }
@@ -311,13 +336,13 @@ export class SidebarService {
       if (precio.includes('k')) {
         precio = precio.replace('k', '000');
       }
-      let val: number = (+value + 1000);
+      let val: number = (+value + submenu.interval);
       if (val >= 1000) {
         precio = Math.round(val / 1000) + 'k';
       }
       this.precio.submenus[0].value = value.toString();
-      this.precio.submenus[1].minimo = val.toString();
       if (this.precio.submenus[1].badge.text != 'Max ') {
+        this.precio.submenus[1].minimo = val.toString();
         this.precio.submenus[1].badge.text = precio;
         precios[1] = precio;
         this.precio.submenus[1].badge.text = precio;
@@ -331,6 +356,49 @@ export class SidebarService {
       this.precio.submenus[1].badge.text = precio;
     }
     this.precio.badge.text = precios[0] + ' - ' + precios[1];
+  }
+
+  /**
+   * Metodo para actualizar los valores relacionados
+   * con el filtro de la potencia
+   *
+   * @param value   Valor de la potencia
+   * @param submenu Submenu que lo contiene
+   */
+  setPotencia(value: number, submenu: any) {
+    let tipo = submenu.title;
+    let potencia = value.toString();
+    if (value >= 1000) {
+      potencia = Math.round(value / 1000) + 'k';
+    }
+    let potencias: string[] = this.potencia.badge.text.split(' - ');
+    if (tipo == 'Desde') {
+      value-=1; // Ajustamos la potencia
+      potencias[0] = potencia;
+      this.potencia.submenus[0].badge.text = potencia;
+      if (potencia.includes('k')) {
+        potencia = potencia.replace('k', '000');
+      }
+      let val: number = (+value + submenu.interval);
+      if (val >= 1000) {
+        potencia = Math.round(val / 1000) + 'k';
+      }
+      this.potencia.submenus[0].value = value.toString();
+      if (this.potencia.submenus[1].badge.text != 'Max ') {
+        this.potencia.submenus[1].minimo = val.toString();
+        this.potencia.submenus[1].badge.text = potencia;
+        potencias[1] = potencia;
+        this.potencia.submenus[1].badge.text = potencia;
+        this.potencia.badge.text = potencias[0] + ' - ' + potencias[1];
+      }
+
+
+    } else if (tipo == 'Hasta') {
+      potencias[1] = potencia;
+      this.potencia.submenus[1].value = value.toString();
+      this.potencia.submenus[1].badge.text = potencia;
+    }
+    this.potencia.badge.text = potencias[0] + ' - ' + potencias[1];
   }
 
   /**
@@ -388,5 +456,6 @@ export class SidebarService {
     });
     this.filtroService.setMotor(this.motor.submenus)
     this.filtroService.setConsumo(this.consumo.submenus)
+    this.filtroService.setPotencia(this.potencia.submenus)
   }
 }

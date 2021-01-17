@@ -9,8 +9,8 @@ export class FiltroService {
   constructor() {
   }
 
-  private static MINIMO: string = '1';
-  private static MAXIMO: string = '100000';
+  public static MINIMO: string = '1';
+  public static MAXIMO: string = '100000';
   public  static CUALQUIERA: string = 'Cualquiera';
   private filtro: boolean = false;
   private loading:boolean = true;
@@ -37,7 +37,11 @@ export class FiltroService {
     title: 'consumo',
     value: FiltroService.CUALQUIERA
   };
-  private potencia = {};
+  private potencia = {
+    title: 'potencia',
+    minimo: '1',
+    maximo: '10000'
+  };
 
   /**
    * Metodo para actualizar los precios en el filtro
@@ -49,6 +53,20 @@ export class FiltroService {
     if (submenus[0].value != FiltroService.MINIMO || submenus[1].value != FiltroService.MAXIMO) {
       this.precio.minimo = submenus[0].value;
       this.precio.maximo = submenus[1].value;
+      this.setFiltro(true);
+    }
+  }
+
+  /**
+   * Metodo para actualizar la potencia en el filtro
+   * si han cambiado de los valores por defecto
+   *
+   * @param submenus
+   */
+  setPotencia(submenus: any) {
+    if (submenus[0].value != FiltroService.MINIMO || submenus[1].value != FiltroService.MAXIMO) {
+      this.potencia.minimo = submenus[0].value;
+      this.potencia.maximo = submenus[1].value;
       this.setFiltro(true);
     }
   }
@@ -90,7 +108,6 @@ export class FiltroService {
    * @param submenus
    */
   setConsumo(submenus: any) {
-    console.log(submenus[0].value);
     this.consumo.value = submenus[0].value;
     if (this.consumo.value != FiltroService.CUALQUIERA) {
       this.setFiltro(true);
@@ -100,30 +117,36 @@ export class FiltroService {
   reset(filtro: string) {
     if (filtro == 'todos') {
       this.setFiltro(false);
-      this.precio.minimo = FiltroService.MINIMO;
-      this.precio.maximo = FiltroService.MAXIMO;
-      this.carroceria.value = FiltroService.CUALQUIERA;
-      this.consumo.value = FiltroService.CUALQUIERA;
+      this.precio.minimo           = FiltroService.MINIMO;
+      this.precio.maximo           = FiltroService.MAXIMO;
+      this.carroceria.value        = FiltroService.CUALQUIERA;
+      this.consumo.value           = FiltroService.CUALQUIERA;
+      this.potencia.minimo         = FiltroService.MINIMO;
+      this.potencia.maximo         = FiltroService.MAXIMO;
+      this.motor.sobrealimentacion = FiltroService.CUALQUIERA;
+      this.motor.cilindrada        = FiltroService.CUALQUIERA;
+      this.motor.cilindros         = FiltroService.CUALQUIERA;
 
     } else {
       switch (filtro) {
         case 'precio':
-          this.precio.minimo = FiltroService.MINIMO;
-          this.precio.maximo = FiltroService.MAXIMO;
+          this.precio.minimo           = FiltroService.MINIMO;
+          this.precio.maximo           = FiltroService.MAXIMO;
           break;
         case 'carroceria':
-          this.carroceria.value = FiltroService.CUALQUIERA;
+          this.carroceria.value        = FiltroService.CUALQUIERA;
           break;
         case 'consumo':
-          this.consumo.value = FiltroService.CUALQUIERA;
+          this.consumo.value           = FiltroService.CUALQUIERA;
           break;
         case 'motor':
-          this.precio.minimo = FiltroService.MINIMO;
-          this.precio.maximo = FiltroService.MAXIMO;
+          this.motor.sobrealimentacion = FiltroService.CUALQUIERA;
+          this.motor.cilindrada        = FiltroService.CUALQUIERA;
+          this.motor.cilindros         = FiltroService.CUALQUIERA;
           break;
         case 'potencia':
-          this.precio.minimo = FiltroService.MINIMO;
-          this.precio.maximo = FiltroService.MAXIMO;
+          this.potencia.minimo         = FiltroService.MINIMO;
+          this.potencia.maximo         = FiltroService.MAXIMO;
           break;
 
       }
@@ -142,9 +165,11 @@ export class FiltroService {
     if (this.comprobarFiltroMotor()) {
       filtro[filtro.length] = this.motor;
     }
-    console.log(this.comprobarFiltroConsumo());
     if (this.comprobarFiltroConsumo()) {
       filtro[filtro.length] = this.consumo;
+    }
+    if (this.comprobarFiltroPotecia()) {
+      filtro[filtro.length] = this.potencia;
     }
 
     // this.carroceria,
@@ -161,6 +186,15 @@ export class FiltroService {
    */
   comprobarFiltroPrecio(): boolean {
     return !(this.precio.minimo == FiltroService.MINIMO && this.precio.maximo == FiltroService.MAXIMO);
+  }
+
+  /**
+   * Metodo para comprobar si se quiere filtrar
+   * por potencia o esta inicializado por defecto
+   *
+   */
+  comprobarFiltroPotecia(): boolean {
+    return !(this.potencia.minimo == FiltroService.MINIMO && this.potencia.maximo == FiltroService.MAXIMO);
   }
 
   /**
