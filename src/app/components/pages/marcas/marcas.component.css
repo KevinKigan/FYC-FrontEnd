@@ -43,6 +43,8 @@ a{
 .styleA:hover::before {
   transform: scale(1.1);
   box-shadow: 0 0 15px #ffee10;
+
+  font-style: italic;
 }
 
 .styleA:hover {

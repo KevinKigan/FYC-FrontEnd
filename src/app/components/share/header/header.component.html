@@ -1,121 +1,135 @@
-<nav class="navbar  fixed-top navbar-dark navbar-expand-md font-weight-bold font-weight-light">
-  <img [routerLink]="['/home']" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen"
-       class="img-fluid rounded">
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark font-weight-bold font-weight-light" class="navStyle" mdbStickyHeader>
+  <mdb-navbar-brand>
+<!--    <nav class="navbar  fixed-top navbar-dark navbar-expand-md font-weight-bold font-weight-light">-->
+<!--      <img [routerLink]="['/home']" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen"-->
+<!--           class="img-fluid rounded" style="max-height: 20%">-->
 
-  <div class="align-items-left" style="width: 50%">
-    <ul class="navbar-nav">
-      <li class="nav-item" routerLinkActive="active">
-        <a mdbWavesEffect class="nav-link" [routerLink]="['/home']">Home <span class="sr-only"></span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a mdbWavesEffect class="nav-link" [routerLink]="['/marcas']">Marcas <span
-          class="sr-only"></span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a mdbWavesEffect class="nav-link" [routerLink]="['/modelos']">Modelos <span class="sr-only"></span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a mdbWavesEffect class="nav-link" [routerLink]="['/home/direccion3']">Dirección 3 <span
-          class="sr-only"></span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a mdbWavesEffect class="nav-link" [routerLink]="['/home/direccion4']">Conóceme <span
-          class="sr-only"></span></a>
-      </li>
+      <div class="align-items-left justify-content-center" style="width: 50%">
 
-    </ul>
+        <ul class="navbar-nav" style="min-height: 100%; max-height: 100%;">
+          <li class="nav-item" routerLinkActive="active">
+            <a>
+              <img [routerLink]="['/home']" src="{{urlEndPointImgLogo}}/FYClogo.png"  class="d-inline-block align-top navImg" alt="">
+            </a>
+          </li>
+          <li class="nav-item styleLink" routerLinkActive="active">
+            <a mdbWavesEffect class="nav-link styleLinkA" [routerLink]="['/home']">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item styleLink" routerLinkActive="active">
+            <a mdbWavesEffect class="nav-link styleLinkA" [routerLink]="['/marcas']">Marcas <span
+              class="sr-only"></span></a>
+          </li>
+          <li class="nav-item styleLink" routerLinkActive="active">
+            <a mdbWavesEffect class="nav-link styleLinkA" [routerLink]="['/modelos']">Modelos <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item styleLink" routerLinkActive="active">
+            <a mdbWavesEffect class="nav-link styleLinkA" [routerLink]="['/sidebar']">Sidebar <span
+              class="sr-only"></span></a>
+          </li>
+          <li class="nav-item styleLink" routerLinkActive="active">
+            <a mdbWavesEffect class="nav-link styleLinkA" [routerLink]="['/home/direccion4']">Conóceme <span
+              class="sr-only"></span></a>
+          </li>
 
-
-  </div>
-
-  <!--        <div class="form-check form-switch divPerso">-->
-  <!--          <input class="form-check-input inputPerso" type="checkbox"  data-on="nose" data-off="nioserr"-->
-  <!--                 id="flexSwitchCheckChecked" checked>-->
-  <!--        </div>-->
-  <!--        <div class="switch switch-info divPerso">-->
-  <!--          <label>-->
-  <!--            {{tipoUsuario}}-->
-  <!--            <input (click)="alternarUsuario()" type="checkbox">-->
-  <!--            <span class="lever"></span>-->
-
-  <!--          </label>-->
-  <!--        </div>-->
+        </ul>
 
 
-  <!--              <label class="switch">-->
-  <!--                <input (click)="alternarUsuario()" type="checkbox" checked>-->
-  <!--                <span class="slider round"></span>-->
-  <!--                <span class="absolute-no"><img style="width: 20%; height: 95%" src="assets/images/admin.png"></span>-->
-  <!--              </label>-->
+      </div>
 
-  <div class="mdbBtn align-middle" style="width: 50%">
-    <div class="container-fluid " style="width: 40%; margin-right: -5.2%">
-      <div class="h-100">
-        <div class="container-fluid h-100">
-          <div class="row w-100">
-            <div style="min-height: 80%">
-              <img color="accent" (click)="test.toggle()"
-                   style="height: auto; width: 20%;"
-                   class="styleA float-right"
-                   src="assets/images/photo.jpg"/>
+      <!--        <div class="form-check form-switch divPerso">-->
+      <!--          <input class="form-check-input inputPerso" type="checkbox"  data-on="nose" data-off="nioserr"-->
+      <!--                 id="flexSwitchCheckChecked" checked>-->
+      <!--        </div>-->
+      <!--        <div class="switch switch-info divPerso">-->
+      <!--          <label>-->
+      <!--            {{tipoUsuario}}-->
+      <!--            <input (click)="alternarUsuario()" type="checkbox">-->
+      <!--            <span class="lever"></span>-->
+
+      <!--          </label>-->
+      <!--        </div>-->
+
+
+      <!--              <label class="switch">-->
+      <!--                <input (click)="alternarUsuario()" type="checkbox" checked>-->
+      <!--                <span class="slider round"></span>-->
+      <!--                <span class="absolute-no"><img style="width: 20%; height: 95%" src="assets/images/admin.png"></span>-->
+      <!--              </label>-->
+
+      <div class="mdbBtn align-middle" style="width: 50%">
+        <div class="container-fluid " style="width: 40%; margin-right: -5.2%">
+          <div class="h-100">
+            <div class="container-fluid h-100">
+              <div class="row w-100">
+                <div style="min-height: 80%">
+                  <img color="accent" (click)="test.toggle()"
+                       style="height: auto; width: 20%;"
+                       class="styleA float-right"
+                       src="assets/images/photo.jpg"/>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div mdbCollapse [isCollapsed]="true" #test="bs-collapse">
+            <mdb-card style="width: 100%">
+              <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <!-- Card img -->
+                <mdb-card-img src="assets/images/photo.jpg"
+                              alt="Card image cap"></mdb-card-img>
+                <a>
+                  <div class="mask"></div>
+                </a>
+              </div>
+              <!--Card content-->
+              <mdb-card-body>
+                <mdb-card-title>
+                  <h1 style="font-size: 200%;">prueba</h1>
+
+                </mdb-card-title>
+                <div class="row" style="height: 50px; width: 110%; ">
+                  <div class="col-lg-8" style="text-align:center;">
+                    <span style="display: block; height: 100%; width: 100%; background-color: #3cb8e6;vertical-align: middle">Vista {{tipoUsuario}}</span>
+                  </div>
+                  <div class="col-lg-4 onoffswitch">
+                    <input (click)="alternarUsuario()" type="checkbox" style="min-height: 100%; " name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
+                    <label class="onoffswitch-label" for="myonoffswitch" ></label>
+                  </div>
+                </div>
+
+                <!--              <div class="row padre justify-content-center" style="display: flex;">-->
+                <!--                <div class="col-lg-12" style="background-color: #7abaff; height: 50px; vertical-align: center">-->
+                <!--                  <span class="">Vista {{tipoUsuario}}</span>-->
+
+
+                <!--                                <div class="onoffswitch" style="background-color: #0b2e13;margin-left: auto">-->
+                <!--                                  <input (click)="alternarUsuario()" type="checkbox" style="min-height: 100%" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>-->
+                <!--                                  <label class="onoffswitch-label" for="myonoffswitch" ></label>-->
+                <!--                                </div>-->
+
+                <!--                </div>-->
+                <!--                                          <div style="margin-left: auto; width: 30%;  height: 100%">-->
+                <!--                                            <label class="switch" >-->
+                <!--                                              <input (click)="alternarUsuario()" type="checkbox" checked>-->
+                <!--                                              <span class="slider round"></span>-->
+                <!--                            &lt;!&ndash;                  <span><img style=" right: -20%; width: 40%; height: auto" src="assets/images/admin.png"></span>&ndash;&gt;-->
+                <!--                                            </label>-->
+                <!--                                          </div>-->
+                <!--              </div>-->
+                <mdb-card-text>
+
+                </mdb-card-text>
+                <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+              </mdb-card-body>
+            </mdb-card>
           </div>
         </div>
       </div>
+<!--    </nav><a class="navbar-brand" href="#">Navbar</a>-->
+  </mdb-navbar-brand>
+  <div class="gradient-border" style="margin-bottom: 0em"></div>
 
-      <div mdbCollapse [isCollapsed]="true" #test="bs-collapse">
-        <mdb-card style="width: 100%">
-          <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-            <!-- Card img -->
-            <mdb-card-img src="assets/images/photo.jpg"
-                          alt="Card image cap"></mdb-card-img>
-            <a>
-              <div class="mask"></div>
-            </a>
-          </div>
-          <!--Card content-->
-          <mdb-card-body>
-            <mdb-card-title>
-              <h1 style="font-size: 200%;">prueba</h1>
-
-            </mdb-card-title>
-            <div class="row justify-content-center align-middle" style="height: 50px; width: 100%">
-              <div class="col-lg-8 bg-white">
-                <span class="bg-success" style="display: block; height: 100%; width: 100%">Vista {{tipoUsuario}}</span>
-              </div>
-              <div class="col-lg-4 bg-danger onoffswitch">
-                  <input (click)="alternarUsuario()" type="checkbox" style="min-height: 100%" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
-                  <label class="onoffswitch-label" for="myonoffswitch" ></label>
-              </div>
-            </div>
-
-            <!--              <div class="row padre justify-content-center" style="display: flex;">-->
-            <!--                <div class="col-lg-12" style="background-color: #7abaff; height: 50px; vertical-align: center">-->
-            <!--                  <span class="">Vista {{tipoUsuario}}</span>-->
+</mdb-navbar>
 
 
-            <!--                                <div class="onoffswitch" style="background-color: #0b2e13;margin-left: auto">-->
-            <!--                                  <input (click)="alternarUsuario()" type="checkbox" style="min-height: 100%" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>-->
-            <!--                                  <label class="onoffswitch-label" for="myonoffswitch" ></label>-->
-            <!--                                </div>-->
 
-            <!--                </div>-->
-<!--                                          <div style="margin-left: auto; width: 30%;  height: 100%">-->
-<!--                                            <label class="switch" >-->
-<!--                                              <input (click)="alternarUsuario()" type="checkbox" checked>-->
-<!--                                              <span class="slider round"></span>-->
-<!--                            &lt;!&ndash;                  <span><img style=" right: -20%; width: 40%; height: auto" src="assets/images/admin.png"></span>&ndash;&gt;-->
-<!--                                            </label>-->
-<!--                                          </div>-->
-            <!--              </div>-->
-            <mdb-card-text>
-
-            </mdb-card-text>
-            <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
-          </mdb-card-body>
-        </mdb-card>
-      </div>
-    </div>
-  </div>
-  <div class="gradient-border"></div>
-</nav>

@@ -1,0 +1,343 @@
+.padre {
+  display: flex;
+  align-items: center;
+  text-align: right;
+}
+mat-slider {
+  width: 300px;
+  margin-top: 20%;
+  margin-left: 10%;
+}
+
+.ul{
+  position: absolute;
+  display:flex;
+  justify-content: center;
+}
+.styleA {
+  position: relative;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.1276334269662921) 100%);
+  border-radius: 50px;
+  white-space: normal;
+  color: #666;
+  bottom: 5%;
+  transition: .5s;
+}
+
+.styleA::before {
+  content: '';
+  position: absolute;
+  /*top: 0;*/
+  left: 0;
+  background: #ffee10;
+  transition: .3s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.styleA:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #ffee10;
+}
+
+.styleA:hover {
+  box-shadow: 0 0 20px #ffee10;
+  text-shadow: 0 0 20px #ffee10;
+}
+
+.paralelogramo {
+  width: 300px;
+  height: 75px;
+  background: linear-gradient(to right, transparent,#2f2f2e);
+  border-radius: 1px;
+  border-style: solid;
+  border-color: #ffee10;
+  -webkit-transform: skew(-45deg);
+  -moz-transform: skew(-20deg);
+  -o-transform: skew(-20deg);
+}
+.paralelogramoInv {
+  width: 300px;
+  height: 75px;
+  background: linear-gradient(to right, #2f2f2e, transparent);
+  border-radius: 1px;
+  border-style: solid;
+  border-color: #ffee10;
+  -webkit-transform: skew(45deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+}
+.tri {
+  width: 200px;
+  left: 40%;
+  height: 75px;
+  position: absolute;
+  background: transparent;
+  border-radius: 1px;
+  border-style: solid;
+  border-top-color: #ffee10;
+  border-bottom-color:transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  z-index: 0;
+
+}
+
+.normal {
+  width: 150px;
+  height: 50px;
+  margin-top: 2%;
+  margin-left: 25%;
+  -webkit-transform: skew(45deg);
+  -moz-transform: skew(45deg);
+  -o-transform: skew(45deg);
+}
+.normalInv {
+  width: 150px;
+  height: 50px;
+  margin-top: 2%;
+  margin-left: 25%;
+  -webkit-transform: skew(-45deg);
+  -moz-transform: skew(-45deg);
+  -o-transform: skew(-45deg);
+}
+.forma{
+  display: inline-block;
+  margin: 16px;
+}
+.formaFiltros{
+  display: block;
+  margin: 16px;
+}
+/*input[type=text] {*/
+/*  border: none;*/
+/*  border-bottom: 2px solid red;*/
+/*}*/
+//::ng-deep .mat-form-field-placeholder{
+//
+//  color:red;
+//}
+//
+//::ng-deep .mat-focused .mat-form-field-placeholder{
+//
+//  color:red;
+//}
+//::ng-deep .mat-form-field-underline .mat-form-field-ripple{
+//
+//  background-color:red;
+//}
+//
+//::ng-deep .mat-form-field-underline{
+//
+//  background-color:red;
+//}
+.placeholder {
+  color: #ffee10;
+}
+.mat-focused .mat-form-field-underline{
+  color: #ffee10;
+}
+.mat-focused .mat-form-field-underline{
+  color: #ffee10;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #ffee10 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #ffee10 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #ffee10 !important;;
+}
+
+.animation {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-direction: alternate;
+}
+
+.slideIn {
+  position: absolute;
+  animation-name: slideInR;
+}
+
+.slideOut {
+  position: absolute;
+  animation-name: slideOutR;
+}
+
+.slideInAlt {
+  position: absolute;
+  animation-name: slideInRAlt;
+  z-index: -10;
+}
+
+.slideOutAlt {
+  position: absolute;
+  animation-name: slideOutRAlt;
+  z-index: -5;
+}
+
+.slideOff {
+  position: absolute;
+  visibility: hidden;
+  left: -200%;
+}
+.slideOffAlt {
+  position: absolute;
+  left: 0;
+
+  top:6.2%;
+}
+
+@keyframes slideInR {
+  from {
+    //opacity: 0;
+    transform: translate(-175%, 0);
+  }
+  to {
+    //opacity: 1;
+    transform: translate(0%, 0);
+  }
+}
+
+@-webkit-keyframes slideInR {
+  from {
+    //opacity: 0;
+    transform: translate(-175%, 0);
+  }
+  to {
+    //opacity: 1;
+    transform: translate(0%, 0);
+  }
+}
+
+
+@keyframes slideOutR{
+
+  from {
+    transform: translate(0%, 0);
+    //opacity: 1;
+  }
+  to {
+    transform: translate(-175%, 0);
+    //opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideOutR {
+  from {
+    transform: translate(0%, 0);
+    //opacity: 1;
+  }
+  to {
+    transform: translate(-175%, 0);
+    //opacity: 0;
+  }
+}
+@keyframes slideInRAlt {
+  from {
+    transform: translate(0, 50%);
+    top:3%;
+  }
+  to {
+    transform: translate(1530%, 50%);
+    top:3%;
+  }
+}
+
+@-webkit-keyframes slideInRAlt {
+  from {
+    transform: translate(0, 50%);
+    top:3%;
+  }
+  to {
+    transform: translate(1530%, 50%);
+    top:3%;
+  }
+}
+
+
+@keyframes slideOutRAlt{
+  from {
+    transform: translate(1530%, 50%);
+    top:3%;
+  }
+  to {
+    transform: translate(0, 50%);
+    top:3%;
+  }
+}
+
+@-webkit-keyframes slideOutRAlt {
+  from {
+    transform: translate(1530%, 50%);
+    //top:5%;
+  }
+  to {
+    transform: translate(0, 50%);
+    top:3%;
+  }
+}
+
+.styleSlide{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  z-index: 100;
+}
+.styleSlideAlt{
+  position: relative;
+  width: 150px;
+  height: 100%;
+  z-index: 90;
+}
+
+.css-shapes-preview{
+  position: relative;
+  height: 37.5px;
+  width: 50px;
+  margin-top: 10%;
+  background-color: #c0ced7;
+  border-radius: 150px;
+
+  border-top: 2px solid #E9FF24;
+  border-left: 2px solid #E9FF24;
+  border-right: 2px solid #E9FF24;
+  border-bottom: 2px solid #E9FF24;
+
+}
+
+
+.myButton {
+  border-radius:0px 25px 25px 0px;;
+  border:1px solid #6e6723;
+  display:inline-block;
+  background-image: url("src/assets/images/filterBg.png");
+  cursor:pointer;
+  color:#333333;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:15px 0px;
+  text-decoration:none;
+}
+
+.myButton:hover::before {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ffee10;
+}
+
+.myButton:hover {
+  box-shadow: 0 0 10px #ffee10;
+  text-shadow: 0 0 10px #ffee10;
+}
+

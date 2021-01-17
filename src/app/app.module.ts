@@ -7,7 +7,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { FooterComponent } from './components/share/footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -24,6 +24,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
 import { MarcasComponent } from './components/pages/marcas/marcas.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SidebarComponent } from './components/pages/modelos/sidebar/sidebar.component';
+import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {MatSliderModule} from '@angular/material/slider';
+import {LoadingComponent} from './components/share/loading/loading.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +41,9 @@ import { MarcasComponent } from './components/pages/marcas/marcas.component';
     ModelosComponent,
     PaginatorComponent,
     RedirectComponent,
-    MarcasComponent
+    MarcasComponent,
+    SidebarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +62,13 @@ import { MarcasComponent } from './components/pages/marcas/marcas.component';
     MatInputModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    PerfectScrollbarModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    PerfectScrollbarModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,11 +7,14 @@ import {ModelosComponent} from '../../pages/modelos/modelos.component';
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css']
+  styleUrls: ['./paginator.component.scss']
 })
 export class PaginatorComponent implements OnInit {
   @Input() paginator: any;
+  @Input() paths: string[];
   pages: number[];
+  idMarca: number=-1;
+  pathConMarca: string;
   totalPaginas: number;
   itemsPorPagina: number;
   paginaActual: number;
@@ -20,6 +23,7 @@ export class PaginatorComponent implements OnInit {
   pageEvent: PageEvent;
   to: number;
   cargado: boolean = false;
+  pathSinMarca = '/modelos/page';
 
   constructor(private cochesService: CochesService, private router:Router) {
   }
@@ -30,21 +34,28 @@ export class PaginatorComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     let paginatorActualizado = changes['paginator'];
-    if (paginatorActualizado.previousValue) {
-      this.initPaginator();
+    if (paginatorActualizado!==undefined) {
+      if (paginatorActualizado.previousValue) {
+        this.initPaginator();
+      }
     }
-
   }
 
 
   private initPaginator(): void {
     if (this.paginator !== undefined) {
       this.cargado = true;
+      if(this.paths!==undefined) {
+        this.pathConMarca = this.paths[1];
+        // Si tiene marca asignamos la marca y si no, por defecto es -1
+        if(this.paginator.content[0]) {
+          this.idMarca = this.paginator.content[0].marca.idMarca;
+        }
+      }
       this.pages = new Array(this.paginator.totalPages).fill(0).map((valor,indice)=>indice+1);
       this.totalPaginas = this.paginator.totalPages;
       this.paginaActual = this.paginator.number+1;
       this.itemsPorPagina = this.paginator.size;
-
 
       this.from = Math.min(Math.max(1, this.paginator.number - 2), this.paginator.totalPages - 5);
       this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + 4), 6);
@@ -58,7 +69,6 @@ export class PaginatorComponent implements OnInit {
   }
 
   paginatorActualizado(size:number): void {
-    console.log('Pagina actual '+ this.paginaActual+ ' size '+size);
     this.itemsPorPagina = size;
     this.cochesService.updateItemsPorPagina(size).subscribe();
   }
@@ -66,9 +76,4 @@ export class PaginatorComponent implements OnInit {
   actualizarPagina(page:number):void{
     this.paginaActual = page;
   }
-
-
 }
-
-
-
