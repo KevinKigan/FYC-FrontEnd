@@ -60,13 +60,16 @@
     <!--    Boton para elegir items por pagina-->
 
     <li class="page-item">
-      <button class="page-link " style="border-radius: 50px;font-size: 15px;color: white;text-shadow: 2px 2px #1b1e21;"
+      <button class="page-link shadowPerso" style="border-radius: 50px;font-size: 15px;color: white;text-shadow: 2px 2px #1b1e21;"
               mat-button [matMenuTriggerFor]="menu">
         Elemetos: {{itemsPorPagina}}</button>
       <mat-menu #menu="matMenu" style="color: #7abaff">
           <button [routerLink]="['/redirect/marca',idMarca]" *ngFor="let size of opcionesDePagina" mat-menu-item
                   (click)="paginatorActualizado(size)">{{size}}</button>
       </mat-menu>
+    </li>
+    <li>
+      <span class="shadowPerso">Encontrados: {{paginator.totalElements}}</span>
     </li>
   </ul>
 </nav>

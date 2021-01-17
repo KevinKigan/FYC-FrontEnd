@@ -97,24 +97,32 @@ export class SidebarComponent implements OnInit {
     return this.precio;
   }
 
+  seleccionado(submenu: any, value: string) {
+    let menu = submenu.title;
+    if (menu == 'Carroceria') {
+      this.setCarroceria(value);
+    }
+    else if (menu == 'Sobrealimentacion'){
+      this.setMotor(value,submenu);
+    }
+  }
+
+  setCarroceria(value: string) {
+    this.sidebarservice.setCarroceria(value);
+    this.actualizar();
+  }
+
   setPrecio(precio: number, submenu: any) {
     this.sidebarservice.setPrecio(precio,submenu);
     this.actualizar();
   }
 
-  seleccionado(submenu: any, value: string) {
-    let menu = submenu.title;
-    if (menu == 'Carroceria') {
-      this.sidebarservice.selecionarCarroceria(value);
-    }
-    else if (menu == 'Sobrealimentacion'){
-      // this.sidebarservice.selecionarSobrealimentacion(value);
-      this.setMotor(value,submenu);
-    }
-  }
-
   setMotor(value: any, submenu: any) {
     this.sidebarservice.setMotor(value, submenu);
+    this.actualizar();
+  }
+  setConsumo(consumo: string, submenu: any) {
+    this.sidebarservice.setConsumo(consumo, submenu);
     this.actualizar();
   }
 

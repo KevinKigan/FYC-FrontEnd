@@ -60,7 +60,6 @@ export class MarcasComponent implements OnInit {
   }
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
-    console.log("MarcasComponent lo ponemos a "+load);
     this.loading = this.filtroService.getLoading();
   }
 }

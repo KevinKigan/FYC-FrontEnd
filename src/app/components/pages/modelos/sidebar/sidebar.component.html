@@ -50,6 +50,7 @@
                     <span *ngIf="submenu.badge" class="badge badge-pill" style="margin-top:2.5%;" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                     <mat-slider *ngIf="menu.title=='Precio' && submenu.slider" step="{{submenu.interval}}" thumbLabel  [displayWith]="formatLabel" (change)="setPrecio($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 20px"><p>{{submenu.minimo}}</p></mat-slider>
                     <mat-slider *ngIf="menu.title=='Motor' && submenu.slider" step="{{submenu.interval}}"  thumbLabel [displayWith]="formatLabel" (change)="setMotor($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
+                    <mat-slider *ngIf="menu.title=='Consumo' && submenu.slider" step="{{submenu.interval}}"  thumbLabel [displayWith]="formatLabel" (change)="setConsumo($event.value,submenu)" min="{{submenu.minimo}}" max="{{submenu.maximo}}" style="height: 20px; margin: auto; margin-bottom: 10px"></mat-slider>
                   </a>
 <!--                  <div *ngIf="submenu.subs">-->
 <!--                    <p style="color: #9f105c">{{submenu.subs.length}} {{submenu.subs.title}}</p>-->

@@ -33,7 +33,10 @@ export class FiltroService {
     cilindros: FiltroService.CUALQUIERA,
     sobrealimentacion: FiltroService.CUALQUIERA
   };
-  private consumo = {};
+  private consumo = {
+    title: 'consumo',
+    value: FiltroService.CUALQUIERA
+  };
   private potencia = {};
 
   /**
@@ -57,7 +60,7 @@ export class FiltroService {
    * @param value
    */
   setCarroceria(value: any) {
-    this.motor.cilindrada = value;
+    this.carroceria.value = value;
     if (this.carroceria.value != FiltroService.CUALQUIERA) {
       this.setFiltro(true);
     }
@@ -80,12 +83,27 @@ export class FiltroService {
     }
   }
 
+  /**
+   * Metodo para actualizar el consumo en el filtro
+   * si han cambiado de los valores por defecto
+   *
+   * @param submenus
+   */
+  setConsumo(submenus: any) {
+    console.log(submenus[0].value);
+    this.consumo.value = submenus[0].value;
+    if (this.consumo.value != FiltroService.CUALQUIERA) {
+      this.setFiltro(true);
+    }
+  }
+
   reset(filtro: string) {
     if (filtro == 'todos') {
       this.setFiltro(false);
       this.precio.minimo = FiltroService.MINIMO;
       this.precio.maximo = FiltroService.MAXIMO;
       this.carroceria.value = FiltroService.CUALQUIERA;
+      this.consumo.value = FiltroService.CUALQUIERA;
 
     } else {
       switch (filtro) {
@@ -97,8 +115,7 @@ export class FiltroService {
           this.carroceria.value = FiltroService.CUALQUIERA;
           break;
         case 'consumo':
-          this.precio.minimo = FiltroService.MINIMO;
-          this.precio.maximo = FiltroService.MAXIMO;
+          this.consumo.value = FiltroService.CUALQUIERA;
           break;
         case 'motor':
           this.precio.minimo = FiltroService.MINIMO;
@@ -125,6 +142,10 @@ export class FiltroService {
     if (this.comprobarFiltroMotor()) {
       filtro[filtro.length] = this.motor;
     }
+    console.log(this.comprobarFiltroConsumo());
+    if (this.comprobarFiltroConsumo()) {
+      filtro[filtro.length] = this.consumo;
+    }
 
     // this.carroceria,
     // this.motor,
@@ -149,6 +170,15 @@ export class FiltroService {
    */
   comprobarFiltroCarroceria(): boolean {
     return !(this.carroceria.value == FiltroService.CUALQUIERA);
+  }
+
+  /**
+   * Metodo para comprobar si se quiere filtrar
+   * por carroceria o esta inicializada por defecto
+   *
+   */
+  comprobarFiltroConsumo(): boolean {
+    return !(this.consumo.value == FiltroService.CUALQUIERA);
   }
 
   /**

@@ -306,10 +306,7 @@ export class ModelosComponent implements OnInit {
 
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
-    let tiempo = new Date ();
-    console.log("ModelosComponent lo ponemos a "+load+" Milis: "+tiempo.getTime());
     this.loading = this.filtroService.getLoading();
-    console.log('this.loading = '+this.loading);
   }
 }
 

@@ -13,6 +13,12 @@ import {Observable} from 'rxjs';
 export class SidebarService {
   toggled = false;
   _hasBackgroundImage = true;
+
+  constructor(
+    private cochesService: CochesService,
+    private filtroService: FiltroService
+  ) {}
+
   private carrocerias = [];
   private sobrealimentaciones = [
     {
@@ -30,12 +36,6 @@ export class SidebarService {
       class: ''
     }
   ];
-
-  constructor(
-    private cochesService: CochesService,
-    private filtroService: FiltroService
-  ) {
-  }
 
   precio = {
     title: 'Precio',
@@ -84,6 +84,7 @@ export class SidebarService {
     active: false,
     type: 'dropdown',
     slider: false,
+    value: FiltroService.CUALQUIERA,
     badge: {
       text: 'Todas',
       class: 'badge-danger'
@@ -144,11 +145,19 @@ export class SidebarService {
     icon: 'fas fa-gas-pump',
     active: false,
     type: 'dropdown',
-    slider: false,
+    slider: true,
+    badge: {
+      text: FiltroService.CUALQUIERA,
+      class: 'bg-info text-dark'
+    },
     submenus: [
       {
-        title: 'Pie chart',
-        slider: false,
+        title: 'Límite de consumo medio:',
+        minimo: '0.1',
+        maximo: '25.0',
+        value: FiltroService.CUALQUIERA,
+        interval: '0.5',
+        slider: true,
       }
     ]
   };
@@ -224,6 +233,29 @@ export class SidebarService {
     this._hasBackgroundImage = hasBackgroundImage;
   }
 
+  /**
+   * Metodo para actualizar el valor relacionado
+   * con el filtro de consumo
+   *
+   * @param consumo  Valor del consumo
+   * @param submenu  Submenu de consumo
+   */
+  setConsumo(consumo: string, submenu: any) {
+    let titulo = submenu.title.toString();
+    this.consumo.badge.text = consumo;
+    if (titulo.includes('consumo medio')) {
+      if(this.consumo.submenus[0].title.includes('Límite de consumo medio')){
+        this.consumo.submenus[0].value = consumo;
+      }
+    }
+  }
+  /**
+   * Metodo para actualizar los valores relacionados
+   * con el filtro de motor
+   *
+   * @param value   Valor del motor
+   * @param tipo Parametro del motor que debe ser actualizado
+   */
   setMotor(value: any, tipo: any) {
     let titulo = tipo.title.toString();
     this.motor.badge.text = 'Con Filtro ';
@@ -258,6 +290,13 @@ export class SidebarService {
     }
   }
 
+  /**
+   * Metodo para actualizar los valores relacionados
+   * con el filtro de precio
+   *
+   * @param value   Valor del precio
+   * @param submenu Submenu que lo contiene
+   */
   setPrecio(value: number, submenu: any) {
     let tipo = submenu.title;
     let precio = value.toString();
@@ -299,29 +338,33 @@ export class SidebarService {
    *
    */
   getCarrocerias(): void {
-    this.cochesService.getCarrocerias().subscribe(value => {
-      value.forEach(value => {
-        let menuCarroceria = {
-          id: value.idCarroceria,
-          title: value.carroceria,
-          class: '',
-          selected: false
-        }
-        this.carrocerias.push(menuCarroceria)
+    if(this.carrocerias.length<1) {
+      this.cochesService.getCarrocerias().subscribe(value => {
+        value.forEach(value => {
+          let menuCarroceria = {
+            id: value.idCarroceria,
+            title: value.carroceria,
+            class: '',
+            selected: false
+          }
+          this.carrocerias.push(menuCarroceria)
+        });
       });
-    });
+    }
   }
 
 
-  selecionarCarroceria(carroceriaSel: string): void {
+  setCarroceria(carroceriaSel: string): void {
     this.carrocerias.forEach(carroceria => {
       if (carroceria.title == carroceriaSel) {
         if (carroceria.selected == false) {
           carroceria.selected = true;
           carroceria.class = 'selecccionado';
           this.carroceria.badge.text = carroceriaSel;
+          this.carroceria.value = carroceriaSel;
         } else {
           this.carroceria.badge.text = 'Todas';
+          this.carroceria.value = FiltroService.CUALQUIERA;
           carroceria.selected = false;
           carroceria.class = '';
           this.filtroService.reset('carroceria')
@@ -329,29 +372,6 @@ export class SidebarService {
       } else {
         carroceria.class = '';
         carroceria.selected = false;
-      }
-    });
-  }
-
-  selecionarSobrealimentacion(sobreSel: string): void {
-    this.sobrealimentaciones.forEach(sobre => {
-      if (sobre.value == sobreSel) {
-        if (sobre.selected == false) {
-          sobre.selected = true;
-          sobre.class = 'selecccionado';
-          if (sobreSel.length > 8) {
-            sobreSel = sobreSel.substring(0, 8).concat('...')
-          }
-          this.motor.submenus[2].badge.text = sobreSel;
-          this.motor.submenus[2].value = sobreSel;
-        } else {
-          this.motor.submenus[2].badge.text = FiltroService.CUALQUIERA;
-          this.motor.submenus[2].value = FiltroService.CUALQUIERA;
-          sobre.selected = false;
-          sobre.class = '';
-        }
-      } else {
-        sobre.class = '';
       }
     });
   }
@@ -367,5 +387,6 @@ export class SidebarService {
       }
     });
     this.filtroService.setMotor(this.motor.submenus)
+    this.filtroService.setConsumo(this.consumo.submenus)
   }
 }
