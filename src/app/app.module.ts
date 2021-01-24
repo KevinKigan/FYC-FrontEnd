@@ -30,6 +30,8 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
+import { ModeloEspecificoComponent } from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
+import { ConocemeComponent } from './components/pages/conoceme/conoceme.component';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import {LoadingComponent} from './components/share/loading/loading.component';
     MarcasComponent,
     SidebarComponent,
     LoadingComponent,
+    ModeloEspecificoComponent,
+    ConocemeComponent,
   ],
   imports: [
     BrowserModule,

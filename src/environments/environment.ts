@@ -8,15 +8,20 @@ export const environment = {
 
 const dns = "http://localhost:8080";
 
-export const urlEndPoint = dns+"/api";
-export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
-export const urlEndPointMarcas = urlEndPoint+"/coches/marcas";
-export const urlEndPointFiltrar = urlEndPoint+"/coches/filtros";
-export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
-export const urlEndPointCarrocerias = urlEndPoint+"/carrocerias";
-export const urlEndPointImgMarcaLogo = urlEndPoint+"/img/marcaslogo/";
-export const urlEndPointModelosPage = urlEndPoint+"/coches/modelos/page/";
-export const urlEndPointModelosPorMarcaPage = urlEndPoint+"/coches/modelospormarca/idmarca/";
+export const urlEndPoint                         = dns+"/api";
+export const urlEndPointMarcas                   = urlEndPoint+"/modelos/marcas";
+export const urlEndPointModelo                   = urlEndPoint+"/modelo/";
+export const urlEndPointImgLogo                  = urlEndPoint+"/img/logo";
+export const urlEndPointFiltrar                  = urlEndPoint+"/modelos/filtros";
+export const urlEndPointUploadImg                = urlEndPoint+"/modelos/imagen";
+export const urlEndPointCochesPage               = urlEndPoint+"/coches/page/";
+export const urlEndPointCarrocerias              = urlEndPoint+"/carrocerias";
+export const urlEndPointModelosPage              = urlEndPoint+"/modelos/page/";
+export const urlEndPointImgMarcaLogo             = urlEndPoint+"/img/marcaslogo/";
+export const urlEndPointPreciosPagina            = urlEndPoint+"/modelos/precios";
+export const urlEndPointImgPropietario           = urlEndPoint+"/img/propietario";
+export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/";
+export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/idmarca/";
 export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 /*
