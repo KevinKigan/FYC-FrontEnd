@@ -14,6 +14,7 @@ const app_routes: Routes = [
   {path: 'sidebar', component: HomeComponent},
   {path: 'modelo/:id', component: ModeloEspecificoComponent},
   {path: 'redirect/marca/:marca', component: RedirectComponent},
+  {path: 'redirect/modeloespecifico/:modeloespecifico', component: RedirectComponent},
   {path: 'modelos', component: ModelosComponent},
   {path: 'marcas', component: MarcasComponent},
   {path: 'modelos/page/:page', component: ModelosComponent},

@@ -1,5 +1,5 @@
-<div class="styleSlide" [ngClass]="{'toggled' : getSideBarState()}">
-  <app-sidebar class="animation mt-8" id="app-sidebar" [loading]="loading" [ngClass]="getSlide()" (filtrar)="actualizarFiltros($event)" style="top:2%;height:100%;width: 150px;"></app-sidebar>
+<div class="styleSlide" [ngClass]="{'toggled' : getSideBarState()}" style="z-index: 10">
+  <app-sidebar class="animation mt-8 appS" id="app-sidebar" [loading]="loading" [ngClass]="getSlide()" (filtrar)="actualizarFiltros($event)"></app-sidebar>
 <!--  <button class="btn animation css-shapes-preview" [ngClass]="getSlide()+'Alt'"(click)="setSlide()"></button>-->
   <a class="myButton animation" [ngClass]="getSlide()+'Alt'"  (click)="setSlide()">
     <img style="filter: brightness(75%);width: 15px;height: auto" src="assets/images/filtrar.png">
@@ -85,11 +85,11 @@
 <app-loading *ngIf="loading"></app-loading>
 <div style="height: 50px"></div>
 
-<div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
+<div class="card-deck m-4" *ngFor="let global of listaGlobal" [ngClass]="zindex" style="align-items: center;">
 
   <!-- Card -->
 
-  <mdb-card *ngFor="let modelo of global" style="width: 20rem;max-width: 20rem;height: 28rem;max-height: 28rem;z-index: 1">
+  <mdb-card *ngFor="let modelo of global" style="width: 20rem;max-width: 20rem;height: 28rem;max-height: 28rem;">
     <div class="view rgba-white-slight waves-light h-50" mdbWavesEffect>
       <!-- Card img -->
 <!--      <mdb-card-img  src="{{urlEndPointUploadImg}}/{{modelo.imagen}}.jpg" alt="{{modelo.imagen}}"></mdb-card-img>-->
@@ -107,8 +107,8 @@
       </mdb-card-title>
       <mdb-card-text>
         <h2>{{modelo.marca.marcaCoche}}</h2>
-        <h3 *ngIf="isNaN(precios,modelo)"  class="precio">Precio no disponible</h3>
-        <h3 *ngIf="!isNaN(precios,modelo)" class="precio">Desde {{formatPrecio(precios,modelo)}}€</h3>
+        <h3 *ngIf="isNaN(precios,modelo) && precios.size>0"  class="precio">Precio no disponible</h3>
+        <h3 *ngIf="!isNaN(precios,modelo)&& precios.size>0" class="precio">Desde {{formatPrecio(precios,modelo)}}€</h3>
       </mdb-card-text>
       <button mdbBtn type="button" color="warning" class="styleA" rounded="true"
               mdbWavesEffect [routerLink]="['/modelo',modelo.idModelo]">{{modelo.modelo}}</button>

@@ -204,27 +204,29 @@ mat-slider {
 @keyframes slideInR {
   from {
     //opacity: 0;
-    transform: translate(0%, 0);
-    z-index: -100;
+    transform: translate(-350%, 0);
+    //z-index: -100;
   }
   to {
     //opacity: 1;
-    z-index: -100;
+    //z-index: -100;
     transform: translate(175%, 0);
   }
+  //100% {z-index: 1000;}
 }
 
 @-webkit-keyframes slideInR {
   from {
     //opacity: 0;
-    z-index: -100;
-    transform: translate(0%, 0);
+    //z-index: -100;
+    transform: translate(-350%, 0);
   }
   to {
     //opacity: 1;
-    z-index: -100;
+    //z-index: -100;
     transform: translate(175%, 0);
   }
+  //100% {z-index: 1000;}
 }
 
 
@@ -235,9 +237,11 @@ mat-slider {
     //opacity: 1;
   }
   to {
-    transform: translate(0%, 0);
+    transform: translate(-350%, 0);
     //opacity: 0;
   }
+  //100% {z-index: 1000;}
+  //0% {z-index: 1000;}
 }
 
 @-webkit-keyframes slideOutR {
@@ -246,9 +250,11 @@ mat-slider {
     //opacity: 1;
   }
   to {
-    transform: translate(0%, 0);
+    transform: translate(-350%, 0);
     //opacity: 0;
   }
+  //100% {z-index: 1000;}
+  //0% {z-index: 1000;}
 }
 @keyframes slideInRAlt {
   from {
@@ -299,7 +305,7 @@ mat-slider {
 
 .styleSlide{
   position: fixed;
-  width: 150px;
+  width: auto;
   height: 100%;
   //z-index: 100;
 }
@@ -373,4 +379,17 @@ mat-slider {
 .precio{
   color:#efd500;
   text-shadow: 1px 1px 0px #ae9100;
+}
+.zIndexOut{
+  //z-index: -1000;
+}
+.zIndexIn{
+  //z-index: 5000;
+}
+
+.appS{
+  top:2%;
+  //z-index: 10;
+  height:100%;
+  width: 50px;
 }

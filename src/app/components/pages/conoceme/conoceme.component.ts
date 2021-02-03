@@ -14,10 +14,14 @@ export class ConocemeComponent implements OnInit {
   urlEndPointUploadImg = urlEndPointUploadImg;
   urlEndPointImgPropietario = urlEndPointImgPropietario;
   header:string;
+  intro:string;
+  intro2:string;
 
 
   ngOnInit(): void {
     this.header = this.conocemeService.getHeader();
+    this.intro = this.conocemeService.getIntro();
+    this.intro2 = this.conocemeService.getIntro2();
   }
 
 }

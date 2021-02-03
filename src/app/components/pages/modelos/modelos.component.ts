@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {CochesService, IHash} from '../../services/coches.service';
+import {CochesService} from '../../services/coches.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Coche} from '../../../models/coche';
 import {Modelo} from '../../../models/modelo';
@@ -44,7 +44,8 @@ export class ModelosComponent implements OnInit {
   marcaSelected: string = '';
   modeloSelected: string = '';
   slide = 'slideOff';
-  precios: IHash = {};
+  zindex = 'zIndexOut';
+  precios = new Map<string,string>();
 
   constructor(
     private cochesService: CochesService,
@@ -305,12 +306,12 @@ export class ModelosComponent implements OnInit {
    *
    */
   setSlide() {
-    let sidebar = document.getElementById('app-sidebar');
-    console.log(sidebar.style.zIndex);
     if (this.slide == 'slideIn') {
       this.slide = 'slideOut';
+      this.zindex= 'zIndexOut';
     } else {
       this.slide = 'slideIn';
+      this.zindex= 'zIndexIn';
     }
     this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
   }
@@ -323,10 +324,18 @@ export class ModelosComponent implements OnInit {
     this.sidebarservice.setSidebarState(true);
   }
 
+  /**
+   * Metodo para buscar los modelos filtrados
+   * @param page
+   */
   getModelosFiltrados(page: number): Observable<any> {
     return this.cochesService.filtrar(this.filtroService.getFiltros(), page);
   }
 
+  /**
+   * Metodo para reinicializar el componente y busque utilizando los filtros
+   * @param $event
+   */
   actualizarFiltros($event: any) {
     this.router.navigate(['/modelos']);
     this.iniciar();
@@ -337,11 +346,21 @@ export class ModelosComponent implements OnInit {
     this.loading = this.filtroService.getLoading();
   }
 
-  isNaN(precios: IHash, modelo: Modelo): boolean {
+  /**
+   * Metodo para comprobar si no tiene precio el modelo
+   * @param precios
+   * @param modelo
+   */
+  isNaN(precios: Map<string,string>, modelo: Modelo): boolean {
     return precios[modelo.modelo + '/' + modelo.marca.marcaCoche] == 'N/A';
   }
 
-  formatPrecio(precios: IHash, modelo: Modelo): string {
+  /**
+   * Metodo para formatear los precios de los modelos
+   * @param precios
+   * @param modelo
+   */
+  formatPrecio(precios: Map<string,string>, modelo: Modelo): string {
     let precio = precios[modelo.modelo + '/' + modelo.marca.marcaCoche];
     if (precio) {
       if (precio.length >= 4) {

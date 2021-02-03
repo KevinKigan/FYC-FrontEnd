@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Modelo} from '../../../models/modelo';
 import {CochesService} from '../../services/coches.service';
 import {ModelosComponent} from '../../pages/modelos/modelos.component';
+import {mod} from 'ngx-bootstrap/chronos/utils';
 
 @Component({
   selector: 'app-redirect',
@@ -14,39 +15,32 @@ export class RedirectComponent implements OnInit {
   @Input() path:string
   private pathModelos: string = 'modelos/page/';
   private pathModelosPorMarca: string = 'modelos/marca/';
+  private pathModeloEspecifico: string = 'modelo/';
 
 
   constructor(
       private router:Router,
-      private activatedRoute: ActivatedRoute,
-      private cochesService: CochesService
+      private activatedRoute: ActivatedRoute
       ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let idMarca = +params.get('marca');
+      let modeloEspecifico = +params.get('modeloespecifico');
       let path='';
-      if(idMarca>0){
-        path = this.pathModelosPorMarca+idMarca+'/page/0';
-      }else{
-        path = this.pathModelos+0;
+      console.log('idMarca = '+idMarca);
+      console.log('modeloEspecifico = '+modeloEspecifico);
+      if(modeloEspecifico>0){
+        this.router.navigate([this.pathModeloEspecifico+modeloEspecifico]);
+      }else {
+        if (idMarca > 0) {
+          path = this.pathModelosPorMarca + idMarca + '/page/0';
+        } else {
+          path = this.pathModelos + 0;
+        }
+        this.router.navigate([path]);
       }
-      this.router.navigate([path]);
-      // if(marca){
-      //   modelos = this.cochesService.getModelosPorMarca(marca,page);
-      //   this.paths = [];
-      //   this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca); // Path de peticion http
-      //   this.paths[1] = '/modelos/marca/'+marca+'/page/'; // Path de peticion en app-routing-module
-      // }else {
-      //   modelos = this.cochesService.getModelos(page);
-      // }
-      // modelos.subscribe(response => {
-      //   this.modelos = response.content as Modelo[];
-      //   this.paginator = response;
-      //   this.configurarItems();
-      // });
     });
-    // this.router.navigate(['/modelos/page/0']);
   }
 
 }

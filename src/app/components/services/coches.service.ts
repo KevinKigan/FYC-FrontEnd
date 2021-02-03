@@ -7,7 +7,12 @@ import {
   urlEndPointModelosPorMarcaPage,
   urlEndPointMarcas,
   urlEndPointModelosPage,
-  urlEndPointCarrocerias, urlEndPointFiltrar, urlEndPointModelo, urlEndPointPreciosPagina
+  urlEndPointCarrocerias,
+  urlEndPointFiltrar,
+  urlEndPointModelo,
+  urlEndPointPreciosPagina,
+  urlEndPointCochesPorModelo,
+  urlEndPointConsumo, urlEndPointMotorCombustion, urlEndPointChart, urlEndPointChartSemejantes
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -15,10 +20,9 @@ import {Marca} from '../../models/marca';
 import {Carroceria} from '../../models/carroceria';
 import {mod} from 'ngx-bootstrap/chronos/utils';
 import {Coche} from '../../models/coche';
+import {Consumo} from '../../models/consumo';
+import {MotorCombustion} from '../../models/motorCombustion';
 
-export interface IHash {
-  [details: string]: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -60,8 +64,34 @@ export class CochesService {
     })
     return this.http.post<string>(urlEndPointPreciosPagina, this.ids).pipe(
       map(value => {
-        return value as unknown as IHash;
+        return value as unknown as Map<string,string>;
       })
+    );
+  }
+
+  /**
+   * Metodo para obtener los datos del coche para las graficas
+   *
+   * @param idCoche
+   */
+  getDatosChart(idCoche:number):Observable<any>{
+    return this.http.get<string>(urlEndPointChart+'/'+idCoche).pipe(
+      map(value => {
+      return value as unknown as Map<string,string>;
+    })
+    );
+  }
+
+  /**
+   * Metodo para obtener los datos semejantes al coche dado para las graficas
+   *
+   * @param idCoche
+   */
+  getDatosChartSemejantes(idCoche:number):Observable<any>{
+    return this.http.get<string>(urlEndPointChartSemejantes+'/'+idCoche).pipe(
+      map(value => {
+      return value as unknown as Map<string,string>;
+    })
     );
   }
 
@@ -83,9 +113,53 @@ export class CochesService {
     );
   }
 
-  // getCochesPorModelo(idModelo:number):Observable<any>{
-  //   return this.http.get<Coche[]>()
-  // }
+  /**
+   * Metodo para obtener los coches que son de cieto modelo
+   * @param idModelo
+   */
+  getCochesPorModelo(idModelo:number):Observable<any>{
+    return this.http.get<Coche[]>(urlEndPointCochesPorModelo+idModelo).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
+   * Metodo para obtener lso consumos segun una lista
+   * @param idsConsumos
+   */
+  getConsumo(idsConsumos:number[]):Observable<any>{
+    return this.http.post<Consumo[]>(urlEndPointConsumo,idsConsumos).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
+   * metodo para obtener los motores de combustion segun una lista
+   * @param idsMotores
+   */
+  getMotorCombustion(idsMotores:number[]):Observable<any>{
+    return this.http.post<MotorCombustion[]>(urlEndPointMotorCombustion,idsMotores).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
 
   /**
    * Metodo para buscar una pagina de modelos
@@ -200,6 +274,12 @@ export class CochesService {
   //     })
   //   );
   // }
+
+  /**
+   * Metodo para filtrar los modelos segun los parametros dados
+   * @param filtros
+   * @param page
+   */
   filtrar(filtros: any, page: number): Observable<any> {
     console.log(filtros);
     return this.http.post<any>(`${urlEndPointFiltrar}/page/${page}`, filtros).pipe(
@@ -211,5 +291,6 @@ export class CochesService {
       })
     );
   }
+
 
 }

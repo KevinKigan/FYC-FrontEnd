@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
@@ -57,6 +58,7 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     FormsModule,
     MDBBootstrapModule.forRoot(),
     MatPaginatorModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatExpansionModule,
     MatMenuModule,

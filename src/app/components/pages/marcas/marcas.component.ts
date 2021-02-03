@@ -23,6 +23,10 @@ export class MarcasComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private filtroService: FiltroService) { }
 
+  /**
+   * Metodo para iniciar el componente
+   *
+   */
   ngOnInit(): void {
     this.setLoading(true);
     this.activatedRoute.paramMap.subscribe(params => {
@@ -42,6 +46,10 @@ export class MarcasComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para configurar las marcas en listas de 5 elementos
+   * y que se muestren por filas de dichos elementos
+   */
   configurarItems() {
     let listaDeCinco: Marca[] = [];
     let listaGlobalAux = [];
@@ -58,6 +66,7 @@ export class MarcasComponent implements OnInit {
     });
     this.listaGlobal = listaGlobalAux;
   }
+
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
     this.loading = this.filtroService.getLoading();
