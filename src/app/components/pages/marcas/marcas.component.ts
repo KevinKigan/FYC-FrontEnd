@@ -9,7 +9,7 @@ import {FiltroService} from '../../services/filtro.service';
 @Component({
   selector: 'app-marcas',
   templateUrl: './marcas.component.html',
-  styleUrls: ['./marcas.component.css']
+  styleUrls: ['./marcas.component.scss']
 })
 export class MarcasComponent implements OnInit {
 
@@ -54,8 +54,15 @@ export class MarcasComponent implements OnInit {
     let listaDeCinco: Marca[] = [];
     let listaGlobalAux = [];
     let i = 1;
+    let num_items = 0;
+    if(screen.width<800){
+      num_items = 3;
+    }else{
+      num_items = 5;
+    }
+
     this.marcas.forEach(marca => {
-      if ((i % 5 == 0 && i != 0)|| i==this.marcas.length) {
+      if ((i % num_items == 0 && i != 0)|| i==this.marcas.length) {
         listaDeCinco.push(marca);
         listaGlobalAux.push(listaDeCinco);
         listaDeCinco = [];

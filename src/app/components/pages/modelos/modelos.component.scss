@@ -168,25 +168,21 @@ mat-slider {
 .slideIn {
   position: absolute;
   animation-name: slideInR;
-  //z-index: 1000;
 }
 
 .slideOut {
   position: absolute;
-  //z-index: -1000;
   animation-name: slideOutR;
 }
 
 .slideInAlt {
   position: absolute;
   animation-name: slideInRAlt;
-  //z-index: 10;
 }
 
 .slideOutAlt {
   position: absolute;
   animation-name: slideOutRAlt;
-  //z-index: -5;
 }
 
 .slideOff {
@@ -197,64 +193,27 @@ mat-slider {
 .slideOffAlt {
   position: absolute;
   left: 0;
-
   top:6.2%;
 }
 
 @keyframes slideInR {
-  from {
-    //opacity: 0;
-    transform: translate(-350%, 0);
-    //z-index: -100;
-  }
-  to {
-    //opacity: 1;
-    //z-index: -100;
-    transform: translate(175%, 0);
-  }
-  //100% {z-index: 1000;}
+  from {transform: translate(-350%, 0);}
+  to {transform: translate(175%, 0);}
 }
 
 @-webkit-keyframes slideInR {
-  from {
-    //opacity: 0;
-    //z-index: -100;
-    transform: translate(-350%, 0);
-  }
-  to {
-    //opacity: 1;
-    //z-index: -100;
-    transform: translate(175%, 0);
-  }
-  //100% {z-index: 1000;}
+  from {transform: translate(-350%, 0);}
+  to {transform: translate(175%, 0);}
 }
 
-
 @keyframes slideOutR{
-
-  from {
-    transform: translate(175%, 0);
-    //opacity: 1;
-  }
-  to {
-    transform: translate(-350%, 0);
-    //opacity: 0;
-  }
-  //100% {z-index: 1000;}
-  //0% {z-index: 1000;}
+  from {transform: translate(175%, 0);}
+  to {transform: translate(-350%, 0);}
 }
 
 @-webkit-keyframes slideOutR {
-  from {
-    transform: translate(175%, 0);
-    //opacity: 1;
-  }
-  to {
-    transform: translate(-350%, 0);
-    //opacity: 0;
-  }
-  //100% {z-index: 1000;}
-  //0% {z-index: 1000;}
+  from {transform: translate(175%, 0);}
+  to {transform: translate(-350%, 0);}
 }
 @keyframes slideInRAlt {
   from {
@@ -287,19 +246,16 @@ mat-slider {
   to {
     transform: translate(0, 50%);
     top:3%;
-    //z-index: 0;
   }
 }
 
 @-webkit-keyframes slideOutRAlt {
   from {
     transform: translate(1530%, 50%);
-    //top:5%;
   }
   to {
     transform: translate(0, 50%);
     top:3%;
-    //z-index: 0;
   }
 }
 
@@ -307,13 +263,11 @@ mat-slider {
   position: fixed;
   width: auto;
   height: 100%;
-  //z-index: 100;
 }
 .styleSlideAlt{
   position: relative;
   width: 150px;
   height: 100%;
-  //z-index: 90;
 }
 
 .css-shapes-preview{

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css'],
+  styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
 
@@ -15,4 +15,5 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.year = new Date().getFullYear();
   }
+  //TODO que no aparezca el footer hasta que este cargada la pagina
 }

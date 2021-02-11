@@ -7,11 +7,15 @@ export const environment = {
 };
 
 const dns = "http://localhost:8080";
+// import {URL_BACKEND} from '../app/config/config';
+//
+// const dns = URL_BACKEND;
 
 export const urlEndPoint                         = dns+"/api";
 export const urlEndPointChart                    = urlEndPoint+"/coches/chart";
 export const urlEndPointMarcas                   = urlEndPoint+"/modelos/marcas";
 export const urlEndPointModelo                   = urlEndPoint+"/modelo/";
+export const urlEndPointModelos                  = urlEndPoint+"/modelos/";
 export const urlEndPointImgLogo                  = urlEndPoint+"/img/logo";
 export const urlEndPointFiltrar                  = urlEndPoint+"/modelos/filtros";
 export const urlEndPointConsumo                  = urlEndPoint+"/coches/consumo";

@@ -87,8 +87,6 @@ tbody {
 
 .styleA {
   position: relative;
-  //background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.1276334269662921) 100%);
-  //border-radius: 50px;
   white-space: normal;
   color: #666;
   transition: .5s;
@@ -107,14 +105,11 @@ tbody {
 
 .styleA:hover::before {
   transform: scale(1.1);
-  //box-shadow: 0 0 15px #ffee10;
-
   font-style: italic;
 }
 
 .styleA:hover {
   box-shadow: 0 0 15px #ffee10;
-  //text-shadow: 0 0 20px #ffee10;
 }
 
 .marginPerso {
@@ -128,7 +123,6 @@ tbody {
 .centrado {
   text-align: center;
   position: relative;
-  //top: 25%;
   -ms-transform: translateY(30%);
   -webkit-transform: translateY(30%);
   transform: translateY(30%);
@@ -149,7 +143,6 @@ tbody {
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
-  /*change color of label*/
   color: #736e24 !important;
 }
 
@@ -159,7 +152,6 @@ tbody {
 }
 
 ::ng-deep.mat-form-field-ripple {
-  /*change color of underline when focused*/
   background-color: #ffee10 !important;;
 }
 
@@ -179,7 +171,6 @@ tbody {
   width: auto;
   height: 12rem;
   max-width: 18rem;
-  //height: 10rem;
   max-height: 15rem;
 }
 
@@ -187,7 +178,6 @@ tbody {
   width: 100%;
   height: 100%;
   max-width: 15rem;
-  //height: 10rem;
   max-height: 15rem;
 }
 
@@ -208,10 +198,6 @@ tbody {
   transform: translatey(-100%);
   filter: opacity(0);
   animation-duration: 0.5s ;
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
-  //height: 100%;
 }
 
 .noHoverTxt{
