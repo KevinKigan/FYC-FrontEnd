@@ -15,6 +15,7 @@ export class PaginatorComponent implements OnInit {
   pages: number[];
   idMarca: number=-1;
   pathConMarca: string;
+  redirectPath: string = '/redirect/'+14+'/marca';
   totalPaginas: number;
   itemsPorPagina: number;
   paginaActual: number;
@@ -70,7 +71,8 @@ export class PaginatorComponent implements OnInit {
 
   paginatorActualizado(size:number): void {
     this.itemsPorPagina = size;
-    this.cochesService.updateItemsPorPagina(size).subscribe();
+    this.redirectPath = '/redirect/'+size+'/marca';
+    this.router.navigate([this.redirectPath,this.idMarca]);
   }
 
   actualizarPagina(page:number):void{

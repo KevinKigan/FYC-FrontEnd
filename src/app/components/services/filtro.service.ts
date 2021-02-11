@@ -114,6 +114,11 @@ export class FiltroService {
     }
   }
 
+  /**
+   * Metodo para resetear los filtros
+   *
+   * @param filtro
+   */
   reset(filtro: string) {
     if (filtro == 'todos') {
       this.setFiltro(false);
@@ -153,6 +158,9 @@ export class FiltroService {
     }
   }
 
+  /**
+   * Metodo para obrener los filtros
+   */
   getFiltros(): any {
 
     let filtro = [];

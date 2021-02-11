@@ -64,8 +64,8 @@
               mat-button [matMenuTriggerFor]="menu">
         Elemetos: {{itemsPorPagina}}</button>
       <mat-menu #menu="matMenu" style="color: #7abaff">
-          <button [routerLink]="['/redirect/marca',idMarca]" *ngFor="let size of opcionesDePagina" mat-menu-item
-                  (click)="paginatorActualizado(size)">{{size}}</button>
+          <button (click)="paginatorActualizado(size)" *ngFor="let size of opcionesDePagina" mat-menu-item
+                  >{{size}}</button>
       </mat-menu>
     </li>
     <li>

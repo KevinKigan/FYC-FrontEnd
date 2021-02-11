@@ -9,7 +9,7 @@ import {FiltroService} from '../../services/filtro.service';
 @Component({
   selector: 'app-marcas',
   templateUrl: './marcas.component.html',
-  styleUrls: ['./marcas.component.css']
+  styleUrls: ['./marcas.component.scss']
 })
 export class MarcasComponent implements OnInit {
 
@@ -23,6 +23,10 @@ export class MarcasComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private filtroService: FiltroService) { }
 
+  /**
+   * Metodo para iniciar el componente
+   *
+   */
   ngOnInit(): void {
     this.setLoading(true);
     this.activatedRoute.paramMap.subscribe(params => {
@@ -42,12 +46,23 @@ export class MarcasComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para configurar las marcas en listas de 5 elementos
+   * y que se muestren por filas de dichos elementos
+   */
   configurarItems() {
     let listaDeCinco: Marca[] = [];
     let listaGlobalAux = [];
     let i = 1;
+    let num_items = 0;
+    if(screen.width<800){
+      num_items = 3;
+    }else{
+      num_items = 5;
+    }
+
     this.marcas.forEach(marca => {
-      if ((i % 5 == 0 && i != 0)|| i==this.marcas.length) {
+      if ((i % num_items == 0 && i != 0)|| i==this.marcas.length) {
         listaDeCinco.push(marca);
         listaGlobalAux.push(listaDeCinco);
         listaDeCinco = [];
@@ -58,6 +73,7 @@ export class MarcasComponent implements OnInit {
     });
     this.listaGlobal = listaGlobalAux;
   }
+
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
     this.loading = this.filtroService.getLoading();

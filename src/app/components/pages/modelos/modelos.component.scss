@@ -69,15 +69,16 @@ mat-slider {
   -o-transform: skew(20deg);
 }
 .tri {
-  width: 200px;
-  left: 40%;
+  width: 300px;
+  left: 41%;
   height: 75px;
+  display: table;
   position: absolute;
   background: transparent;
   border-radius: 1px;
   border-style: solid;
   border-top-color: #ffee10;
-  border-bottom-color:transparent;
+  border-bottom-color:#ffee10;
   border-right-color: transparent;
   border-left-color: transparent;
   z-index: 0;
@@ -104,7 +105,7 @@ mat-slider {
 }
 .forma{
   display: inline-block;
-  margin: 16px;
+  margin-right: 0;
 }
 .formaFiltros{
   display: block;
@@ -177,13 +178,11 @@ mat-slider {
 .slideInAlt {
   position: absolute;
   animation-name: slideInRAlt;
-  z-index: -10;
 }
 
 .slideOutAlt {
   position: absolute;
   animation-name: slideOutRAlt;
-  z-index: -5;
 }
 
 .slideOff {
@@ -194,54 +193,27 @@ mat-slider {
 .slideOffAlt {
   position: absolute;
   left: 0;
-
   top:6.2%;
 }
 
 @keyframes slideInR {
-  from {
-    //opacity: 0;
-    transform: translate(-175%, 0);
-  }
-  to {
-    //opacity: 1;
-    transform: translate(0%, 0);
-  }
+  from {transform: translate(-350%, 0);}
+  to {transform: translate(175%, 0);}
 }
 
 @-webkit-keyframes slideInR {
-  from {
-    //opacity: 0;
-    transform: translate(-175%, 0);
-  }
-  to {
-    //opacity: 1;
-    transform: translate(0%, 0);
-  }
+  from {transform: translate(-350%, 0);}
+  to {transform: translate(175%, 0);}
 }
 
-
 @keyframes slideOutR{
-
-  from {
-    transform: translate(0%, 0);
-    //opacity: 1;
-  }
-  to {
-    transform: translate(-175%, 0);
-    //opacity: 0;
-  }
+  from {transform: translate(175%, 0);}
+  to {transform: translate(-350%, 0);}
 }
 
 @-webkit-keyframes slideOutR {
-  from {
-    transform: translate(0%, 0);
-    //opacity: 1;
-  }
-  to {
-    transform: translate(-175%, 0);
-    //opacity: 0;
-  }
+  from {transform: translate(175%, 0);}
+  to {transform: translate(-350%, 0);}
 }
 @keyframes slideInRAlt {
   from {
@@ -280,7 +252,6 @@ mat-slider {
 @-webkit-keyframes slideOutRAlt {
   from {
     transform: translate(1530%, 50%);
-    //top:5%;
   }
   to {
     transform: translate(0, 50%);
@@ -290,15 +261,13 @@ mat-slider {
 
 .styleSlide{
   position: fixed;
-  width: 150px;
+  width: auto;
   height: 100%;
-  z-index: 100;
 }
 .styleSlideAlt{
   position: relative;
   width: 150px;
   height: 100%;
-  z-index: 90;
 }
 
 .css-shapes-preview{
@@ -341,3 +310,40 @@ mat-slider {
   text-shadow: 0 0 10px #ffee10;
 }
 
+.imgModelo{
+  display: block;
+  max-height: 100%;
+  z-index: 1;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+.imgMarcas{
+  max-width: 32%;
+  width: auto;
+  max-height: 85%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  ;
+}
+
+.precio{
+  color:#efd500;
+  text-shadow: 1px 1px 0px #ae9100;
+}
+.zIndexOut{
+  //z-index: -1000;
+}
+.zIndexIn{
+  //z-index: 5000;
+}
+
+.appS{
+  top:2%;
+  //z-index: 10;
+  height:100%;
+  width: 50px;
+}

@@ -20,6 +20,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+import {GoogleMapsModule} from '@angular/google-maps';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
@@ -30,6 +32,8 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
+import { ModeloEspecificoComponent } from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
+import { ConocemeComponent } from './components/pages/conoceme/conoceme.component';
 
 
 @NgModule({
@@ -44,6 +48,8 @@ import {LoadingComponent} from './components/share/loading/loading.component';
     MarcasComponent,
     SidebarComponent,
     LoadingComponent,
+    ModeloEspecificoComponent,
+    ConocemeComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,7 @@ import {LoadingComponent} from './components/share/loading/loading.component';
     FormsModule,
     MDBBootstrapModule.forRoot(),
     MatPaginatorModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatExpansionModule,
     MatMenuModule,
@@ -68,7 +75,8 @@ import {LoadingComponent} from './components/share/loading/loading.component';
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     PerfectScrollbarModule,
-    MatSliderModule
+    MatSliderModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
