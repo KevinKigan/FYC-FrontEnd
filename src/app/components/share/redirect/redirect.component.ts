@@ -26,21 +26,19 @@ export class RedirectComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let idMarca = +params.get('marca');
+      let pageSize = +params.get('pageSize');
       let modeloEspecifico = +params.get('modeloespecifico');
       let path='';
-      console.log('idMarca = '+idMarca);
-      console.log('modeloEspecifico = '+modeloEspecifico);
       if(modeloEspecifico>0){
         this.router.navigate([this.pathModeloEspecifico+modeloEspecifico]);
       }else {
         if (idMarca > 0) {
-          path = this.pathModelosPorMarca + idMarca + '/page/0';
+          path = 'modelos/'+ pageSize +'/marca/' + idMarca + '/page/0';
         } else {
-          path = this.pathModelos + 0;
+          path = 'modelos/'+pageSize+'/page/' + 0;
         }
         this.router.navigate([path]);
       }
     });
   }
-
 }

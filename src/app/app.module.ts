@@ -21,6 +21,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
+import {GoogleMapsModule} from '@angular/google-maps';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RedirectComponent } from './components/share/redirect/redirect.component';
@@ -74,7 +75,8 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     PerfectScrollbarModule,
-    MatSliderModule
+    MatSliderModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

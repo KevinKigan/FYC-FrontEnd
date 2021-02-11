@@ -23,6 +23,7 @@ export class ModelosComponent implements OnInit {
   coches: Coche[];
   modelos: Modelo[];
   modelos_totales: Modelo[];
+  pageSize:number;
   listaGlobal: any[] = new Array([]);
   loading: boolean = true;
   paginator: any;
@@ -74,8 +75,12 @@ export class ModelosComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       let page = +params.get('page'); // El operador suma transforma el string en un number
       let marca = +params.get('marca');
+      this.pageSize = +params.get('pageSize');
       if (!page || page < 0) {
         page = 0;
+      }
+      if (!this.pageSize || this.pageSize <= 0) {
+        this.pageSize = 20;
       }
       this.marca.idMarca = marca;
 
@@ -241,7 +246,7 @@ export class ModelosComponent implements OnInit {
       modelos = this.cochesService.getModelosPorMarca(marca, page);
       this.paths = [];
       this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca); // Path de peticion http
-      this.paths[1] = '/modelos/marca/' + marca + '/page/'; // Path de peticion en app-routing-module
+      this.paths[1] = '/modelos/'+this.pageSize+'/marca/' + marca + '/page/'; // Path de peticion en app-routing-module
       modelosTotales = this.cochesService.getModelosPorMarcaSinPaginar(marca);
 
       modelosTotales.subscribe(response => {
@@ -257,9 +262,9 @@ export class ModelosComponent implements OnInit {
         );
       });
     } else if (this.filtroService.getFiltro()) {
-      modelos = this.getModelosFiltrados(page);
+      modelos = this.getModelosFiltrados(page, this.pageSize);
     } else {
-      modelos = this.cochesService.getModelos(page);
+      modelos = this.cochesService.getModelos(page,this.pageSize);
     }
     modelos.subscribe(response => {
       this.modelos = response.content as Modelo[];
@@ -327,9 +332,10 @@ export class ModelosComponent implements OnInit {
   /**
    * Metodo para buscar los modelos filtrados
    * @param page
+   * @param pageSize
    */
-  getModelosFiltrados(page: number): Observable<any> {
-    return this.cochesService.filtrar(this.filtroService.getFiltros(), page);
+  getModelosFiltrados(page: number, pageSize: number): Observable<any> {
+    return this.cochesService.filtrar(this.filtroService.getFiltros(), page, pageSize);
   }
 
   /**

@@ -12,7 +12,7 @@ import {
   urlEndPointModelo,
   urlEndPointPreciosPagina,
   urlEndPointCochesPorModelo,
-  urlEndPointConsumo, urlEndPointMotorCombustion, urlEndPointChart, urlEndPointChartSemejantes
+  urlEndPointConsumo, urlEndPointMotorCombustion, urlEndPointChart, urlEndPointChartSemejantes, urlEndPointModelos
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -38,9 +38,10 @@ export class CochesService {
    * Metodo para buscar una pagina de modelos
    *
    * @param page Pagina de modelos
+   * @param pageSize
    */
-  getModelos(page: number): Observable<any> {
-    this.modelos = this.http.get<Modelo[]>(urlEndPointModelosPage + page).pipe(
+  getModelos(page: number, pageSize: number): Observable<any> {
+    this.modelos = this.http.get<Modelo[]>(urlEndPointModelos + pageSize +'/page/' + page).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
           return modelo;
@@ -280,9 +281,10 @@ export class CochesService {
    * @param filtros
    * @param page
    */
-  filtrar(filtros: any, page: number): Observable<any> {
+  filtrar(filtros: any, page: number, pageSize: number): Observable<any> {
     console.log(filtros);
-    return this.http.post<any>(`${urlEndPointFiltrar}/page/${page}`, filtros).pipe(
+    console.log(pageSize);
+    return this.http.post<any>(`${urlEndPointModelos}${pageSize}/filtros/page/${page}`, filtros).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
           return modelo;

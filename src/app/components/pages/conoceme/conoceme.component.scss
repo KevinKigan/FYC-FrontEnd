@@ -1,11 +1,8 @@
 .propietario{
   margin:10px auto;
-  /*position: absolute;*/
   display:block;
   width: 400px;
   height: auto;
-  /*margin-left:50%;*/
-  /*margin-right:50%;*/
 
 }
 .imgfondo{
@@ -16,8 +13,8 @@
   transform: translatey(-15%);
 }
 .author {
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 2s; /* don't forget to set a duration! */
+  animation: fadeIn;
+  animation-duration: 2s;
 }
 
 .font {
@@ -58,7 +55,7 @@
   z-index: 1;
 }
 
-          #wrapper {
+#wrapper {
   text-align: center;
 }
 
@@ -66,8 +63,6 @@
   color: rgb(220, 204, 100);
   letter-spacing: 1em;
 }
-
-// Here's the meat and potatoes.
 
 /* Our mixin positions a copy of our text
 directly on our existing text, while

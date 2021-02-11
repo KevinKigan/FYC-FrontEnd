@@ -9,7 +9,6 @@ import {Consumo} from '../../../../models/consumo';
 import {Volumen} from '../../../../models/volumen';
 import {MotorCombustion} from '../../../../models/motorCombustion';
 import {Sobrealimentacion} from '../../../../models/sobrealimentacion';
-import {element} from 'protractor';
 
 
 @Component({
@@ -22,7 +21,6 @@ export class ModeloEspecificoComponent implements OnInit {
   public chartType: string = 'bar';
   filtros: string[] = ['Precio', 'Consumo', 'Potencia', 'Emisiones', 'Cilindrada'];
   comparar: string = 'cualquiera';
-  clasecard: string = 'noHoverImg';
   claseTxt: string = 'yHoverTxt';
   modelo: Modelo;
   coches: Coche[] = [];
@@ -69,6 +67,9 @@ export class ModeloEspecificoComponent implements OnInit {
   private minimoPotencia: any;
   private minimoEmisiones: any;
   private minimoConsumo: any;
+
+  center = {lat: 24, lng: 12};
+  display?: google.maps.LatLngLiteral;
 
   constructor(private cochesService: CochesService,
               private activatedRoute: ActivatedRoute,
@@ -174,37 +175,6 @@ export class ModeloEspecificoComponent implements OnInit {
     this.filaS.push(this.filaS2);
     console.log(this.filaS);
   }
-  // uploadFoto() {
-  //
-  //   if (!this.selectedImage) {
-  //     // @ts-ignore
-  //     swal('Error Upload: ', 'Debe seleccionar una foto', 'error');
-  //   } else {
-  //     this.clienteService.uploadPhoto(this.selectedImage, this.cliente.id)
-  //       .subscribe(event => {
-  //         console.log(event.type);
-  //         if (event.type === HttpEventType.UploadProgress) {
-  //           this.progress = Math.round((event.loaded / event.total) * 100);
-  //         } else if (event.type === HttpEventType.Response) {
-  //           let response: any = event.body;
-  //           this.cliente = response.cliente as Cliente;
-  //
-  //           this.modalService.notifyUpload.emit(this.cliente);
-  //           // @ts-ignore
-  //           swal('La foto se ha subido completamente!', response.mensaje, 'success');
-  //         }
-  //       });
-  //   }
-  // }
-
-
-  // public chartDatasets: Array<any> = [
-  //   { data: [65, 59], label: 'My First dataset' },
-  //   { data: [60, 40], label: 'My Second dataset' }
-  // ];
-
-
-  // public chartLabels: Array<any> = ['Red'];
 
   public chartColors: Array<any> = [
     {
@@ -222,17 +192,11 @@ export class ModeloEspecificoComponent implements OnInit {
     }
   ];
 
-
-  // public chartOptions: any = {
-  //   responsive: true
-  // };
-
   public chartLabelsRadar: Array<any> = ['Precio', 'Consumo Medio', 'Cilindrada', 'Potencia (CV)', 'Emisiones (CO2)'];
 
   public chartColorsRadar: Array<any> = [
     {
       borderColor: 'rgba(162,157,0,0.7)',
-      // backgroundColor: 'rgba(140,125,0,0./2)',
       backgroundColor: 'rgba(255,238,16,0.2)',
       borderWidth: 2,
     },
@@ -278,11 +242,6 @@ export class ModeloEspecificoComponent implements OnInit {
    *
    */
   formatValues() {
-    // console.log('Precio coche: ' + this.precioC + ' | Precio similares: ' + this.precioCS);
-    // console.log('potencia coche: ' + this.potenciaC + ' | potencia similares: ' + this.potenciaCS);
-    // console.log('cilindrada coche: ' + this.cilindradaC + ' | cilindrada similares: ' + this.cilindradaCS);
-    // console.log('consumo coche: ' + this.consumoC + ' | consumo similares: ' + this.consumoCS);
-    // console.log('emisiones coche: ' + this.emisionesC + ' | emisiones similares: ' + this.emisionesCS);
     this.positivos['precioCOriginal'] = this.precioC;
     this.positivos['precioCSOriginal'] = this.precioCS;
     this.positivos['potenciaCSOriginal'] = this.potenciaCS;
@@ -291,7 +250,6 @@ export class ModeloEspecificoComponent implements OnInit {
     this.positivos['consumoCOriginal'] = this.consumoC;
     this.positivos['emisionesCSOriginal'] = this.emisionesCS;
     this.positivos['emisionesCOriginal'] = this.emisionesC;
-    //Precio potencia consumo emisiones
     let minimo: number = 10;
 
     //Precio
@@ -399,7 +357,6 @@ export class ModeloEspecificoComponent implements OnInit {
       plugins: {
         legend: {
           labels: {
-            // This more specific font property overrides the global property
             font: {
               size: 18
             }
@@ -474,7 +431,6 @@ export class ModeloEspecificoComponent implements OnInit {
     plugins: {
       legend: {
         labels: {
-          // This more specific font property overrides the global property
           font: {
             size: 18
           }
@@ -562,22 +518,8 @@ export class ModeloEspecificoComponent implements OnInit {
     }
   }
 
-  hola: string = 'hola';
-
-
-  cambiar(number: number) {
-    this.hola = '1';
-  }
 
   mouseEnter(modelo: any,ind1:any,ind2:any) {
-    // console.log(modelo);
-    // if(this.clasecard == 'noHoverImg'){
-    //   this.clasecard = 'yHoverImg';
-    //   this.claseTxt = 'noHoverTxt';
-    // }else{
-    //   this.clasecard = 'noHoverImg';
-    //   this.claseTxt = 'yHoverTxt';
-    // }
     if ( document.getElementById(modelo+'Txt'+ind1+ind2).classList.contains('noHoverTxt')){
       document.getElementById(modelo+'Txt'+ind1+ind2).classList.remove('noHoverTxt');
       document.getElementById(modelo+'Txt'+ind1+ind2).classList.add('yHoverTxt');
