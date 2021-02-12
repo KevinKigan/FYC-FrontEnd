@@ -1,11 +1,11 @@
-<div style="margin-top: 7%"></div>
+<div class="initialDiv"></div>
 <app-loading *ngIf="loading"></app-loading>
+
 <div id="mainDiv" class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
-
   <mdb-card *ngFor="let marca of global" class="cardPerso">
-    <div class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
-      <img [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
+    <div [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
+      <img src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
            class="img-fluid rounded">
       <a>
         <div class="mask"></div>
