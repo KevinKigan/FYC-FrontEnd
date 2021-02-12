@@ -56,7 +56,7 @@ export class MarcasComponent implements OnInit {
     let i = 1;
     let num_items = 0;
     if(screen.width<800){
-      num_items = 3;
+      num_items = 2;
     }else{
       num_items = 5;
     }

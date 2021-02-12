@@ -45,10 +45,8 @@ export class HeaderComponent implements OnInit {
    */
   getAnimation() {
     if(screen.width<limitSizeScreen) {
-      console.log('tiene animacion');
       return 'animation';
-    }else {
-      console.log('no tiene animacion');
+    }else{
       return '';
     }
   }

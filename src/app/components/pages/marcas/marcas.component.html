@@ -1,22 +1,26 @@
 <div style="margin-top: 7%"></div>
 <app-loading *ngIf="loading"></app-loading>
-<div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
+<div id="mainDiv" class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
-  <!-- Card -->
 
-  <mdb-card *ngFor="let marca of global" style="width: 18rem;max-width: 18rem;height: 20rem;max-height: 20rem">
+  <mdb-card *ngFor="let marca of global" class="cardPerso">
     <div class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
-      <img [routerLink]="['/modelos/page',0]" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen" class="img-fluid rounded">
+      <img [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
+           class="img-fluid rounded">
       <a>
         <div class="mask"></div>
       </a>
     </div>
-    <!--Card content-->
-    <mdb-card-body class="bg-perso" >
-      <mdb-card-title>
-        <h1 style="@media (min-width: 100px)">{{marca.marcaCoche}}</h1>
-      </mdb-card-title>
-      <button mdbBtn [routerLink]="['/modelos/marca',marca.idMarca,'page',0]" type="button" color="warning" class="styleA " rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>
-    </mdb-card-body>
+    <div class="bg-perso">
+      <mdb-card-body>
+        <mdb-card-title>
+          <div style=" max-height: 100%">
+          <h2 class="truncar">{{marca.marcaCoche}}</h2>
+          </div>
+        </mdb-card-title>
+        <button mdbBtn [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" type="button" color="warning"
+                class="styleA " rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>
+      </mdb-card-body>
+    </div>
   </mdb-card>
 </div>

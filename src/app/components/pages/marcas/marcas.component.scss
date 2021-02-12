@@ -1,5 +1,20 @@
 $limitSizeScreen: 600px;
 
+.break-word {
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  // Non standard for webkit
+  word-break: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
 img {
   position: absolute;
   top: 50%;
@@ -9,21 +24,22 @@ img {
   max-height: 100%;
 }
 
-.divPhoto{
+.divPhoto {
   height: 60%;
 }
-.bg-perso{
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.4310042134831461) 100%);
+
+.bg-perso {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(37, 37, 37, 0.4310042134831461) 100%);
 }
 
-a{
+a {
   background: black;
 }
+
 .styleA {
   position: relative;
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.1276334269662921) 100%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(37, 37, 37, 0.1276334269662921) 100%);
   border-radius: 50px;
   white-space: normal;
   color: #666;
@@ -52,6 +68,12 @@ a{
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
 }
+.truncar{
+  width:95%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}
 
 //Pantallas grandes
 @media only screen and (min-width: $limitSizeScreen) {
@@ -59,11 +81,78 @@ a{
   /*  min-height: 5rem;*/
   /*  max-height: 5rem;*/
   /*}*/
+  .cardPerso {
+    width: 18rem;
+    max-width: 18rem;
+    height: 20rem;
+    max-height: 20rem;
+  }
+  h2{
+    font-size: 18px;
+    padding: 0 0 0 15px;
+  }
+
 
 }
 
 //Pantallas pequeñas
 @media only screen and (max-width: $limitSizeScreen) {
+    .cardPerso {
+    display: inline-block;
+    margin: 0 5%;
+    height: 80%;
+    justify-content: space-evenly;
+    top: 0;
+  }
+
+  h2{
+    font-size: 18px;
+    padding: 0 0 0 15px;
+  }
+
+  #mainDiv{
+    height: 20rem;
+  }
+
+  mdb-card {
+    width: 40%;
+    //max-width: 20%;
+    //max-width: 5rem;
+    height: 50%;
+  }
+
+  mdb-card-body{
+    width: 100%;
+  }
+
+  mdb-card-body button {
+    display: none;
+  }
+
+  .styleA {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(24, 24, 24, 0.13) 100%);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //mdb-card div img{
+  //  display: none;
+  //}
   /*.navStyle{*/
   /*  background: transparent;*/
   /*}*/
