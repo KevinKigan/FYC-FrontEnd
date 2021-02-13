@@ -1,3 +1,11 @@
+.figuras{
+  width: 100%;
+  //display: inline-block;
+  transform: translateX(-50%);
+  margin-left: 50%;
+  margin-bottom: 2%;
+}
+
 .padre {
   display: flex;
   align-items: center;
@@ -22,6 +30,8 @@ mat-slider {
   white-space: normal;
   color: #666;
   bottom: 5%;
+  width: 75%;
+  max-width: 75%;
   transition: .5s;
 }
 
@@ -44,6 +54,7 @@ mat-slider {
 .styleA:hover {
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
+  color: white;
 }
 
 .paralelogramo {
@@ -63,18 +74,22 @@ mat-slider {
   background: linear-gradient(to right, #2f2f2e, transparent);
   border-radius: 1px;
   border-style: solid;
+  margin: 0 50px;
   border-color: #ffee10;
-  -webkit-transform: skew(45deg);
-  -moz-transform: skew(20deg);
-  -o-transform: skew(20deg);
+  -webkit-transform: skew(45deg) ;
+  -moz-transform: skew(45deg);
+  -o-transform: skew(45deg);
+  transform: skew(45deg);
 }
 .tri {
   width: 300px;
-  left: 41%;
+  //left: 41%;
   height: 75px;
-  display: table;
+  left: 50%;
+  transform: translateX(-50%);
+  //display: table;
   position: absolute;
-  background: transparent;
+  background: linear-gradient(to right, transparent,#2f2f2e, transparent);
   border-radius: 1px;
   border-style: solid;
   border-top-color: #ffee10;
@@ -98,14 +113,16 @@ mat-slider {
   width: 150px;
   height: 50px;
   margin-top: 2%;
-  margin-left: 25%;
-  -webkit-transform: skew(-45deg);
-  -moz-transform: skew(-45deg);
-  -o-transform: skew(-45deg);
+  margin-left: 50%;
+  -webkit-transform: skew(-45deg) translateX(-90%);
+  -moz-transform: skew(-45deg) translateX(-50%);
+  -o-transform: skew(-45deg) translateX(-50%);
+  transform: skew(-45deg) translateX(-50%);
 }
 .forma{
-  display: inline-block;
-  margin-right: 0;
+  margin:0 auto;
+  //margin-right: 0;
+
 }
 .formaFiltros{
   display: block;
@@ -347,3 +364,7 @@ mat-slider {
   height:100%;
   width: 50px;
 }
+
+
+
+

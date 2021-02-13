@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {urlEndPointImgLogo} from '../../../../environments/environment';
-import {limitSizeScreen} from '../../../../main';
+import {limitInfSizeScreen, limitMidSizeScreen} from '../../../../main';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
    *
    */
   getSlide() {
-    if(screen.width<limitSizeScreen) {
+    if(screen.width<limitInfSizeScreen) {
       return this.slide;
     }else {
       return '';
@@ -44,11 +44,9 @@ export class HeaderComponent implements OnInit {
    * por tamaño de pantalla
    */
   getAnimation() {
-    if(screen.width<limitSizeScreen) {
-      console.log('tiene animacion');
+    if(screen.width<limitInfSizeScreen) {
       return 'animation';
-    }else {
-      console.log('no tiene animacion');
+    }else{
       return '';
     }
   }

@@ -167,9 +167,10 @@ export class CochesService {
    *
    * @param marca
    * @param page Pagina de modelos
+   * @param pageSize
    */
-  getModelosPorMarca(marca: number, page: number): Observable<any> {
-    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage + marca + '/page/' + page).pipe(
+  getModelosPorMarca(marca: number, page: number, pageSize:number): Observable<any> {
+    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage+pageSize+'/idmarca/' + marca + '/page/' + page).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
           return modelo;
@@ -186,7 +187,7 @@ export class CochesService {
    *
    */
   getModelosPorMarcaSinPaginar(marca: number): Observable<any> {
-    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage + marca).pipe(
+    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage+'idmarca/'+ marca).pipe(
       map((response: any) => {
         (response as Modelo[]).map(modelo => {
           return modelo;
@@ -200,9 +201,10 @@ export class CochesService {
    * Metodo para crear la ruta de la marca en el componente modelo
    *
    * @param marca Marca id
+   * @param pageSize
    */
-  getModelosPorMarcaPath(marca: number): string {
-    return urlEndPointModelosPorMarcaPage + marca + '/page/';
+  getModelosPorMarcaPath(marca: number, pageSize: number): string {
+    return urlEndPointModelosPorMarcaPage+pageSize+'/idmarca/' + marca + '/page/';
   }
 
   /**

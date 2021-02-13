@@ -1,7 +1,8 @@
 <div class="styleSlide" [ngClass]="{'toggled' : getSideBarState()}" style="z-index: 10">
-  <app-sidebar class="animation mt-8 appS" id="app-sidebar" [loading]="loading" [ngClass]="getSlide()" (filtrar)="actualizarFiltros($event)"></app-sidebar>
-<!--  <button class="btn animation css-shapes-preview" [ngClass]="getSlide()+'Alt'"(click)="setSlide()"></button>-->
-  <a class="myButton animation" [ngClass]="getSlide()+'Alt'"  (click)="setSlide()">
+  <app-sidebar class="animation mt-8 appS" id="app-sidebar" [loading]="loading" [ngClass]="getSlide()"
+               (filtrar)="actualizarFiltros($event)"></app-sidebar>
+  <!--  <button class="btn animation css-shapes-preview" [ngClass]="getSlide()+'Alt'"(click)="setSlide()"></button>-->
+  <a class="myButton animation" [ngClass]="getSlide()+'Alt'" (click)="setSlide()">
     <img style="filter: brightness(75%);width: 15px;height: auto" src="assets/images/filtrar.png">
   </a>
   <!--  <app-sidebar class="animation mt-8"  style="height:20%;width: 150px;left: -100px"></app-sidebar>-->
@@ -28,9 +29,8 @@
 
 
 <div style="margin-top: 5.5%"></div>
-<!--<div class="animation styleSlideAlt" [ngClass]="getSlide()+'Alt'">-->
-<div style="width: 100%;text-align: center; margin-bottom: 2%">
-  <div class="paralelogramoInv forma" style=" margin-right: 10.2%"><!--margin-right: 5.2%"-->
+<div class="figuras padre">
+  <div class="paralelogramoInv forma" style=" margin-right: 10.2%">
     <div class="normalInv">
       <form class="example-form">
         <mat-form-field class="example-full-width placeholder" style="color: white">
@@ -50,8 +50,10 @@
     </div>
   </div>
   <div class="tri forma">
-    <img *ngIf="marca.idMarca && marca.idMarca>=0"  src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}"  alt="Sin Imagen" class="img-fluid imgMarcas rounded">
-    <img *ngIf="!marca.idMarca || marca.idMarca<0" src="{{urlEndPointImgLogo}}/FYClogo.png"  alt="Sin Imagen" class="img-fluid imgMarcas rounded">
+    <img *ngIf="marca.idMarca && marca.idMarca>=0" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
+         class="img-fluid imgMarcas rounded">
+    <img *ngIf="!marca.idMarca || marca.idMarca<0" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen"
+         class="img-fluid imgMarcas rounded">
   </div>
   <div class="paralelogramo forma" style="margin-left: -0.85%">
     <div class="normal">
@@ -92,9 +94,10 @@
   <mdb-card *ngFor="let modelo of global" style="width: 20rem;max-width: 20rem;height: 28rem;max-height: 28rem;">
     <div class="view rgba-white-slight waves-light h-50" mdbWavesEffect>
       <!-- Card img -->
-<!--      <mdb-card-img  src="{{urlEndPointUploadImg}}/{{modelo.imagen}}.jpg" alt="{{modelo.imagen}}"></mdb-card-img>-->
+      <!--      <mdb-card-img  src="{{urlEndPointUploadImg}}/{{modelo.imagen}}.jpg" alt="{{modelo.imagen}}"></mdb-card-img>-->
       <a>
-        <img class="imgModelo" [routerLink]="['/modelo',modelo.idModelo]" src="{{urlEndPointUploadImg}}/{{modelo.imagen}}" alt="{{modelo.imagen}}">
+        <img class="imgModelo" [routerLink]="['/modelo',modelo.idModelo]"
+             src="{{urlEndPointUploadImg}}/{{modelo.imagen}}" alt="{{modelo.imagen}}">
       </a>
       <a>
         <div class="mask"></div>
@@ -103,15 +106,16 @@
     <!--Card content-->
     <mdb-card-body>
       <mdb-card-title>
-        <h1 style="font-size: 200%;">{{modelo.modelo}}</h1>
+        <h1 class="truncar" style="font-size: 200%;">{{modelo.modelo}}</h1>
       </mdb-card-title>
       <mdb-card-text>
         <h2>{{modelo.marca.marcaCoche}}</h2>
-        <h3 *ngIf="isNaN(precios,modelo) && precios.size>0"  class="precio">Precio no disponible</h3>
-        <h3 *ngIf="!isNaN(precios,modelo)&& precios.size>0" class="precio">Desde {{formatPrecio(precios,modelo)}}€</h3>
+        <h3 *ngIf="isNaN(precios,modelo) && precios.size>0" class="precio">Precio no disponible</h3>
+        <h3 *ngIf="!isNaN(precios,modelo)&& precios.size>0" class="precio">Desde {{formatPrecio(precios, modelo)}}€</h3>
       </mdb-card-text>
-      <button mdbBtn type="button" color="warning" class="styleA" rounded="true"
-              mdbWavesEffect [routerLink]="['/modelo',modelo.idModelo]">{{modelo.modelo}}</button>
+      <button mdbBtn type="button" color="warning" class="styleA truncar" rounded="true"
+              mdbWavesEffect [routerLink]="['/modelo',modelo.idModelo]"><span class="truncar">{{modelo.modelo}}</span>
+      </button>
     </mdb-card-body>
   </mdb-card>
 </div>
