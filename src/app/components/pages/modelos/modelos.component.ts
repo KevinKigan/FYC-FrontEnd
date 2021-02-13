@@ -193,6 +193,7 @@ export class ModelosComponent implements OnInit {
       this.router.navigate(['modelos'])
       this.marcaSeleccionada(null, 0, false);
     }else {
+      this.router.navigate(['/modelos/20/marca',idMarca,'page',0])
       this.marcaSeleccionada(idMarca, 0, false);
     }
     // this.autocompleteControl.setValue('');
@@ -243,9 +244,9 @@ export class ModelosComponent implements OnInit {
           this.marcaSelected = marcaF.marcaCoche;
         }
       });
-      modelos = this.cochesService.getModelosPorMarca(marca, page);
+      modelos = this.cochesService.getModelosPorMarca(marca, page,this.pageSize);
       this.paths = [];
-      this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca); // Path de peticion http
+      this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca, this.pageSize); // Path de peticion http
       this.paths[1] = '/modelos/'+this.pageSize+'/marca/' + marca + '/page/'; // Path de peticion en app-routing-module
       modelosTotales = this.cochesService.getModelosPorMarcaSinPaginar(marca);
 

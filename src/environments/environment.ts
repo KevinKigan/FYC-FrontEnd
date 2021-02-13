@@ -29,7 +29,7 @@ export const urlEndPointImgPropietario           = urlEndPoint+"/img/propietario
 export const urlEndPointChartSemejantes          = urlEndPoint+"/coches/chartsemejantes";
 export const urlEndPointMotorCombustion          = urlEndPoint+"/coches/motorescombustion";
 export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/";
-export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/idmarca/";
+export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/";
 export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 

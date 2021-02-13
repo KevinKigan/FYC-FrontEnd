@@ -4,6 +4,7 @@ import {Marca} from '../../../models/marca';
 import {CochesService} from '../../services/coches.service';
 import {urlEndPointImgMarcaLogo} from '../../../../environments/environment'
 import {FiltroService} from '../../services/filtro.service';
+import {limitInfSizeScreen, limitMidSizeScreen,limitBigMidSizeScreen} from '../../../../main';
 
 
 @Component({
@@ -55,12 +56,17 @@ export class MarcasComponent implements OnInit {
     let listaGlobalAux = [];
     let i = 1;
     let num_items = 0;
-    if(screen.width<800){
+    if(screen.width<limitInfSizeScreen){
       num_items = 2;
+    }else if(screen.width>limitInfSizeScreen && screen.width<limitMidSizeScreen){
+      num_items = 3;
+    }else if(screen.width>limitMidSizeScreen  && screen.width<limitBigMidSizeScreen){
+      num_items = 4;
     }else{
       num_items = 5;
     }
-
+console.log('width = '+screen.width);
+console.log(num_items);
     this.marcas.forEach(marca => {
       if ((i % num_items == 0 && i != 0)|| i==this.marcas.length) {
         listaDeCinco.push(marca);

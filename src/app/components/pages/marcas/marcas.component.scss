@@ -1,4 +1,5 @@
-$limitSizeScreen: 600px;
+$limitInfSizeScreen: 600px;
+$limitMidSizeScreen: 900px;
 
 .break-word {
   -ms-word-break: break-all;
@@ -39,11 +40,21 @@ a {
 .styleA {
   position: relative;
   background: rgb(255, 255, 255);
-  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(37, 37, 37, 0.1276334269662921) 100%);
+  background: -moz-linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+  background: linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525",endColorstr="#ffcc00",GradientType=1);
+  width: 70%; height: 50%;  font-size: 16px;
+  max-width: 100%;
   border-radius: 50px;
+  border-color: transparent;
   white-space: normal;
+  box-shadow: 0 0 5px #666;
+  border-width: 0;
   color: #666;
   transition: .5s;
+  margin-left: 25%;
+  transform: translateX(-15%);
 }
 
 .styleA::before {
@@ -67,13 +78,11 @@ a {
 .styleA:hover {
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
+  color: #666;
 }
 
-.truncar {
+h2{
   width: 95%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .initialDiv {
@@ -81,27 +90,36 @@ a {
 }
 
 //Pantallas grandes
-@media only screen and (min-width: $limitSizeScreen) {
-  /*mdb-navbar {*/
-  /*  min-height: 5rem;*/
-  /*  max-height: 5rem;*/
-  /*}*/
+@media only screen and (min-width: $limitInfSizeScreen) {
+
   .cardPerso {
     width: 18rem;
-    max-width: 18rem;
-    height: 20rem;
-    max-height: 20rem;
+    height: 24rem;
+    max-height: 24rem;
   }
   h2 {
-    font-size: 18px;
-    padding: 0 0 0 15px;
+    font-size: 20px;
+    padding: 0 0 0 30px;
   }
 
-
+  input{
+    justify-content: center;
+    margin-bottom: 30px;
+  }
 }
 
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen){
+
+  input{
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+}
+
+
 //Pantallas pequeñas
-@media only screen and (max-width: $limitSizeScreen) {
+@media only screen and (max-width: $limitInfSizeScreen) {
   .cardPerso {
     display: inline-block;
     margin: 0 5%;
@@ -137,7 +155,7 @@ a {
     width: 100%;
   }
 
-  mdb-card-body button {
+  input {
     display: none;
   }
 
