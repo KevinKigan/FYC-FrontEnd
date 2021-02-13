@@ -12,6 +12,7 @@ import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {SidebarService} from '../../services/sidebar.service';
 import {FiltroService} from '../../services/filtro.service';
+import {limitBigMidSizeScreen, limitInfSizeScreen, limitMidSizeScreen, limitLargeSizeScreen} from '../../../../main';
 
 @Component({
   selector: 'app-coches',
@@ -124,8 +125,18 @@ export class ModelosComponent implements OnInit {
     let listaDeCinco: Modelo[] = [];
     let listaGlobalAux = [];
     let i = 1;
+    let num_items = 0;
+    if(screen.width<limitMidSizeScreen){
+      num_items = 2;
+    }else if(screen.width>limitMidSizeScreen  && screen.width<limitBigMidSizeScreen){
+      num_items = 3;
+    }else if(screen.width>limitBigMidSizeScreen  && screen.width<limitLargeSizeScreen){
+      num_items = 4;
+    }else{
+      num_items = 5;
+    }
     this.modelos.forEach(modelo => {
-      if ((i % 5 == 0 && i != 0) || i == this.modelos.length) {
+      if ((i % num_items == 0 && i != 0) || i == this.modelos.length) {
         listaDeCinco.push(modelo);
         listaGlobalAux.push(listaDeCinco);
         listaDeCinco = [];

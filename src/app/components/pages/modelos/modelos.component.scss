@@ -1,4 +1,7 @@
-.figuras{
+$limitInfSizeScreen: 600px;
+$limitMidSizeScreen: 900px;
+
+.figuras {
   width: 100%;
   //display: inline-block;
   transform: translateX(-50%);
@@ -11,34 +14,49 @@
   align-items: center;
   text-align: right;
 }
+
 mat-slider {
   width: 300px;
   margin-top: 20%;
   margin-left: 10%;
 }
-
-.ul{
+.ul {
   position: absolute;
-  display:flex;
+  display: flex;
   justify-content: center;
 }
+
 .styleA {
   position: relative;
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.1276334269662921) 100%);
+  background: rgb(255, 255, 255);
+  //background: -moz-linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //background: -webkit-linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //background: linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525", endColorstr="#ffcc00", GradientType=1);
+  //background: rgb(37,37,37);
+  background: -moz-linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  background: linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525",endColorstr="#e4ba0f",GradientType=1);
+  width: 70%;
+  height: 20%;
+  font-size: 16px;
+  max-width: 100%;
   border-radius: 50px;
+  border-color: transparent;
   white-space: normal;
+  box-shadow: 0 0 5px #666;
+  border-width: 0;
   color: #666;
-  bottom: 5%;
-  width: 75%;
-  max-width: 75%;
   transition: .5s;
+  margin-left: 25%;
+  transform: translateX(-15%);
 }
 
 .styleA::before {
   content: '';
   position: absolute;
-  /*top: 0;*/
+  top: 0;
   left: 0;
   background: #ffee10;
   transition: .3s;
@@ -49,13 +67,16 @@ mat-slider {
 .styleA:hover::before {
   transform: scale(1.1);
   box-shadow: 0 0 15px #ffee10;
+
+  font-style: italic;
 }
 
 .styleA:hover {
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
-  color: white;
+  color: #666;
 }
+
 
 .paralelogramo {
   width: 300px;
@@ -71,6 +92,7 @@ mat-slider {
 .paralelogramoInv {
   width: 300px;
   height: 75px;
+  z-index: 2;
   background: linear-gradient(to right, #2f2f2e, transparent);
   border-radius: 1px;
   border-style: solid;
@@ -83,11 +105,9 @@ mat-slider {
 }
 .tri {
   width: 300px;
-  //left: 41%;
   height: 75px;
   left: 50%;
   transform: translateX(-50%);
-  //display: table;
   position: absolute;
   background: linear-gradient(to right, transparent,#2f2f2e, transparent);
   border-radius: 1px;
@@ -121,35 +141,12 @@ mat-slider {
 }
 .forma{
   margin:0 auto;
-  //margin-right: 0;
-
 }
 .formaFiltros{
   display: block;
   margin: 16px;
 }
-/*input[type=text] {*/
-/*  border: none;*/
-/*  border-bottom: 2px solid red;*/
-/*}*/
-//::ng-deep .mat-form-field-placeholder{
-//
-//  color:red;
-//}
-//
-//::ng-deep .mat-focused .mat-form-field-placeholder{
-//
-//  color:red;
-//}
-//::ng-deep .mat-form-field-underline .mat-form-field-ripple{
-//
-//  background-color:red;
-//}
-//
-//::ng-deep .mat-form-field-underline{
-//
-//  background-color:red;
-//}
+
 .placeholder {
   color: #ffee10;
 }
@@ -207,62 +204,80 @@ mat-slider {
   visibility: hidden;
   left: -200%;
 }
+
 .slideOffAlt {
   position: absolute;
   left: 0;
-  top:6.2%;
+  top: 6.2%;
 }
 
 @keyframes slideInR {
-  from {transform: translate(-350%, 0);}
-  to {transform: translate(175%, 0);}
+  from {
+    transform: translate(-350%, 0);
+  }
+  to {
+    transform: translate(175%, 0);
+  }
 }
 
 @-webkit-keyframes slideInR {
-  from {transform: translate(-350%, 0);}
-  to {transform: translate(175%, 0);}
+  from {
+    transform: translate(-350%, 0);
+  }
+  to {
+    transform: translate(175%, 0);
+  }
 }
 
-@keyframes slideOutR{
-  from {transform: translate(175%, 0);}
-  to {transform: translate(-350%, 0);}
+@keyframes slideOutR {
+  from {
+    transform: translate(175%, 0);
+  }
+  to {
+    transform: translate(-350%, 0);
+  }
 }
 
 @-webkit-keyframes slideOutR {
-  from {transform: translate(175%, 0);}
-  to {transform: translate(-350%, 0);}
+  from {
+    transform: translate(175%, 0);
+  }
+  to {
+    transform: translate(-350%, 0);
+  }
 }
+
 @keyframes slideInRAlt {
   from {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
 @-webkit-keyframes slideInRAlt {
   from {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
 
-@keyframes slideOutRAlt{
+@keyframes slideOutRAlt {
   from {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
@@ -272,22 +287,23 @@ mat-slider {
   }
   to {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
-.styleSlide{
+.styleSlide {
   position: fixed;
   width: auto;
   height: 100%;
 }
-.styleSlideAlt{
+
+.styleSlideAlt {
   position: relative;
   width: 150px;
   height: 100%;
 }
 
-.css-shapes-preview{
+.css-shapes-preview {
   position: relative;
   height: 37.5px;
   width: 50px;
@@ -304,17 +320,17 @@ mat-slider {
 
 
 .myButton {
-  border-radius:0px 25px 25px 0px;;
-  border:1px solid #6e6723;
-  display:inline-block;
+  border-radius: 0px 25px 25px 0px;;
+  border: 1px solid #6e6723;
+  display: inline-block;
   background-image: url("src/assets/images/filterBg.png");
-  cursor:pointer;
-  color:#333333;
-  font-family:Arial;
-  font-size:15px;
-  font-weight:bold;
-  padding:15px 0px;
-  text-decoration:none;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-decoration: none;
 }
 
 .myButton:hover::before {
@@ -327,7 +343,7 @@ mat-slider {
   text-shadow: 0 0 10px #ffee10;
 }
 
-.imgModelo{
+.imgModelo {
   display: block;
   max-height: 100%;
   z-index: 1;
@@ -335,7 +351,7 @@ mat-slider {
   transform: translatex(-50%);
 }
 
-.imgMarcas{
+.imgMarcas {
   max-width: 32%;
   width: auto;
   max-height: 85%;
@@ -343,28 +359,132 @@ mat-slider {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  ;
+  -webkit-transform: translate(-50%, -50%);;
 }
 
-.precio{
-  color:#efd500;
+.precio {
+  color: #efd500;
   text-shadow: 1px 1px 0px #ae9100;
 }
-.zIndexOut{
+
+.zIndexOut {
   //z-index: -1000;
 }
-.zIndexIn{
+
+.zIndexIn {
   //z-index: 5000;
 }
 
-.appS{
-  top:2%;
+.appS {
+  top: 2%;
   //z-index: 10;
-  height:100%;
+  height: 100%;
   width: 50px;
+}
+h1 {
+  font-size: 28px;
+}
+.cardPerso{
+  margin: 5% 5%;
+  box-shadow: 0 0 50px #000000;
+}
+mdb-card-body input {
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+//Pantallas grandes
+@media only screen and (min-width: $limitInfSizeScreen) {
+
+  .cardPerso {
+    width: 18rem;
+    height: 30rem;
+    max-height: 30rem;
+  }
+  h2 {
+    font-size: 20px;
+    //padding: 0 0 0 30px;
+  }
+
+  mdb-card-body input {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .cardPerso{
+    margin: 1% 1%;
+  }
 }
 
 
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen) {
+
+  mdb-card-body input {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .cardPerso{
+    margin: 5% 5%;
+  }
+
+}
 
 
+//Pantallas pequeñas
+@media only screen and (max-width: $limitInfSizeScreen) {
+  .cardPerso {
+    display: inline-block;
+    height: 20%;
+    justify-content: space-evenly;
+    top: 0;
+  }
+
+  .imgModelo {
+    height: 10rem;
+  }
+
+  .initialDiv {
+    margin-top: 20%;
+  }
+
+  h2 {
+    font-size: 18px;
+    //font-size: 200%;
+  }
+
+  h2, h1, h3 {
+    padding: 0 0 0 15px;
+  }
+
+  #mainDiv {
+    height: 20rem;
+  }
+
+  mdb-card {
+    width: 40%;
+    //max-width: 20%;
+    //max-width: 5rem;
+    height: 50%;
+  }
+
+  mdb-card-body {
+    width: 100%;
+  }
+  mdb-card-body input {
+    display: none;
+  }
+
+  .bg-perso {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.43) 100%);
+  }
+  button {
+    display: none;
+  }
+
+  //app-paginator{
+  //  display: none;
+  //}
+  //#figurasBusqueda{
+  //  display: none;
+  //}
+}

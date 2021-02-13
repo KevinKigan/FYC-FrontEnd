@@ -65,8 +65,6 @@ export class MarcasComponent implements OnInit {
     }else{
       num_items = 5;
     }
-console.log('width = '+screen.width);
-console.log(num_items);
     this.marcas.forEach(marca => {
       if ((i % num_items == 0 && i != 0)|| i==this.marcas.length) {
         listaDeCinco.push(marca);

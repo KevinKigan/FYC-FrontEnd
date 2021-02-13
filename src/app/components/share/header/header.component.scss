@@ -4,6 +4,7 @@ $limitSizeScreen: 600px;
   display: none;
   margin: 0;
   padding: 0;
+    //transform: translateY(-10px) scaleX(1.1);
 }
 
 .navImg {
@@ -61,7 +62,6 @@ span {
 .navStyle {
   background: linear-gradient(to right, #2f2f2e, transparent);
   font-size: 150%;
-  height: 10%;
 }
 
 .navbar.navbar-default {
@@ -79,9 +79,8 @@ span {
 .divPerso {
   position: absolute;
   right: 5em;
-
-
 }
+
 
 .inputPerso {
   width: 400%;
@@ -584,7 +583,10 @@ a:hover, a:focus {
 
     //background: linear-gradient(to right, #000000, #fff);
   }
-
+  .centerNav{
+    margin: 0;
+    transform: translateY(10%);
+  }
 }
 
 //Pantallas pequeñas
@@ -629,7 +631,7 @@ a:hover, a:focus {
   }
   .menu_bar {
     display: block;
-    width: 100%;
+    //width: 100%;
     left: 0;
     right: 0;
     top: 0;
@@ -651,11 +653,23 @@ a:hover, a:focus {
     text-decoration: none;
     font-weight: bold;
     font-size: 25px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    //box-sizing: border-box;
+    //-webkit-box-sizing: border-box;
+    //-moz-box-sizing: border-box;
   }
   .menu_bar i {
     float: right;
+  }
+  #lastDivGradient{
+    //display: none;
+    //transform: translateY(-8px);
+    top: 62px;
+  }
+  #firstDivGradient{
+    top: 62px;
+  }
+  .centerNav{
+    margin-top: 62px;
+    //transform: translateY(20%);
   }
 }
