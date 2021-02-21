@@ -65,17 +65,20 @@ export class PaginatorComponent implements OnInit {
         case 'smallScreen':
           numMinFrom1 = 0;
           numMinTo1 = 2
+          numMinFrom = 1;
+          numMinTo = 2;
           break;
         case 'mediumScreen':
-          numMinFrom1 = 2;
-          numMinTo1 = 4
+          numMinFrom1 = 1;
+          numMinTo1 = 3;
+          numMinFrom = 1;
+          numMinTo = 2;
           break;
         case 'bigScreen':
           numMinFrom1 = 2;
           numMinTo1 = 4
           break;
       }
-
       this.from = Math.min(Math.max(1, this.paginator.number - numMinFrom1), this.paginator.totalPages - numMinFrom);
       this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + numMinTo1), numMinTo);
 

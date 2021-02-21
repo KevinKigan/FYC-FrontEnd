@@ -17,7 +17,7 @@ li {
   margin: auto;
 }
 
-a,span {
+nav ul li a, ul li span, ul li button {
 vertical-align: middle;
   color: white;
   text-shadow: 2px 2px #1b1e21;
@@ -66,33 +66,11 @@ input {
 
   nav ul li a, ul li span, ul li button{
     font-size: 12px;
-    color: white;
-    border-radius: 50px;
-    //left: 0;
-    //margin-left: -10px;
-    //margin-right: -10px;
-    //width: 30px;
-    //transform: translateX(-10px);
   }
-
-  //ul li span{
-  //  width: 10px;
-  //  transform: translateX(-10px);
-  //  text-align: center;
-  //}
 
   div a{
     font-size: 12px;
-    color: white;
-    border-radius: 50px;
   }
-
-
-  //nav ul li a{
-  //  font-size: 12px;
-  //  color: white;
-  //  border-radius: 50px;
-  //}
 
 }
 
@@ -101,14 +79,8 @@ input {
 @media only screen and (min-width: $limitMediumSizeScreen) {
   nav ul li a,ul li span, ul li button{
     font-size: 15px;
-    color: white;
-    border-radius: 50px;
-    vertical-align: middle;
   }
   div a{
-    vertical-align: middle;
     font-size: 15px;
-    color: white;
-    border-radius: 50px;
   }
 }

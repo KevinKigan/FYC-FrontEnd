@@ -1,18 +1,18 @@
 <nav aria-label="Page navigation example" class="font-weight-bold">
   <ul *ngIf="pages?.length>0" class="pagination pg-amber justify-content-center" style="height: 100%">
     <li [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
-      <div *ngIf="formatoPantalla()=='smallScreen'">
+      <div *ngIf="formatoPantalla()=='smallScreen'&& !paginator.first && paginator.number>1">
         <a *ngIf="!paths" [routerLink]="[pathSinMarca,0]" class="page-link" tabindex="-1" mdbWavesEffect>1</a>
         <a *ngIf="paths" [routerLink]="[pathConMarca,0]" class="page-link" tabindex="-1" mdbWavesEffect>1</a>
       </div>
       <div *ngIf="formatoPantalla()!='smallScreen'">
         <a *ngIf="!paths" [routerLink]="[pathSinMarca,0]" class="page-link"
-           tabindex="-1" mdbWavesEffect>Primera</a>
+           tabindex="-1" mdbWavesEffect>1</a>
         <a *ngIf="paths" [routerLink]="[pathConMarca,0]" class="page-link"
-           tabindex="-1" mdbWavesEffect>Primera</a>
+           tabindex="-1" mdbWavesEffect>1</a>
       </div>
     </li>
-    <li style="width: 15px; transform: translateX(-10px);text-align: center;">
+    <li *ngIf="formatoPantalla()=='smallScreen'&& !paginator.first && paginator.number>1" style="width: 15px; transform: translateX(-10px);text-align: center;">
       <span class="page-link disabled suspensivos" style="text-align: center" tabindex="-1">...</span>
     </li>
 
@@ -58,13 +58,13 @@
       </a>
     </li>
 
-    <li style="width: 20px; transform: translateX(-10px);text-align: center;">
+    <li  *ngIf="formatoPantalla()=='smallScreen'&& !paginator.last && paginator.number<paginator.totalPages-2" style="width: 20px; transform: translateX(-10px);text-align: center;">
       <span class="page-link disabled suspensivos" tabindex="-1">...</span>
     </li>
     <!--    Boton ultima-->
 
     <li [ngClass]="paginator.last? 'disabled page-item': 'page-item'">
-      <div *ngIf="formatoPantalla()=='smallScreen'">
+      <div *ngIf="formatoPantalla()=='smallScreen'&& !paginator.last && paginator.number<paginator.totalPages-2">
         <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.totalPages-1]" class="page-link"
            tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
         <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.totalPages-1]" class="page-link"
@@ -72,9 +72,9 @@
       </div>
       <div *ngIf="formatoPantalla()!='smallScreen'">
         <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.totalPages-1]" class="page-link"
-           tabindex="-1" mdbWavesEffect>Última</a>
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
         <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.totalPages-1]" class="page-link"
-           tabindex="-1" mdbWavesEffect>Última</a>
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
       </div>
     </li>
 
