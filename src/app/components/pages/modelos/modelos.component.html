@@ -6,57 +6,60 @@
   </a>
 </div>
 
-
-<div style="margin-top: 80px"></div>
 <div id="figurasBusqueda" class="figuras padre">
-  <div class="paralelogramoInv forma" style=" margin-right: 10.2%">
-    <div class="normalInv">
-      <form class="example-form">
-        <mat-form-field class="example-full-width placeholder" style="color: white">
-          <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large">Marca</mat-placeholder>
-          <input (click)="borrarValor($event)" style="Font-family: fantasy; font-size: 20px" type="text"
-                 aria-label="Number" value="{{marcaSelected}}" matInput [formControl]="controlMarca"
-                 [matAutocomplete]="autoMarca">
-          <mat-autocomplete autoActiveFirstOption #autoMarca="matAutocomplete" (autocomplete)="false"
-                            (optionSelected)="selectionMarca($event)">
-            <mat-option *ngFor="let option of opcionesMarca | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
+  <div id="figuraIzq" class="paralelogramoInvExterno forma">
+    <div class="paralelogramoInvInterno">
+      <div id="divIzq" class="normalInv">
+        <form class="example-form">
+          <mat-form-field id="matIzq" class="example-full-width placeholder" style="color: white">
+            <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large">Marca</mat-placeholder>
+            <input id="inputIzq" (click)="borrarValor($event)" type="text"
+                   aria-label="Number" value="{{marcaSelected}}" matInput [formControl]="controlMarca"
+                   [matAutocomplete]="autoMarca">
+            <mat-autocomplete autoActiveFirstOption #autoMarca="matAutocomplete" (autocomplete)="false"
+                              (optionSelected)="selectionMarca($event)">
+              <mat-option *ngFor="let option of opcionesMarca | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
     </div>
   </div>
   <div class="tri forma">
-    <img src="{{getUrlMarca()}}" alt="Sin Imagen"
+    <img id="logoGrande" src="{{getUrlMarca()}}" alt="Sin Imagen"
          class="img-fluid imgMarcas rounded">
   </div>
-  <div class="paralelogramo forma" style="margin-left: -0.85%">
-    <div class="normal">
-      <form class="example-form">
-        <mat-form-field class="example-full-width" style="color: white; max-height: 10px">
-          <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large;">Modelo</mat-placeholder>
-          <input (click)="borrarValor($event)" style="margin-left: -0.85%; Font-family: fantasy; font-size: 20px"
-                 type="text" aria-label="Number" value="{{modeloSelected}}" matInput [formControl]="controlModelo"
-                 [matAutocomplete]="autoModelo">
-          <mat-autocomplete autoActiveFirstOption #autoModelo="matAutocomplete" (autocomplete)="false"
-                            (optionSelected)="selectionModelo($event)">
-            <mat-option *ngFor="let option of opcionesModelo | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
+  <div id="figuraDer" class="paralelogramoExterno forma">
+    <div class="paralelogramoInterno">
+      <div id="divDer" class="normal">
+        <form class="example-form">
+          <mat-form-field id="matDer"  class="example-full-width" style="color: white; max-height: 10px">
+            <mat-placeholder class="placeholder" style="Font-family: fantasy; font-size: large;">Modelo
+            </mat-placeholder>
+            <input id="inputDer" (click)="borrarValor($event)"
+                   type="text" aria-label="Number" value="{{modeloSelected}}" matInput [formControl]="controlModelo"
+                   [matAutocomplete]="autoModelo">
+            <mat-autocomplete autoActiveFirstOption #autoModelo="matAutocomplete" (autocomplete)="false"
+                              (optionSelected)="selectionModelo($event)">
+              <mat-option *ngFor="let option of opcionesModelo | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-
 <app-paginator id="test1" *ngIf="paginator && mostrarPaginator" [paginator]=paginator [paths]=paths></app-paginator>
 
 <app-loading *ngIf="loading"></app-loading>
 <div style="height: 50px"></div>
 
-<div class="card-deck m-4 divCard" *ngFor="let global of listaGlobal" [ngClass]="zindex" style="justify-content: center">
+<div class="card-deck m-3 divCard" *ngFor="let global of listaGlobal" [ngClass]="zindex"
+     style="justify-content: center">
 
   <!-- Card -->
 
@@ -90,8 +93,5 @@
 <app-paginator *ngIf="paginator && paginator.totalPages>1 && mostrarPaginator" [paginator]=paginator
                [paths]=paths></app-paginator>
 <div style="margin: 20px"></div>
-
-
-
 
 

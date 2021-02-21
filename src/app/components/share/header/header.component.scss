@@ -517,23 +517,23 @@ a:hover, a:focus {
   animation-direction: alternate;
 }
 
-.slideIn {
+.slideInHeader {
   position: absolute;
-  animation-name: slideInR;
+  animation-name: slideInRHeader;
 }
 
-.slideOut {
+.slideOutHeader {
   position: absolute;
-  animation-name: slideOutR;
+  animation-name: slideOutRHeader;
 }
 
-.slideOff {
+.slideOffHeader {
   position: absolute;
   visibility: hidden;
   left: -100%;
 }
 
-@keyframes slideInR {
+@keyframes slideInRHeader {
   from {
     transform: translate(-100%, 0);
   }
@@ -542,7 +542,7 @@ a:hover, a:focus {
   }
 }
 
-@-webkit-keyframes slideInR {
+@-webkit-keyframes slideInRHeader {
   from {
     transform: translate(-100%, 0);
   }
@@ -551,7 +551,7 @@ a:hover, a:focus {
   }
 }
 
-@keyframes slideOutR {
+@keyframes slideOutRHeader {
   from {
     transform: translate(0%, 0);
   }
@@ -560,7 +560,7 @@ a:hover, a:focus {
   }
 }
 
-@-webkit-keyframes slideOutR {
+@-webkit-keyframes slideOutRHeader {
   from {
     transform: translate(0%, 0);
   }

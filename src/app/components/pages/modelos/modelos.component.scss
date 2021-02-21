@@ -3,14 +3,19 @@ $limitMidSizeScreen: 900px;
 
 .figuras {
   width: 100%;
-  //display: inline-block;
+  display: inline-block;
   transform: translateX(-50%);
   margin-left: 50%;
   margin-bottom: 2%;
+  margin-top: 80px;
 }
 
+#figuraIzq{
+  margin-right: 10.2%
+}
 .padre {
   display: flex;
+  width: 100%;
   align-items: center;
   text-align: right;
 }
@@ -78,36 +83,50 @@ mat-slider {
 }
 
 
-.paralelogramo {
-  width: 300px;
-  height: 75px;
-  background: linear-gradient(to right, transparent,#2f2f2e);
-  border-radius: 1px;
-  border-style: solid;
-  border-color: #ffee10;
-  -webkit-transform: skew(-45deg);
-  -moz-transform: skew(-20deg);
-  -o-transform: skew(-20deg);
+.paralelogramoInvInterno {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to left, transparent,#2f2f2e);
 }
-.paralelogramoInv {
+.paralelogramoInvExterno {
   width: 300px;
   height: 75px;
   z-index: 2;
-  background: linear-gradient(to right, #2f2f2e, transparent);
   border-radius: 1px;
   border-style: solid;
-  margin: 0 50px;
   border-color: #ffee10;
-  -webkit-transform: skew(45deg) ;
+  margin: 0 50px;
+  -webkit-transform:skew(45deg) ;
   -moz-transform: skew(45deg);
   -o-transform: skew(45deg);
   transform: skew(45deg);
 }
+
+.paralelogramoExterno {
+  width: 300px;
+  height: 75px;
+  margin-left: -0.85%;
+  border-radius: 1px;
+  border-style: solid;
+  border-color: #ffee10;
+  -webkit-transform: skew(-45deg);
+  -moz-transform:skew(-45deg);
+  -o-transform:skew(-45deg);
+  transform:skew(-45deg);
+}
+.paralelogramoInterno {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent,#2f2f2e);
+}
+
 .tri {
   width: 300px;
+  //left: 41%;
   height: 75px;
   left: 50%;
   transform: translateX(-50%);
+  //display: table;
   position: absolute;
   background: linear-gradient(to right, transparent,#2f2f2e, transparent);
   border-radius: 1px;
@@ -120,10 +139,10 @@ mat-slider {
 
 }
 
+
 .normal {
   width: 150px;
   height: 50px;
-  margin-top: 2%;
   margin-left: 25%;
   -webkit-transform: skew(45deg);
   -moz-transform: skew(45deg);
@@ -132,13 +151,13 @@ mat-slider {
 .normalInv {
   width: 150px;
   height: 50px;
-  margin-top: 2%;
   margin-left: 50%;
   -webkit-transform: skew(-45deg) translateX(-90%);
   -moz-transform: skew(-45deg) translateX(-50%);
   -o-transform: skew(-45deg) translateX(-50%);
   transform: skew(-45deg) translateX(-50%);
 }
+
 .forma{
   margin:0 auto;
 }
@@ -290,7 +309,6 @@ mat-slider {
     top: 3%;
   }
 }
-
 .styleSlide {
   position: fixed;
   width: auto;
@@ -359,7 +377,7 @@ mat-slider {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);;
+  -webkit-transform: translate(-50%, -50%);
 }
 
 .precio {
@@ -393,6 +411,16 @@ mdb-card-body input {
   margin-bottom: 30px;
 }
 
+#inputDer{
+  margin-left: -0.85%;
+  Font-family: fantasy;
+  font-size: 20px
+}
+#inputIzq{
+  Font-family: fantasy;
+  font-size: 20px;
+}
+
 //Pantallas grandes
 @media only screen and (min-width: $limitInfSizeScreen) {
 
@@ -401,6 +429,7 @@ mdb-card-body input {
     height: 30rem;
     max-height: 30rem;
   }
+
   h2 {
     font-size: 20px;
     //padding: 0 0 0 30px;
@@ -412,6 +441,10 @@ mdb-card-body input {
   }
   .cardPerso{
     margin: 1% 1%;
+  }
+
+  .paralelogramoExterno,#figuraDer {
+    margin-left: -0.85%;
   }
 }
 
@@ -435,17 +468,103 @@ mdb-card-body input {
   .cardPerso {
     display: inline-block;
     height: 20%;
-    width: 40%;
+    width: 45%;
     justify-content: space-evenly;
     top: 0;
-    //margin: 0 1%;
     padding: 0;
+    margin: 2% 2.2%;
+  }
+
+  #inputDer{
+    font-size: 12px;
+  }
+  #inputIzq{
+    font-size: 12px;
+  }
+
+  .mat-form-field{
+    width: 60%;
+    //left: -15px;
+    transform: translateX(-50%);
+    margin-left: 50%;
+  }
+
+  #divDer{
+    margin-left: 0;
+    width:75%;
+  }
+
+  #divIzq{
+    margin-left: 50%;
+    width:80%;
+  }
+
+  .paralelogramoExterno,#figuraDer {
+    margin-left: 0;
+  }
+
+  #figuraDer{
+    z-index: 10;
+  }
+
+  .paralelogramoInvInterno {
+
+    background: linear-gradient(to left, transparent, #434342,#2f2f2e);
+  }
+  .paralelogramoInterno {
+    background: linear-gradient(to right, transparent,#434342,#2f2f2e);
+  }
+
+  #figuraIzq{
+    border-right-color: transparent;
+    margin-right: 0;
+    width: 60%;
+    margin-left: 0;
+  }
+
+  .normalInv{
+    margin-left: 45%;
+  }
+
+  #figuraDer{
+    border-left-color: transparent;
+    //margin-left: -20%;
+    -webkit-transform: skew(-45deg)translateX(-34%);
+    -moz-transform:skew(-45deg)translateX(-34%);
+    -o-transform:skew(-45deg)translateX(-34%);
+    transform:skew(-45deg)translateX(-34%);
+    width: 60%;
+  }
+
+  #matIzq{
+    left: 10%;
+    top:8px;
+    width: 60%;
+  }
+
+  #matDer{
+    left: 0%;
+    top:8px;
+    width: 60%;
+  }
+
+  .figuras{
+    margin-top: 62px;
+    width: 70%;
+  }
+
+
+  #logoGrande{
+    display: none;
   }
 
   .imgModelo {
     height: 10rem;
   }
-
+  .tri{
+    width: 20%;
+    background: transparent;
+  }
   .initialDiv {
     margin-top: 20%;
   }

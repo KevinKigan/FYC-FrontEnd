@@ -10,7 +10,7 @@ import {limitInfSizeScreen, limitMidSizeScreen} from '../../../../main';
 export class HeaderComponent implements OnInit {
   urlEndPointImgLogo = urlEndPointImgLogo;
   tipoUsuario: string = 'Usuario';
-  slide = 'slideOff';
+  slide = 'slideOffHeader';
 
   // public logo = 'G:/TFG/fyc-app/src/FYClogo.png';
     panelOpenState: boolean;
@@ -57,10 +57,10 @@ export class HeaderComponent implements OnInit {
    *
    */
   setSlide() {
-    if (this.slide == 'slideIn') {
-      this.slide = 'slideOut';
+    if (this.slide == 'slideInHeader') {
+      this.slide = 'slideOutHeader';
     } else {
-      this.slide = 'slideIn';
+      this.slide = 'slideInHeader';
     }
   }
   /**
@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
    *
    */
   setSlideOut() {
-    this.slide = 'slideOut';
+    this.slide = 'slideOutHeader';
   }
   // comprobarNavbar():void{
   //     let prevScrollpos = window.pageYOffset;
