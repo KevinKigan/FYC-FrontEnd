@@ -435,8 +435,11 @@ mdb-card-body input {
   .cardPerso {
     display: inline-block;
     height: 20%;
+    width: 40%;
     justify-content: space-evenly;
     top: 0;
+    //margin: 0 1%;
+    padding: 0;
   }
 
   .imgModelo {
@@ -479,6 +482,10 @@ mdb-card-body input {
   }
   button {
     display: none;
+  }
+
+  .divCard{
+    margin: 0;
   }
 
   //app-paginator{

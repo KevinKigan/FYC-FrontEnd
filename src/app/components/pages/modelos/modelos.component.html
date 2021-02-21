@@ -28,9 +28,7 @@
     </div>
   </div>
   <div class="tri forma">
-    <img *ngIf="marca.idMarca && marca.idMarca>=0" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
-         class="img-fluid imgMarcas rounded">
-    <img *ngIf="!marca.idMarca || marca.idMarca<0" src="{{urlEndPointImgLogo}}/FYClogo.png" alt="Sin Imagen"
+    <img src="{{getUrlMarca()}}" alt="Sin Imagen"
          class="img-fluid imgMarcas rounded">
   </div>
   <div class="paralelogramo forma" style="margin-left: -0.85%">
@@ -58,14 +56,16 @@
 <app-loading *ngIf="loading"></app-loading>
 <div style="height: 50px"></div>
 
-<div class="card-deck m-4" *ngFor="let global of listaGlobal" [ngClass]="zindex" style="align-items: center;">
+<div class="card-deck m-4 divCard" *ngFor="let global of listaGlobal" [ngClass]="zindex" style="justify-content: center">
 
   <!-- Card -->
 
   <mdb-card *ngFor="let modelo of global" class="cardPerso">
     <div class="view rgba-white-slight waves-light h-50" mdbWavesEffect style="border-radius: 5px 5px 0 0">
-      <a><img class="imgModelo" [routerLink]="['/modelo',modelo.idModelo]"
-              src="{{urlEndPointUploadImg}}/{{modelo.imagen}}" alt="{{modelo.imagen}}"></a>
+      <a>
+        <img class="imgModelo" [routerLink]="['/modelo',modelo.idModelo]"
+             src="{{getUrlModelo(modelo.idModelo)}}" alt="{{modelo.imagen}}">
+      </a>
       <a>
         <div class="mask"></div>
       </a>

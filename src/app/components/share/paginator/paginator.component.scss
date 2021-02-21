@@ -1,6 +1,9 @@
-nav{
-  background: rgb(65,65,65);
-  background: radial-gradient(circle, rgba(65,65,65,0) 0%, rgba(254,255,0,0.1) 0%);
+$limitSmallSizeScreen: 900px;
+$limitMediumSizeScreen: 1200px;
+
+nav {
+  background: rgb(65, 65, 65);
+  background: radial-gradient(circle, rgba(65, 65, 65, 0) 0%, rgba(254, 255, 0, 0.1) 0%);
   height: 60px;
   border-radius: 5px;
   border-color: #FFE100;
@@ -8,27 +11,104 @@ nav{
   width: 50%;
   margin: auto;
 }
-li{
+
+
+li {
   margin: auto;
 }
-a{
-  vertical-align: middle;
-  border-radius: 50px;
+
+a,span {
+vertical-align: middle;
   color: white;
-  font-size: 20px;
+  text-shadow: 2px 2px #1b1e21;
+  border-radius: 50px;
+}
+
+
+a:hover {
   text-shadow: 2px 2px #1b1e21;
 }
 
-a:hover{
-  text-shadow: 2px 2px #1b1e21;
-}
-
-input{
+input {
   color: #ffffff;
 }
-.shadowPerso{
+.suspensivos{
+  background: transparent;
+  border-color: transparent;
+}
+
+.shadowPerso, .shadowPerso:hover {
   border-radius: 50px;
   font-size: 15px;
   color: white;
   text-shadow: 2px 2px #1b1e21;
+}
+
+
+//Pantallas medianas
+@media only screen and (max-width: $limitMediumSizeScreen) and (min-width: $limitSmallSizeScreen) {
+
+  nav {
+    width: 65%;
+  }
+
+}
+
+//Pantallas pequeñas
+@media only screen and (max-width: $limitSmallSizeScreen) {
+  nav {
+    width: 90%;
+  }
+
+  #next, #prev {
+    display: none;
+  }
+
+  nav ul li a, ul li span, ul li button{
+    font-size: 12px;
+    color: white;
+    border-radius: 50px;
+    //left: 0;
+    //margin-left: -10px;
+    //margin-right: -10px;
+    //width: 30px;
+    //transform: translateX(-10px);
+  }
+
+  //ul li span{
+  //  width: 10px;
+  //  transform: translateX(-10px);
+  //  text-align: center;
+  //}
+
+  div a{
+    font-size: 12px;
+    color: white;
+    border-radius: 50px;
+  }
+
+
+  //nav ul li a{
+  //  font-size: 12px;
+  //  color: white;
+  //  border-radius: 50px;
+  //}
+
+}
+
+
+//Pantallas Grandes
+@media only screen and (min-width: $limitMediumSizeScreen) {
+  nav ul li a,ul li span, ul li button{
+    font-size: 15px;
+    color: white;
+    border-radius: 50px;
+    vertical-align: middle;
+  }
+  div a{
+    vertical-align: middle;
+    font-size: 15px;
+    color: white;
+    border-radius: 50px;
+  }
 }

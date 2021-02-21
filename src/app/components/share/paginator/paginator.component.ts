@@ -15,16 +15,16 @@ export class PaginatorComponent implements OnInit {
   pages: number[];
   idMarca: number=-1;
   pathConMarca: string;
-  redirectPath: string = '/redirect/'+14+'/marca';
+  itemsPorPagina: number = 20;
+  redirectPath: string = '/redirect/'+this.itemsPorPagina+'/marca';
   totalPaginas: number;
-  itemsPorPagina: number;
   paginaActual: number;
   opcionesDePagina: number[] = [10, 20, 50];
   from: number;
   pageEvent: PageEvent;
   to: number;
   cargado: boolean = false;
-  pathSinMarca = '/modelos/page';
+  pathSinMarca = '/modelos/'+this.itemsPorPagina+'/page';
 
   constructor(private cochesService: CochesService, private router:Router) {
   }
@@ -57,9 +57,27 @@ export class PaginatorComponent implements OnInit {
       this.totalPaginas = this.paginator.totalPages;
       this.paginaActual = this.paginator.number+1;
       this.itemsPorPagina = this.paginator.size;
+      let numMinFrom = 5;
+      let numMinTo = 4;
+      let numMinFrom1;
+      let numMinTo1;
+      switch (this.formatoPantalla()){
+        case 'smallScreen':
+          numMinFrom1 = 0;
+          numMinTo1 = 2
+          break;
+        case 'mediumScreen':
+          numMinFrom1 = 2;
+          numMinTo1 = 4
+          break;
+        case 'bigScreen':
+          numMinFrom1 = 2;
+          numMinTo1 = 4
+          break;
+      }
 
-      this.from = Math.min(Math.max(1, this.paginator.number - 2), this.paginator.totalPages - 5);
-      this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + 4), 6);
+      this.from = Math.min(Math.max(1, this.paginator.number - numMinFrom1), this.paginator.totalPages - numMinFrom);
+      this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + numMinTo1), numMinTo);
 
       if (this.paginator.totalPages > 5) {
         this.pages = new Array(this.to - this.from + 1).fill(0).map((_valor, indice) => indice + this.from);
@@ -72,10 +90,21 @@ export class PaginatorComponent implements OnInit {
   paginatorActualizado(size:number): void {
     this.itemsPorPagina = size;
     this.redirectPath = '/redirect/'+size+'/marca';
+    this.pathSinMarca = '/modelos/'+this.itemsPorPagina+'/page';
     this.router.navigate([this.redirectPath,this.idMarca]);
   }
 
   actualizarPagina(page:number):void{
     this.paginaActual = page;
+  }
+
+  formatoPantalla(): string{
+    if(screen.width<900){
+      return 'smallScreen'
+    }else if(screen.width>900 && screen.width<1200){
+      return 'mediumScreen'
+    }else{
+      return 'bigScreen'
+    }
   }
 }

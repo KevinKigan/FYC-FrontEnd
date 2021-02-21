@@ -24,18 +24,17 @@ export class ModelosComponent implements OnInit {
   coches: Coche[];
   modelos: Modelo[];
   modelos_totales: Modelo[];
-  pageSize:number;
+  pageSize: number;
   listaGlobal: any[] = new Array([]);
   loading: boolean = true;
   paginator: any;
   paths: string[];
+  urlMarca: string;
   controlMarca = new FormControl();
   mostrarPaginator: boolean = true;
   static TODOS: string = '-- Todos --';
   static TODAS: string = '-- Todas --';
   urlEndPointUploadImg = urlEndPointUploadImg;
-  urlEndPointImgMarcaLogo = urlEndPointImgMarcaLogo;
-  urlEndPointImgLogo = urlEndPointImgLogo;
   controlModelo = new FormControl();
   opcionesMarca: Observable<string[]>;
   opcionesModelo: Observable<string[]>;
@@ -43,11 +42,13 @@ export class ModelosComponent implements OnInit {
   marcas: Marca[];
   nombre_marcas: string[] = [];
   nombre_modelos: string[] = [];
+  modelosUrl = new Map<number, string>();
   marcaSelected: string = '';
   modeloSelected: string = '';
   slide = 'slideOff';
   zindex = 'zIndexOut';
-  precios = new Map<string,string>();
+  precios = new Map<string, string>();
+  imgMarca = new Map<number, string>();
 
   constructor(
     private cochesService: CochesService,
@@ -126,13 +127,13 @@ export class ModelosComponent implements OnInit {
     let listaGlobalAux = [];
     let i = 1;
     let num_items = 0;
-    if(screen.width<limitMidSizeScreen){
+    if (screen.width < limitMidSizeScreen) {
       num_items = 2;
-    }else if(screen.width>limitMidSizeScreen  && screen.width<limitBigMidSizeScreen){
+    } else if (screen.width > limitMidSizeScreen && screen.width < limitBigMidSizeScreen) {
       num_items = 3;
-    }else if(screen.width>limitBigMidSizeScreen  && screen.width<limitLargeSizeScreen){
+    } else if (screen.width > limitBigMidSizeScreen && screen.width < limitLargeSizeScreen) {
       num_items = 4;
-    }else{
+    } else {
       num_items = 5;
     }
     this.modelos.forEach(modelo => {
@@ -198,13 +199,13 @@ export class ModelosComponent implements OnInit {
     });
     this.mostrarPaginator = true;
     this.modeloSelected = '';
-    if(marcaString == ModelosComponent.TODAS){
+    if (marcaString == ModelosComponent.TODAS) {
       this.nombre_modelos = [];
-      this.marca.idMarca=-1;
-      this.router.navigate(['modelos'])
+      this.marca.idMarca = -1;
+      this.router.navigate(['modelos']);
       this.marcaSeleccionada(null, 0, false);
-    }else {
-      this.router.navigate(['/modelos/20/marca',idMarca,'page',0])
+    } else {
+      this.router.navigate(['/modelos/20/marca', idMarca, 'page', 0]);
       this.marcaSeleccionada(idMarca, 0, false);
     }
     // this.autocompleteControl.setValue('');
@@ -229,9 +230,9 @@ export class ModelosComponent implements OnInit {
       }
     });
     this.mostrarPaginator = false;
-    if(this.modeloSelected == ModelosComponent.TODOS){
+    if (this.modeloSelected == ModelosComponent.TODOS) {
       this.marcaSeleccionada(idMarca, 0, false);
-    }else {
+    } else {
       this.marcaSeleccionada(idMarca, 0, true);
     }
   }
@@ -249,16 +250,22 @@ export class ModelosComponent implements OnInit {
     let modelosTotales;
     this.setLoading(true);
     if (marca) {
+      this.cochesService.getUrlMarca(marca).subscribe(urls => {
+        this.imgMarca = urls[0];
+      });
       // Especificamos cual es la marca con la que estamos trabajando
       this.marcas.forEach(marcaF => {
         if (marcaF.idMarca == marca) {
           this.marcaSelected = marcaF.marcaCoche;
         }
       });
-      modelos = this.cochesService.getModelosPorMarca(marca, page,this.pageSize);
+      this.cochesService.getUrlMarca(marca).subscribe(urls => {
+        this.urlMarca = urls[marca];
+      });
+      modelos = this.cochesService.getModelosPorMarca(marca, page, this.pageSize);
       this.paths = [];
       this.paths[0] = this.cochesService.getModelosPorMarcaPath(marca, this.pageSize); // Path de peticion http
-      this.paths[1] = '/modelos/'+this.pageSize+'/marca/' + marca + '/page/'; // Path de peticion en app-routing-module
+      this.paths[1] = '/modelos/' + this.pageSize + '/marca/' + marca + '/page/'; // Path de peticion en app-routing-module
       modelosTotales = this.cochesService.getModelosPorMarcaSinPaginar(marca);
 
       modelosTotales.subscribe(response => {
@@ -276,7 +283,7 @@ export class ModelosComponent implements OnInit {
     } else if (this.filtroService.getFiltro()) {
       modelos = this.getModelosFiltrados(page, this.pageSize);
     } else {
-      modelos = this.cochesService.getModelos(page,this.pageSize);
+      modelos = this.cochesService.getModelos(page, this.pageSize);
     }
     modelos.subscribe(response => {
       this.modelos = response.content as Modelo[];
@@ -284,6 +291,13 @@ export class ModelosComponent implements OnInit {
         this.modelos = this.modelos_totales.filter(modelo => modelo.modelo == this.modeloSelected);
       }
       this.paginator = response;
+      let idsModelosPagina: number[]=[];
+      this.modelos.forEach(mod =>{
+        idsModelosPagina.push(mod.idModelo)
+      });
+      this.cochesService.getUrlModelo(idsModelosPagina).subscribe(urls => {
+        this.modelosUrl = urls;
+      });
       this.configurarItems();
       this.cochesService.asignarPreciosPorPagina(this.modelos).subscribe(response => {
         this.precios = response;
@@ -309,6 +323,14 @@ export class ModelosComponent implements OnInit {
     );
   }
 
+  getUrlMarca() {
+    if (this.urlMarca === undefined || this.urlMarca == null ) {
+      return 'https://dl.dropboxusercontent.com/s/p076br0njm8vx43/fyclogo.png?dl=0';
+    } else {
+      return this.urlMarca;
+    }
+  }
+
   /**
    * Metodo para retornar el estado del slide
    *
@@ -325,10 +347,10 @@ export class ModelosComponent implements OnInit {
   setSlide() {
     if (this.slide == 'slideIn') {
       this.slide = 'slideOut';
-      this.zindex= 'zIndexOut';
+      this.zindex = 'zIndexOut';
     } else {
       this.slide = 'slideIn';
-      this.zindex= 'zIndexIn';
+      this.zindex = 'zIndexIn';
     }
     this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
   }
@@ -369,7 +391,7 @@ export class ModelosComponent implements OnInit {
    * @param precios
    * @param modelo
    */
-  isNaN(precios: Map<string,string>, modelo: Modelo): boolean {
+  isNaN(precios: Map<string, string>, modelo: Modelo): boolean {
     return precios[modelo.modelo + '/' + modelo.marca.marcaCoche] == 'N/A';
   }
 
@@ -378,7 +400,7 @@ export class ModelosComponent implements OnInit {
    * @param precios
    * @param modelo
    */
-  formatPrecio(precios: Map<string,string>, modelo: Modelo): string {
+  formatPrecio(precios: Map<string, string>, modelo: Modelo): string {
     let precio = precios[modelo.modelo + '/' + modelo.marca.marcaCoche];
     if (precio) {
       if (precio.length >= 4) {
@@ -388,7 +410,16 @@ export class ModelosComponent implements OnInit {
         }
       }
     }
-    return precio
+    return precio;
+  }
+
+  getUrlModelo(idModelo: any) {
+    if (this.modelosUrl[idModelo] == undefined) {
+      return 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0';
+    } else {
+      return this.modelosUrl[idModelo];
+    }
+
   }
 }
 

@@ -24,6 +24,7 @@ export const urlEndPointCochesPage               = urlEndPoint+"/coches/page/";
 export const urlEndPointCarrocerias              = urlEndPoint+"/carrocerias";
 export const urlEndPointModelosPage              = urlEndPoint+"/modelos/page/";
 export const urlEndPointImgMarcaLogo             = urlEndPoint+"/img/marcaslogo/";
+export const urlEndPointImgModeloLogo            = urlEndPoint+"/img/modeloslogo";
 export const urlEndPointPreciosPagina            = urlEndPoint+"/modelos/precios";
 export const urlEndPointImgPropietario           = urlEndPoint+"/img/propietario";
 export const urlEndPointChartSemejantes          = urlEndPoint+"/coches/chartsemejantes";
