@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Marca} from '../../../models/marca';
 import {CochesService} from '../../services/coches.service';
-import {urlEndPointImgMarcaLogo} from '../../../../environments/environment'
+import {urlEndPointImgMarcaLogo} from '../../../../environments/environment';
 import {FiltroService} from '../../services/filtro.service';
-import {limitInfSizeScreen, limitMidSizeScreen,limitBigMidSizeScreen} from '../../../../main';
+import {limitInfSizeScreen, limitMidSizeScreen, limitBigMidSizeScreen} from '../../../../main';
 
 
 @Component({
@@ -15,14 +15,16 @@ import {limitInfSizeScreen, limitMidSizeScreen,limitBigMidSizeScreen} from '../.
 export class MarcasComponent implements OnInit {
 
   listaGlobal: any[] = new Array([]);
-  marcas:Marca[];
+  marcas: Marca[];
   urlEndPointImgMarcaLogo = urlEndPointImgMarcaLogo;
-  loading:boolean;
+  loading: boolean;
+  imagenes = new Map<number, string>();
 
   constructor(
     private cochesService: CochesService,
     private activatedRoute: ActivatedRoute,
-    private filtroService: FiltroService) { }
+    private filtroService: FiltroService) {
+  }
 
   /**
    * Metodo para iniciar el componente
@@ -35,14 +37,17 @@ export class MarcasComponent implements OnInit {
         this.marcas = response as Marca[];
 
         this.marcas.sort((a, b) => {
-          if(a.marcaCoche.toUpperCase()<b.marcaCoche.toUpperCase()){
-            return -1
-          }else {
+          if (a.marcaCoche.toUpperCase() < b.marcaCoche.toUpperCase()) {
+            return -1;
+          } else {
             return 1;
           }
-        })
+        });
         this.configurarItems();
         this.setLoading(false);
+        this.cochesService.getUrlMarca(-1).subscribe(urls => {
+          this.imagenes = urls;
+        });
       });
     });
   }
@@ -56,19 +61,17 @@ export class MarcasComponent implements OnInit {
     let listaGlobalAux = [];
     let i = 1;
     let num_items = 0;
-    if(screen.width<limitInfSizeScreen){
+    if (screen.width < limitInfSizeScreen) {
       num_items = 2;
-    }else if(screen.width>limitInfSizeScreen && screen.width<limitMidSizeScreen){
+    } else if (screen.width > limitInfSizeScreen && screen.width < limitMidSizeScreen) {
       num_items = 3;
-    }else if(screen.width>limitMidSizeScreen  && screen.width<limitBigMidSizeScreen){
+    } else if (screen.width > limitMidSizeScreen && screen.width < limitBigMidSizeScreen) {
       num_items = 4;
-    }else{
+    } else {
       num_items = 5;
     }
-console.log('width = '+screen.width);
-console.log(num_items);
     this.marcas.forEach(marca => {
-      if ((i % num_items == 0 && i != 0)|| i==this.marcas.length) {
+      if ((i % num_items == 0 && i != 0) || i == this.marcas.length) {
         listaDeCinco.push(marca);
         listaGlobalAux.push(listaDeCinco);
         listaDeCinco = [];
@@ -83,5 +86,13 @@ console.log(num_items);
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
     this.loading = this.filtroService.getLoading();
+  }
+
+  getUrlMarca(idMarca: number) {
+    if(this.imagenes[idMarca]==undefined){
+      return 'https://dl.dropboxusercontent.com/s/1m5yy8wwpexgfyh/defaultImageMarca.png?dl=0';
+    }else {
+      return this.imagenes[idMarca];
+    }
   }
 }

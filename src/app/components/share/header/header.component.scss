@@ -4,6 +4,7 @@ $limitSizeScreen: 600px;
   display: none;
   margin: 0;
   padding: 0;
+    //transform: translateY(-10px) scaleX(1.1);
 }
 
 .navImg {
@@ -61,7 +62,6 @@ span {
 .navStyle {
   background: linear-gradient(to right, #2f2f2e, transparent);
   font-size: 150%;
-  height: 10%;
 }
 
 .navbar.navbar-default {
@@ -79,9 +79,8 @@ span {
 .divPerso {
   position: absolute;
   right: 5em;
-
-
 }
+
 
 .inputPerso {
   width: 400%;
@@ -518,23 +517,23 @@ a:hover, a:focus {
   animation-direction: alternate;
 }
 
-.slideIn {
+.slideInHeader {
   position: absolute;
-  animation-name: slideInR;
+  animation-name: slideInRHeader;
 }
 
-.slideOut {
+.slideOutHeader {
   position: absolute;
-  animation-name: slideOutR;
+  animation-name: slideOutRHeader;
 }
 
-.slideOff {
+.slideOffHeader {
   position: absolute;
   visibility: hidden;
   left: -100%;
 }
 
-@keyframes slideInR {
+@keyframes slideInRHeader {
   from {
     transform: translate(-100%, 0);
   }
@@ -543,7 +542,7 @@ a:hover, a:focus {
   }
 }
 
-@-webkit-keyframes slideInR {
+@-webkit-keyframes slideInRHeader {
   from {
     transform: translate(-100%, 0);
   }
@@ -552,7 +551,7 @@ a:hover, a:focus {
   }
 }
 
-@keyframes slideOutR {
+@keyframes slideOutRHeader {
   from {
     transform: translate(0%, 0);
   }
@@ -561,7 +560,7 @@ a:hover, a:focus {
   }
 }
 
-@-webkit-keyframes slideOutR {
+@-webkit-keyframes slideOutRHeader {
   from {
     transform: translate(0%, 0);
   }
@@ -584,7 +583,10 @@ a:hover, a:focus {
 
     //background: linear-gradient(to right, #000000, #fff);
   }
-
+  .centerNav{
+    margin: 0;
+    transform: translateY(10%);
+  }
 }
 
 //Pantallas pequeñas
@@ -633,9 +635,6 @@ a:hover, a:focus {
     left: 0;
     right: 0;
     top: 0;
-    //margin-top:-2.1%;
-    //margin-left:-4%;
-    //margin-right:-20%;
     background: #ccc;
   }
 
@@ -651,11 +650,23 @@ a:hover, a:focus {
     text-decoration: none;
     font-weight: bold;
     font-size: 25px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    //box-sizing: border-box;
+    //-webkit-box-sizing: border-box;
+    //-moz-box-sizing: border-box;
   }
   .menu_bar i {
     float: right;
+  }
+  #lastDivGradient{
+    //display: none;
+    //transform: translateY(-8px);
+    top: 62px;
+  }
+  #firstDivGradient{
+    top: 62px;
+  }
+  .centerNav{
+    margin-top: 62px;
+    //transform: translateY(20%);
   }
 }

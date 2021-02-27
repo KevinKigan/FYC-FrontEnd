@@ -24,13 +24,13 @@ export const urlEndPointCochesPage               = urlEndPoint+"/coches/page/";
 export const urlEndPointCarrocerias              = urlEndPoint+"/carrocerias";
 export const urlEndPointModelosPage              = urlEndPoint+"/modelos/page/";
 export const urlEndPointImgMarcaLogo             = urlEndPoint+"/img/marcaslogo/";
+export const urlEndPointImgModeloLogo            = urlEndPoint+"/img/modeloslogo";
 export const urlEndPointPreciosPagina            = urlEndPoint+"/modelos/precios";
 export const urlEndPointImgPropietario           = urlEndPoint+"/img/propietario";
 export const urlEndPointChartSemejantes          = urlEndPoint+"/coches/chartsemejantes";
 export const urlEndPointMotorCombustion          = urlEndPoint+"/coches/motorescombustion";
 export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/";
 export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/";
-export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 
 /*

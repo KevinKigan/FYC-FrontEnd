@@ -1,21 +1,6 @@
 $limitInfSizeScreen: 600px;
 $limitMidSizeScreen: 900px;
 
-.break-word {
-  -ms-word-break: break-all;
-  word-break: break-all;
-
-  // Non standard for webkit
-  word-break: break-word;
-
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  word-wrap: break-word;
-  overflow: hidden;
-}
-
 img {
   position: absolute;
   top: 50%;
@@ -44,7 +29,7 @@ a {
   background: -webkit-linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
   background: linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525",endColorstr="#ffcc00",GradientType=1);
-  width: 70%; height: 50%;  font-size: 16px;
+  width: 70%; height: 40%;  font-size: 16px;
   max-width: 100%;
   border-radius: 50px;
   border-color: transparent;
@@ -159,8 +144,6 @@ h2{
     display: none;
   }
 
-  .bg-perso {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.43) 100%);
-  }
+
 }
 

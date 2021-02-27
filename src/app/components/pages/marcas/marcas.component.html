@@ -5,8 +5,8 @@
 
   <mdb-card *ngFor="let marca of global" class="cardPerso">
     <div [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
-      <img src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen"
-           class="img-fluid rounded">
+<!--      <img *ngIf="!cargadaImg(marca.idmarca)" src="https://dl.dropboxusercontent.com/s/1m5yy8wwpexgfyh/defaultImageMarca.png?dl=0" alt="Sin Imagen" class="img-fluid rounded">-->
+      <img src="{{getUrlMarca(marca.idMarca)}}" alt="Sin Imagen" class="img-fluid rounded">
       <a>
         <div class="mask"></div>
       </a>
@@ -21,7 +21,7 @@
 <!--        <button mdbBtn [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" type="button" color="warning"-->
 <!--                class="styleA truncar" rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>-->
         <input   [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" type="button"
-                class="styleA truncar .bg-warning"  value="{{marca.marcaCoche}}"  mdbWavesEffect>
+                class="styleA truncar"  value="{{marca.marcaCoche}}"  mdbWavesEffect>
       </mdb-card-body>
     </div>
   </mdb-card>
