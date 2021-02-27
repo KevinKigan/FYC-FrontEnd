@@ -31,7 +31,6 @@ export const urlEndPointChartSemejantes          = urlEndPoint+"/coches/chartsem
 export const urlEndPointMotorCombustion          = urlEndPoint+"/coches/motorescombustion";
 export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/";
 export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/";
-export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
 
 
 /*

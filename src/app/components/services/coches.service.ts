@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {
-  urlEndPointActualizarItemsPorPagina,
   urlEndPointModelosPorMarcaPage,
   urlEndPointMarcas,
   urlEndPointModelosPage,
@@ -24,7 +23,6 @@ import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
 import {Marca} from '../../models/marca';
 import {Carroceria} from '../../models/carroceria';
-import {mod} from 'ngx-bootstrap/chronos/utils';
 import {Coche} from '../../models/coche';
 import {Consumo} from '../../models/consumo';
 import {MotorCombustion} from '../../models/motorCombustion';
@@ -65,7 +63,6 @@ export class CochesService {
    * @param modelos
    */
   asignarPreciosPorPagina(modelos: Modelo[]): Observable<any> {
-    // this.ids = modelos.
     modelos.forEach(modelo => {
       this.ids.push(modelo.idModelo);
     });
@@ -251,24 +248,6 @@ export class CochesService {
     );
   }
 
-
-  /**
-   * Metodo para actualizar el numero de items que
-   * quiere el usuario por pagina
-   *
-   * @param size Numero de items
-   */
-  updateItemsPorPagina(size: number): Observable<any> {
-    return this.http.put(urlEndPointActualizarItemsPorPagina, size).pipe(
-      catchError(e => {
-        if (e.status == 400) { // Error al enviar
-          return throwError(e);
-        }
-        return throwError(e);
-      })
-    );
-  }
-
   /**
    * Metodo para obtener todas las carrocerias
    *
@@ -288,6 +267,7 @@ export class CochesService {
    * Metodo para filtrar los modelos segun los parametros dados
    * @param filtros
    * @param page
+   * @param pageSize
    */
   filtrar(filtros: any, page: number, pageSize: number): Observable<any> {
     console.log(filtros);

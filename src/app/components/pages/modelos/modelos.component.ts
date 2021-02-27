@@ -3,16 +3,14 @@ import {CochesService} from '../../services/coches.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Coche} from '../../../models/coche';
 import {Modelo} from '../../../models/modelo';
-import {urlEndPointUploadImg, urlEndPointImgMarcaLogo, urlEndPointImgLogo} from '../../../../environments/environment';
-import {isElementScrolledOutsideView} from '@angular/cdk/overlay/position/scroll-clip';
 import {Marca} from '../../../models/marca';
 import {FormControl} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {SidebarService} from '../../services/sidebar.service';
 import {FiltroService} from '../../services/filtro.service';
-import {limitBigMidSizeScreen, limitInfSizeScreen, limitMidSizeScreen, limitLargeSizeScreen} from '../../../../main';
+import {limitBigMidSizeScreen, limitMidSizeScreen, limitLargeSizeScreen} from '../../../../main';
 
 @Component({
   selector: 'app-coches',
@@ -34,7 +32,6 @@ export class ModelosComponent implements OnInit {
   mostrarPaginator: boolean = true;
   static TODOS: string = '-- Todos --';
   static TODAS: string = '-- Todas --';
-  urlEndPointUploadImg = urlEndPointUploadImg;
   controlModelo = new FormControl();
   opcionesMarca: Observable<string[]>;
   opcionesModelo: Observable<string[]>;
@@ -70,7 +67,6 @@ export class ModelosComponent implements OnInit {
 
   /**
    * Metodo para iniciarlizar el componente
-   *
    */
   iniciar(): void {
     this.setLoading(true);
@@ -101,9 +97,6 @@ export class ModelosComponent implements OnInit {
           this.nombre_marcas.push(marca.marcaCoche);
         });
         this.marcaSeleccionada(marca, page, false);
-        //   this.nombre_modelos.push(modelo.modelo);
-        // });
-        // this.modelos.forEach(modelo => {
         this.opcionesMarca = this.controlMarca.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value, 'marca'))
@@ -208,9 +201,6 @@ export class ModelosComponent implements OnInit {
       this.router.navigate(['/modelos/20/marca', idMarca, 'page', 0]);
       this.marcaSeleccionada(idMarca, 0, false);
     }
-    // this.autocompleteControl.setValue('');
-    // event.option.focus();
-    // event.option.deselect();
   }
 
 
@@ -323,6 +313,10 @@ export class ModelosComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo para obtener la url de la marca si existe y
+   * en caso contrario, retornar una imagen por defecto
+   */
   getUrlMarca() {
     if (this.urlMarca === undefined || this.urlMarca == null ) {
       return 'https://dl.dropboxusercontent.com/s/p076br0njm8vx43/fyclogo.png?dl=0';
@@ -355,10 +349,16 @@ export class ModelosComponent implements OnInit {
     this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
   }
 
+  /**
+   * Metodo para obtener el estado del sidebar
+   */
   getSideBarState() {
     return this.sidebarservice.getSidebarState();
   }
 
+  /**
+   * Metodo para esconder el sidebar
+   */
   hideSidebar() {
     this.sidebarservice.setSidebarState(true);
   }
@@ -381,6 +381,11 @@ export class ModelosComponent implements OnInit {
     this.iniciar();
   }
 
+  /**
+   * Metodo para actualizar el
+   * booleano de loading
+   * @param load
+   */
   setLoading(load: boolean) {
     this.filtroService.setLoading(load);
     this.loading = this.filtroService.getLoading();
@@ -413,6 +418,11 @@ export class ModelosComponent implements OnInit {
     return precio;
   }
 
+  /**
+   * Metodo para buscar la url del modelo y en caso
+   * de no encontrarla, retorna una por defecto
+   * @param idModelo
+   */
   getUrlModelo(idModelo: any) {
     if (this.modelosUrl[idModelo] == undefined) {
       return 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0';
