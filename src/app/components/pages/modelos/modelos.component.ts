@@ -10,7 +10,7 @@ import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {SidebarService} from '../../services/sidebar.service';
 import {FiltroService} from '../../services/filtro.service';
-import {limitBigMidSizeScreen, limitMidSizeScreen, limitLargeSizeScreen} from '../../../../main';
+import {limitBigMidSizeScreen, limitLargeSizeScreen, limitMidSizeScreen} from '../../../config/config';
 
 @Component({
   selector: 'app-coches',
@@ -429,9 +429,5 @@ export class ModelosComponent implements OnInit {
     } else {
       return this.modelosUrl[idModelo];
     }
-
   }
 }
-
-
-

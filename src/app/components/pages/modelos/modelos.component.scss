@@ -1,6 +1,10 @@
 $limitInfSizeScreen: 600px;
 $limitMidSizeScreen: 900px;
 
+.mat-form-field{
+  margin-top: 4%;
+}
+
 .figuras {
   width: 100%;
   display: inline-block;
@@ -143,7 +147,7 @@ mat-slider {
 .normal {
   width: 150px;
   height: 50px;
-  margin-left: 25%;
+  margin-left: 16%;
   -webkit-transform: skew(45deg);
   -moz-transform: skew(45deg);
   -o-transform: skew(45deg);
@@ -404,6 +408,7 @@ h1 {
 }
 .cardPerso{
   margin: 5% 5%;
+  max-width: 300px;
   box-shadow: 0 0 50px #000000;
 }
 mdb-card-body input {
@@ -459,6 +464,26 @@ mdb-card-body input {
   .cardPerso{
     margin: 5% 5%;
   }
+   .paralelogramoInvInterno{
+    width: 85%;
+  }
+
+  .paralelogramoInvExterno, .paralelogramoExterno{
+    width: 200px;
+  }
+  #figuraIzq{
+    margin-right: 18.2%;
+  }
+  .normal{
+    margin-left: 2%;
+  }
+  .normalInv{
+    margin-left: 71%;
+  }
+
+  .mat-form-field{
+    width: 90%;
+  }
 
 }
 
@@ -475,6 +500,7 @@ mdb-card-body input {
     margin: 2% 2.2%;
   }
 
+
   #inputDer{
     font-size: 12px;
   }
@@ -487,17 +513,18 @@ mdb-card-body input {
     //left: -15px;
     transform: translateX(-50%);
     margin-left: 50%;
+    margin-top: -2%;
   }
 
   #divDer{
     margin-left: 0;
     width:75%;
   }
-
-  #divIzq{
-    margin-left: 50%;
-    width:80%;
-  }
+  //
+  //#divIzq{
+  //  //margin-left: 50%;
+  //  //width:80%;
+  //}
 
   .paralelogramoExterno,#figuraDer {
     margin-left: 0;
@@ -550,7 +577,8 @@ mdb-card-body input {
 
   .figuras{
     margin-top: 62px;
-    width: 70%;
+    width: 90%;
+    margin-left: 58%;
   }
 
 
@@ -569,9 +597,12 @@ mdb-card-body input {
     margin-top: 20%;
   }
 
-  h2 {
+  h1 {
     font-size: 18px;
-    //font-size: 200%;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 15px;
   }
 
   h2, h1, h3 {

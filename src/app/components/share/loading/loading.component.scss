@@ -1,11 +1,15 @@
+$limitSizeScreen: 600px;
+
 #global{
-  width:70px;
-  margin-left:46%;
+  width: 100%;
+  margin-left: 50%;
+  transform: translateX(-30px);
   align-content: center;
   margin-top:10px;
   position:absolute;
   cursor:pointer;
   height:60px;
+  z-index: 1000;
 }
 
 .mask{
@@ -130,3 +134,4 @@
     background : blue;
   }
 }
+
