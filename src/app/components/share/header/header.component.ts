@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {urlEndPointImgLogo} from '../../../../environments/environment';
+import {limitInfSizeScreen} from '../../../config/config';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import {urlEndPointImgLogo} from '../../../../environments/environment';
 export class HeaderComponent implements OnInit {
   urlEndPointImgLogo = urlEndPointImgLogo;
   tipoUsuario: string = 'Usuario';
+  slide = 'slideOffHeader';
 
   // public logo = 'G:/TFG/fyc-app/src/FYClogo.png';
     panelOpenState: boolean;
@@ -26,6 +28,49 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para retornar el estado del slide
+   *
+   */
+  getSlide() {
+    if(screen.width<limitInfSizeScreen) {
+      return this.slide;
+    }else {
+      return '';
+    }
+  }
+  /**
+   * Metodo para retornar si tiene o no animacion
+   * por tamaño de pantalla
+   */
+  getAnimation() {
+    if(screen.width<limitInfSizeScreen) {
+      return 'animation';
+    }else{
+      return '';
+    }
+  }
+
+  /**
+   * Metodo para actualizar el estado del slide
+   * al contrario al que tuviera previamente
+   *
+   */
+  setSlide() {
+    if (this.slide == 'slideInHeader') {
+      this.slide = 'slideOutHeader';
+    } else {
+      this.slide = 'slideInHeader';
+    }
+  }
+  /**
+   * Metodo para actualizar el estado del slide
+   * a escondido cada vez que se pincha en el link y la ventana es pequeña
+   *
+   */
+  setSlideOut() {
+    this.slide = 'slideOutHeader';
+  }
   // comprobarNavbar():void{
   //     let prevScrollpos = window.pageYOffset;
   //     let bool;

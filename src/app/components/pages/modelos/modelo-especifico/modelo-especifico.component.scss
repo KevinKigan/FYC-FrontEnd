@@ -1,0 +1,247 @@
+.imgModelo {
+  display: block;
+  max-height: 100%;
+  min-width: 100%;
+  z-index: 1;
+  left: 50%;
+  transform: translatey(-25%);
+}
+
+.canvas {
+  display: inline-block;
+  width: 35%;
+  margin: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 20px;
+  left: 10px;
+  right: 10px;
+}
+
+.container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  transform: translate(-70%, -50%);
+}
+
+table {
+  margin: 5%;
+  width: 70%;
+  border-radius: 20px;
+  //background: rgb(75,75,75);
+  //background: -moz-radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
+  //background: -webkit-radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
+  //background: radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4b4b4b",endColorstr="#b4be00",GradientType=1);
+  background: url("src/assets/images/tableBack.jpg");
+  font-family: sans-serif;
+  font-weight: 100;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+th {
+  text-align: left;
+}
+
+thead {
+  th {
+    background-color: #55608f;
+  }
+}
+
+tbody {
+  tr {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  td {
+    position: relative;
+
+    &:hover {
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -9999px;
+        bottom: -9999px;
+        background-color: rgba(255, 255, 255, 0.2);
+        z-index: -1;
+      }
+    }
+  }
+}
+
+.styleA {
+  position: relative;
+  white-space: normal;
+  color: #666;
+  transition: .5s;
+}
+
+.styleA::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffee10;
+  transition: .3s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.styleA:hover::before {
+  transform: scale(1.1);
+  font-style: italic;
+}
+
+.styleA:hover {
+  box-shadow: 0 0 15px #ffee10;
+}
+
+.marginPerso {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+.centrado {
+  text-align: center;
+  position: relative;
+  -ms-transform: translateY(30%);
+  -webkit-transform: translateY(30%);
+  transform: translateY(30%);
+}
+
+.comparar {
+  border-radius: 10px;
+  width: 95%;
+  background: #c1c1c1;
+}
+
+.placeholder {
+  color: #736e24;
+}
+
+.mat-focused .mat-form-field-underline {
+  color: #ffee10;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: #736e24 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  background-color: #696108 !important;
+
+}
+
+::ng-deep.mat-form-field-ripple {
+  background-color: #ffee10 !important;;
+}
+
+.imgModeloSemejantes {
+  display: block;
+  max-height: 100%;
+  z-index: 0;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+.modelo {
+  transform: translatey(-100%);
+}
+
+.imgST1 {
+  width: auto;
+  height: 12rem;
+  max-width: 18rem;
+  max-height: 15rem;
+}
+
+.imgST2 {
+  width: 100%;
+  height: 100%;
+  max-width: 15rem;
+  max-height: 15rem;
+}
+
+.yHoverImg {
+  filter: brightness(30%);
+  animation: brilloOut;
+  animation-duration: 0.5s;
+}
+
+.noHoverImg {
+  filter: brightness(100%);
+  animation: brilloIn;
+  animation-duration: 0.5s;
+}
+
+.yHoverTxt{
+  animation: brilloOutTxt;
+  transform: translatey(-100%);
+  filter: opacity(0);
+  animation-duration: 0.5s ;
+}
+
+.noHoverTxt{
+  transform: translatey(-100%);
+  filter: opacity(1);
+  animation: brilloInTxt;
+  animation-duration: 0.5s;
+
+}
+@keyframes brilloIn {
+  from {filter: brightness(30%);}
+  to {filter: brightness(100%);}
+}
+
+@-webkit-keyframes brilloIn {
+  from {filter: brightness(30%);}
+  to {filter: brightness(100%);}
+}
+
+@keyframes brilloOut {
+  from {filter: brightness(100%);}
+  to  {filter: brightness(30%);}
+}
+
+@-webkit-keyframes brilloOut {
+  from {filter: brightness(100%);}
+  to {filter: brightness(30%);}
+}
+@keyframes brilloInTxt {
+  from{filter:opacity(0);}
+  to   {filter:opacity(1);}
+}
+
+@-webkit-keyframes brilloInTxt {
+  from {filter:opacity(0);}
+  to  {filter:opacity(1);}
+}
+
+@keyframes brilloOutTxt {
+  from {filter:opacity(1);}
+  to  {filter:opacity(0);}
+}
+
+@-webkit-keyframes brilloOutTxt {
+  from {filter:opacity(1);}
+  to  {filter:opacity(0);}
+}

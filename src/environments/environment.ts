@@ -7,17 +7,31 @@ export const environment = {
 };
 
 const dns = "http://localhost:8080";
+// import {URL_BACKEND} from '../app/config/config';
+//
+// const dns = URL_BACKEND;
 
-export const urlEndPoint = dns+"/api";
-export const urlEndPointImgLogo = urlEndPoint+"/img/logo";
-export const urlEndPointMarcas = urlEndPoint+"/coches/marcas";
-export const urlEndPointFiltrar = urlEndPoint+"/coches/filtros";
-export const urlEndPointCochesPage = urlEndPoint+"/coches/page/";
-export const urlEndPointCarrocerias = urlEndPoint+"/carrocerias";
-export const urlEndPointImgMarcaLogo = urlEndPoint+"/img/marcaslogo/";
-export const urlEndPointModelosPage = urlEndPoint+"/coches/modelos/page/";
-export const urlEndPointModelosPorMarcaPage = urlEndPoint+"/coches/modelospormarca/idmarca/";
-export const urlEndPointActualizarItemsPorPagina = urlEndPoint+"/coches/elementsforpage";
+export const urlEndPoint                         = dns+"/api";
+export const urlEndPointChart                    = urlEndPoint+"/coches/chart";
+export const urlEndPointMarcas                   = urlEndPoint+"/modelos/marcas";
+export const urlEndPointModelo                   = urlEndPoint+"/modelo/";
+export const urlEndPointModelos                  = urlEndPoint+"/modelos/";
+export const urlEndPointImgLogo                  = urlEndPoint+"/img/logo";
+export const urlEndPointFiltrar                  = urlEndPoint+"/modelos/filtros";
+export const urlEndPointConsumo                  = urlEndPoint+"/coches/consumo";
+export const urlEndPointUploadImg                = urlEndPoint+"/modelos/imagen";
+export const urlEndPointCochesPage               = urlEndPoint+"/coches/page/";
+export const urlEndPointCarrocerias              = urlEndPoint+"/carrocerias";
+export const urlEndPointModelosPage              = urlEndPoint+"/modelos/page/";
+export const urlEndPointImgMarcaLogo             = urlEndPoint+"/img/marcaslogo/";
+export const urlEndPointImgModeloLogo            = urlEndPoint+"/img/modeloslogo";
+export const urlEndPointPreciosPagina            = urlEndPoint+"/modelos/precios";
+export const urlEndPointImgPropietario           = urlEndPoint+"/img/propietario";
+export const urlEndPointChartSemejantes          = urlEndPoint+"/coches/chartsemejantes";
+export const urlEndPointMotorCombustion          = urlEndPoint+"/coches/motorescombustion";
+export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/";
+export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/";
+
 
 /*
  * For easier debugging in development mode, you can import the following file

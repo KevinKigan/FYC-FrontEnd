@@ -421,7 +421,11 @@ export class SidebarService {
     }
   }
 
-
+  /**
+   * Metodo para actualizar los valores relacionados
+   * con el filtro de la potencia
+   * @param carroceriaSel
+   */
   setCarroceria(carroceriaSel: string): void {
     this.carrocerias.forEach(carroceria => {
       if (carroceria.title == carroceriaSel) {
@@ -444,7 +448,9 @@ export class SidebarService {
     });
   }
 
-
+  /**
+   * Metodo para acualizar lso filtros con los submenus
+   */
   actualizarFiltros() {
     // Añade el filtro de precios
     this.filtroService.setPrecio(this.precio.submenus);

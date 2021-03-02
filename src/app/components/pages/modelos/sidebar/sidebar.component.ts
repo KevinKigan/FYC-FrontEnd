@@ -39,6 +39,11 @@ export class SidebarComponent implements OnInit {
     return this.sidebarservice.getSidebarState();
   }
 
+  /**
+   * Metodo para actualizar el estado del desplegable
+   *
+   * @param currentMenu
+   */
   toggle(currentMenu) {
     if (currentMenu.type === 'dropdown') {
       this.menus.forEach(element => {
@@ -51,6 +56,11 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para actualizar el estado del desplegable entre submenus
+   * @param menu
+   * @param submenu
+   */
   toggleSubmenu(menu, submenu) {
     if (submenu.type === 'dropdown') {
       this.menus.forEach(element => {
@@ -66,8 +76,11 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para actualizar la clase en el html
+   * @param currentMenu
+   */
   getState(currentMenu) {
-
     if (currentMenu.active) {
       return 'down';
     } else {
@@ -88,7 +101,11 @@ export class SidebarComponent implements OnInit {
     this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
   }
 
-
+  /**
+   * Metodo para formatear el valor en el caso de ser superior a 1000
+   *
+   * @param value
+   */
   formatLabel(value: number) {
     if (value >= 1000) {
       this.precio = Math.round(value / 1000) + 'k';
@@ -100,6 +117,12 @@ export class SidebarComponent implements OnInit {
     return this.precio;
   }
 
+  /**
+   * Metodo para actualizar el valor segun el menu
+   *
+   * @param submenu
+   * @param value
+   */
   seleccionado(submenu: any, value: string) {
     let menu = submenu.title;
     if (menu == 'Carroceria') {
@@ -110,31 +133,58 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para actuallizar la carrocaria y emitir una nueva busqueda filtrada
+   * @param value
+   */
   setCarroceria(value: string) {
     this.sidebarservice.setCarroceria(value);
     this.actualizar();
   }
 
+  /**
+   * Metodo para actuallizar el precio y emitir una nueva busqueda filtrada
+   * @param precio
+   * @param submenu
+   */
   setPrecio(precio: number, submenu: any) {
     this.sidebarservice.setPrecio(precio,submenu);
     this.actualizar();
   }
 
+  /**
+   * Metodo para actuallizar la potencia y emitir una nueva busqueda filtrada
+   * @param potencia
+   * @param submenu
+   */
   setPotencia(potencia: number, submenu: any) {
     this.sidebarservice.setPotencia(potencia,submenu);
     this.actualizar();
   }
 
+  /**
+   * Metodo para actuallizar el motor y emitir una nueva busqueda filtrada
+   * @param value
+   * @param submenu
+   */
   setMotor(value: any, submenu: any) {
     this.sidebarservice.setMotor(value, submenu);
     this.actualizar();
   }
 
+  /**
+   * Metodo para actuallizar el consumo y emitir una nueva busqueda filtrada
+   * @param consumo
+   * @param submenu
+   */
   setConsumo(consumo: number, submenu: any) {
     this.sidebarservice.setConsumo(consumo, submenu);
     this.actualizar();
   }
 
+  /**
+   * Metodo para actualizar filtros y emitir la busqueda
+   */
   actualizar(){
     this.sidebarservice.actualizarFiltros();
     this.filtrar.emit(true);

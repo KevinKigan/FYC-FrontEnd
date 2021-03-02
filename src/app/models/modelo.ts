@@ -5,5 +5,6 @@ export class Modelo{
   idModelo: number;
   marca: Marca;
   modelo: string;
+  imagen: string;
   volumen: Volumen;
 }

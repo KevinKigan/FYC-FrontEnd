@@ -1,0 +1,189 @@
+<div class="h-50">
+  <img *ngIf="modelo" class="img-fluid imgModelo" src="{{urlEndPointUploadImg}}/{{modelo.imagen}}"
+       alt="{{modelo.imagen}}">
+</div>
+<!--Tabla comparativa con modelos similares-->
+<div class="row marginPerso"
+     style="max-width: 100%; background: white; border-radius: 20px">
+  <div *ngIf="loading" style="width: 100%; height: 100px; background: white; border-radius: 20px">
+    <app-loading></app-loading>
+    <h1>Cargando Datos...</h1>
+  </div>
+
+  <!--  <google-map width="750px"-->
+  <!--              height="450px"-->
+  <!--              [center]="center"-->
+  <!--              [zoom]="zoom">-->
+  <!--  </google-map>-->
+
+  <div *ngIf="modelo && boolChart">
+    <div class="row">
+      <!--    Grafico pentagonal-->
+      <div class="canvas my-auto mx-auto col-lg-6">
+        <div>
+          <h1>{{modelo.marca.marcaCoche}} {{modelo.modelo}}</h1>
+          <p>Comparar con modelos similares por:</p>
+          <mat-form-field class="placeholder" appearance="fill" color="#5ee7df">
+            <mat-label>Comparar por</mat-label>
+            <mat-select [(ngModel)]="comparar" name="food">
+              <mat-option *ngFor="let filt of filtros" [value]="filt">
+                {{filt}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <canvas mdbChart
+                [chartType]="chartTypeRadar"
+                [datasets]="chartDatasetsRadar"
+                [labels]="chartLabelsRadar"
+                [colors]="chartColorsRadar"
+                [options]="chartOptionsRadar"
+                [legend]="true"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+        <div style="justify-content: center">
+          <p style="text-align: center; width: 100%; color: darkred; font-size: 10px">*Datos valorados en un rango (0 -
+            5)</p>
+        </div>
+      </div>
+      <!--    Graficos de barras-->
+      <div class="my-auto mx-auto col-lg-6">
+        <div *ngIf="!semejantes" class="row"><p style="text-align:center; width: 100%; color: darkred; font-size: 18px">
+          No
+          se han encontrado modelos similares</p></div>
+
+        <div class="row marginPerso" style="width: 100%">
+          <div *ngFor="let f of fila1" class="col-lg-6 " style="display: block">
+            <canvas mdbChart
+                    [chartType]="chartType"
+                    [datasets]="getChartDatasets(f)"
+                    [labels]="chartLabels"
+                    [colors]="chartColors"
+                    [options]="getOptions(f)"
+                    [legend]="true"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+            </canvas>
+            <div *ngIf="positivo(f) && semejantes" class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                   aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size: 13px">Es
+                un {{obtenerPorcentaje(f)}}% mejor en {{f}}</div>
+            </div>
+            <div *ngIf="!positivo(f) && semejantes" class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                   aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size: 13px">Es
+                un {{obtenerPorcentaje(f)}}% peor en {{f}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row marginPerso" style="width: 100%">
+          <div *ngFor="let f of fila2" class="col-lg-6 " style="display: block">
+            <canvas mdbChart
+                    [chartType]="chartType"
+                    [datasets]="getChartDatasets(f)"
+                    [labels]="chartLabels"
+                    [colors]="chartColors"
+                    [options]="getOptions(f)"
+                    [legend]="true"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+            </canvas>
+            <div *ngIf="positivo(f) && semejantes" class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                   aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size: 13px">Es
+                un {{obtenerPorcentaje(f)}}% mejor en {{f}}</div>
+            </div>
+            <div *ngIf="!positivo(f) && semejantes" class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                   aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size: 13px">Es
+                un {{obtenerPorcentaje(f)}}% peor en {{f}}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--  Modelos similares-->
+    <div class="row" style="justify-items: center">
+      <h1>Modelos Similares</h1>
+      <div *ngFor="let fS of filaS;let ind1=index" class="row">
+        <div *ngFor="let filaN of fS;let ind2=index" class="col" style="margin-bottom: 5%">
+          <h3>{{filaN.title}}</h3>
+          <div class="imgST1">
+            <mdb-card style=" z-index:0" class="imgST1">
+              <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <a><img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
+                        style="border-radius: 5px"
+                        src="{{urlEndPointUploadImg}}/{{filaN.imagen}}"
+                        alt="{{modelo.imagen}}"></a>
+                <p>{{urlEndPointUploadImg}}/{{filaN.imagen}}</p>
+              </div>
+            </mdb-card>
+            <p [routerLink]="['/redirect/modeloespecifico',filaN.idModelo]"
+               (mouseover)="mouseEnter(filaN.modelo,ind1,ind2)" id="{{filaN.modelo}}Txt{{ind1}}{{ind2}}"
+               (mouseout)="mouseEnter(filaN.modelo,ind1,ind2)"
+               style="height: 12rem;width: 18rem; z-index: 1; color: palegoldenrod; text-align: center; font-size: 20px"
+               class="modelo yHoverTxt flex-center">{{filaN.marca}} {{filaN.modelo}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 40%;" class="container">
+  <table *ngIf="consumos.length>0" class="styleA">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Consumo Autopista</th>
+      <th>Consumo Mixto</th>
+      <th>Consumo Ciudad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let consumo of consumos; let index = index">
+      <td>{{index + 1}}</td>
+      <td>{{consumo.idConsumoNormal.autopista}}</td>
+      <td>{{consumo.idConsumoNormal.combinado}}</td>
+      <td>{{consumo.idConsumoNormal.ciudad}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div style="margin-top: 0; height: 50px"></div>
+<div class="container">
+
+  <table class="styleA">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Cilindrada</th>
+      <th>Cilindros</th>
+      <th>Potencia (CV)</th>
+      <th>Emisiones (CO2)</th>
+      <th>Combustible</th>
+      <th>Tipo de Sobrealimentacion</th>
+      <th>Año</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td *ngIf="motoresCombustion.length<1" style="width: 200px">
+      Cargando datos...
+    </td>
+    <tr *ngFor="let motorCombustion of motoresCombustion; let index = index">
+      <td>{{index + 1}}</td>
+      <td>{{motorCombustion.cilindrada}}</td>
+      <td>{{motorCombustion.cilindros}}</td>
+      <td>{{motorCombustion.hp}}</td>
+      <td>{{motorCombustion.emisiones.CO2}}</td>
+      <td>{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}</td>
+      <td>{{sobreAlimentacion(motorCombustion.sobrealimentacion)}}</td>
+      <td>{{coches[index].caryear}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

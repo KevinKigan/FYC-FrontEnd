@@ -1,34 +1,69 @@
+$limitInfSizeScreen: 600px;
+$limitMidSizeScreen: 900px;
+
+.mat-form-field{
+  margin-top: 4%;
+}
+
+.figuras {
+  width: 100%;
+  display: inline-block;
+  transform: translateX(-50%);
+  margin-left: 50%;
+  margin-bottom: 2%;
+  margin-top: 80px;
+}
+#figuraIzq{
+  margin-right: 10.2%
+}
 .padre {
   display: flex;
+  width: 100%;
   align-items: center;
   text-align: right;
 }
+
 mat-slider {
   width: 300px;
   margin-top: 20%;
   margin-left: 10%;
 }
-
-.ul{
+.ul {
   position: absolute;
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 .styleA {
   position: relative;
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(37,37,37,0.1276334269662921) 100%);
+  background: rgb(255, 255, 255);
+  //background: -moz-linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //background: -webkit-linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //background: linear-gradient(0deg, rgba(37, 37, 37, 0.0576334269662921) 0%, rgba(255, 204, 0, 1) 100%);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525", endColorstr="#ffcc00", GradientType=1);
+  //background: rgb(37,37,37);
+  background: -moz-linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  background: linear-gradient(0deg, rgba(37,37,37,0) 0%, rgba(228,186,15,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525",endColorstr="#e4ba0f",GradientType=1);
+  width: 70%;
+  height: 20%;
+  font-size: 16px;
+  max-width: 100%;
   border-radius: 50px;
+  border-color: transparent;
   white-space: normal;
+  box-shadow: 0 0 5px #666;
+  border-width: 0;
   color: #666;
-  bottom: 5%;
   transition: .5s;
+  margin-left: 25%;
+  transform: translateX(-15%);
 }
 
 .styleA::before {
   content: '';
   position: absolute;
-  /*top: 0;*/
+  top: 0;
   left: 0;
   background: #ffee10;
   transition: .3s;
@@ -39,56 +74,76 @@ mat-slider {
 .styleA:hover::before {
   transform: scale(1.1);
   box-shadow: 0 0 15px #ffee10;
+
+  font-style: italic;
 }
 
 .styleA:hover {
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
+  color: #666;
 }
 
-.paralelogramo {
+.paralelogramoInvInterno {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to left, transparent,#2f2f2e);
+}
+.paralelogramoInvExterno {
   width: 300px;
   height: 75px;
-  background: linear-gradient(to right, transparent,#2f2f2e);
+  z-index: 2;
+  border-radius: 1px;
+  border-style: solid;
+  border-color: #ffee10;
+  margin: 0 50px;
+  -webkit-transform:skew(45deg) ;
+  -moz-transform: skew(45deg);
+  -o-transform: skew(45deg);
+  transform: skew(45deg);
+}
+
+.paralelogramoExterno {
+  width: 300px;
+  height: 75px;
+  margin-left: -0.85%;
   border-radius: 1px;
   border-style: solid;
   border-color: #ffee10;
   -webkit-transform: skew(-45deg);
-  -moz-transform: skew(-20deg);
-  -o-transform: skew(-20deg);
+  -moz-transform:skew(-45deg);
+  -o-transform:skew(-45deg);
+  transform:skew(-45deg);
 }
-.paralelogramoInv {
-  width: 300px;
-  height: 75px;
-  background: linear-gradient(to right, #2f2f2e, transparent);
-  border-radius: 1px;
-  border-style: solid;
-  border-color: #ffee10;
-  -webkit-transform: skew(45deg);
-  -moz-transform: skew(20deg);
-  -o-transform: skew(20deg);
+.paralelogramoInterno {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent,#2f2f2e);
 }
 .tri {
-  width: 200px;
-  left: 40%;
+  width: 300px;
+  //left: 41%;
   height: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  //display: table;
   position: absolute;
-  background: transparent;
+  background: linear-gradient(to right, transparent,#2f2f2e, transparent);
   border-radius: 1px;
   border-style: solid;
   border-top-color: #ffee10;
-  border-bottom-color:transparent;
+  border-bottom-color:#ffee10;
   border-right-color: transparent;
   border-left-color: transparent;
   z-index: 0;
 
 }
 
+
 .normal {
   width: 150px;
   height: 50px;
-  margin-top: 2%;
-  margin-left: 25%;
+  margin-left: 16%;
   -webkit-transform: skew(45deg);
   -moz-transform: skew(45deg);
   -o-transform: skew(45deg);
@@ -96,42 +151,20 @@ mat-slider {
 .normalInv {
   width: 150px;
   height: 50px;
-  margin-top: 2%;
-  margin-left: 25%;
-  -webkit-transform: skew(-45deg);
-  -moz-transform: skew(-45deg);
-  -o-transform: skew(-45deg);
+  margin-left: 50%;
+  -webkit-transform: skew(-45deg) translateX(-90%);
+  -moz-transform: skew(-45deg) translateX(-50%);
+  -o-transform: skew(-45deg) translateX(-50%);
+  transform: skew(-45deg) translateX(-50%);
 }
+
 .forma{
-  display: inline-block;
-  margin: 16px;
+  margin:0 auto;
 }
 .formaFiltros{
   display: block;
   margin: 16px;
 }
-/*input[type=text] {*/
-/*  border: none;*/
-/*  border-bottom: 2px solid red;*/
-/*}*/
-//::ng-deep .mat-form-field-placeholder{
-//
-//  color:red;
-//}
-//
-//::ng-deep .mat-focused .mat-form-field-placeholder{
-//
-//  color:red;
-//}
-//::ng-deep .mat-form-field-underline .mat-form-field-ripple{
-//
-//  background-color:red;
-//}
-//
-//::ng-deep .mat-form-field-underline{
-//
-//  background-color:red;
-//}
 .placeholder {
   color: #ffee10;
 }
@@ -177,13 +210,11 @@ mat-slider {
 .slideInAlt {
   position: absolute;
   animation-name: slideInRAlt;
-  z-index: -10;
 }
 
 .slideOutAlt {
   position: absolute;
   animation-name: slideOutRAlt;
-  z-index: -5;
 }
 
 .slideOff {
@@ -191,117 +222,105 @@ mat-slider {
   visibility: hidden;
   left: -200%;
 }
+
 .slideOffAlt {
   position: absolute;
   left: 0;
-
-  top:6.2%;
+  top: 6.2%;
 }
 
 @keyframes slideInR {
   from {
-    //opacity: 0;
-    transform: translate(-175%, 0);
+    transform: translate(-350%, 0);
   }
   to {
-    //opacity: 1;
-    transform: translate(0%, 0);
+    transform: translate(175%, 0);
   }
 }
 
 @-webkit-keyframes slideInR {
   from {
-    //opacity: 0;
-    transform: translate(-175%, 0);
+    transform: translate(-350%, 0);
   }
   to {
-    //opacity: 1;
-    transform: translate(0%, 0);
+    transform: translate(175%, 0);
   }
 }
 
-
-@keyframes slideOutR{
-
+@keyframes slideOutR {
   from {
-    transform: translate(0%, 0);
-    //opacity: 1;
+    transform: translate(175%, 0);
   }
   to {
-    transform: translate(-175%, 0);
-    //opacity: 0;
+    transform: translate(-350%, 0);
   }
 }
 
 @-webkit-keyframes slideOutR {
   from {
-    transform: translate(0%, 0);
-    //opacity: 1;
+    transform: translate(175%, 0);
   }
   to {
-    transform: translate(-175%, 0);
-    //opacity: 0;
+    transform: translate(-350%, 0);
   }
 }
+
 @keyframes slideInRAlt {
   from {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
 @-webkit-keyframes slideInRAlt {
   from {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
 
-@keyframes slideOutRAlt{
+@keyframes slideOutRAlt {
   from {
     transform: translate(1530%, 50%);
-    top:3%;
+    top: 3%;
   }
   to {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
 }
 
 @-webkit-keyframes slideOutRAlt {
   from {
     transform: translate(1530%, 50%);
-    //top:5%;
   }
   to {
     transform: translate(0, 50%);
-    top:3%;
+    top: 3%;
   }
 }
-
-.styleSlide{
+.styleSlide {
   position: fixed;
-  width: 150px;
+  width: auto;
   height: 100%;
-  z-index: 100;
 }
-.styleSlideAlt{
+
+.styleSlideAlt {
   position: relative;
   width: 150px;
   height: 100%;
-  z-index: 90;
 }
 
-.css-shapes-preview{
+.css-shapes-preview {
   position: relative;
   height: 37.5px;
   width: 50px;
@@ -318,17 +337,17 @@ mat-slider {
 
 
 .myButton {
-  border-radius:0px 25px 25px 0px;;
-  border:1px solid #6e6723;
-  display:inline-block;
+  border-radius: 0px 25px 25px 0px;;
+  border: 1px solid #6e6723;
+  display: inline-block;
   background-image: url("src/assets/images/filterBg.png");
-  cursor:pointer;
-  color:#333333;
-  font-family:Arial;
-  font-size:15px;
-  font-weight:bold;
-  padding:15px 0px;
-  text-decoration:none;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-decoration: none;
 }
 
 .myButton:hover::before {
@@ -341,3 +360,275 @@ mat-slider {
   text-shadow: 0 0 10px #ffee10;
 }
 
+.imgModelo {
+  display: block;
+  max-height: 100%;
+  z-index: 1;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+.imgMarcas {
+  max-width: 32%;
+  width: auto;
+  max-height: 85%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.precio {
+  color: #efd500;
+  text-shadow: 1px 1px 0px #ae9100;
+}
+
+.zIndexOut {
+  //z-index: -1000;
+}
+
+.zIndexIn {
+  //z-index: 5000;
+}
+
+.appS {
+  top: 2%;
+  //z-index: 10;
+  height: 100%;
+  width: 50px;
+}
+h1 {
+  font-size: 28px;
+}
+.cardPerso{
+  margin: 5% 5%;
+  max-width: 300px;
+  box-shadow: 0 0 50px #000000;
+}
+mdb-card-body input {
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#inputDer{
+  margin-left: -0.85%;
+  Font-family: fantasy;
+  font-size: 20px
+}
+#inputIzq{
+  Font-family: fantasy;
+  font-size: 20px;
+}
+
+//Pantallas grandes
+@media only screen and (min-width: $limitInfSizeScreen) {
+
+  .cardPerso {
+    width: 18rem;
+    height: 30rem;
+    max-height: 30rem;
+  }
+
+  h2 {
+    font-size: 20px;
+    //padding: 0 0 0 30px;
+  }
+
+  mdb-card-body input {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .cardPerso{
+    margin: 1% 1%;
+  }
+
+  .paralelogramoExterno,#figuraDer {
+    margin-left: -0.85%;
+  }
+}
+
+
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen) {
+
+  mdb-card-body input {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .cardPerso{
+    margin: 5% 5%;
+  }
+  .paralelogramoInvInterno{
+    width: 85%;
+  }
+
+  .paralelogramoInvExterno, .paralelogramoExterno{
+    width: 200px;
+  }
+  #figuraIzq{
+    margin-right: 18.2%;
+  }
+  .normal{
+    margin-left: 2%;
+  }
+  .normalInv{
+    margin-left: 71%;
+  }
+
+  .mat-form-field{
+    width: 90%;
+  }
+
+}
+
+
+//Pantallas pequeñas
+@media only screen and (max-width: $limitInfSizeScreen) {
+  .cardPerso {
+    display: inline-block;
+    height: 20%;
+    width: 45%;
+    justify-content: space-evenly;
+    top: 0;
+    padding: 0;
+    margin: 2% 2.2%;
+  }
+
+
+  #inputDer{
+    font-size: 12px;
+  }
+  #inputIzq{
+    font-size: 12px;
+  }
+
+  .mat-form-field{
+    width: 60%;
+    //left: -15px;
+    transform: translateX(-50%);
+    margin-left: 50%;
+    margin-top: -2%;
+  }
+
+
+  #divDer{
+    margin-left: 0;
+    width:75%;
+  }
+
+  #divIzq{
+    margin-left: 50%;
+    width:80%;
+  }
+
+  .paralelogramoExterno,#figuraDer {
+    margin-left: 0;
+  }
+  #figuraDer{
+    z-index: 10;
+  }
+
+  .paralelogramoInvInterno {
+
+    background: linear-gradient(to left, transparent, #434342,#2f2f2e);
+  }
+  .paralelogramoInterno {
+    background: linear-gradient(to right, transparent,#434342,#2f2f2e);
+  }
+  //
+  #figuraIzq{
+    border-right-color: transparent;
+    margin-right: 0;
+    width: 50%;
+    margin-left: 0;
+  }
+
+  .normalInv{
+    margin-left: 45%;
+  }
+
+  #figuraDer{
+    border-left-color: transparent;
+    //margin-left: -20%;
+    -webkit-transform: skew(-45deg);
+    -moz-transform:skew(-45deg);
+    -o-transform:skew(-45deg);
+    transform:skew(-45deg);
+    width: 50%;
+  }
+
+  #matIzq{
+    left: 10%;
+    top:8px;
+    width: 60%;
+  }
+
+  #matDer{
+    left: 0%;
+    top:8px;
+    width: 60%;
+  }
+
+  .figuras{
+    margin-top: 62px;
+    width: 80%;
+  }
+
+  #logoGrande{
+    display: none;
+  }
+
+  .imgModelo {
+    height: 10rem;
+  }
+  .tri{
+    width: 40%;
+    background: transparent;
+  }
+  .initialDiv {
+    margin-top: 20%;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  h2, h1, h3 {
+    padding: 0 0 0 15px;
+  }
+
+  #mainDiv {
+    height: 20rem;
+  }
+
+  mdb-card {
+    width: 40%;
+    //max-width: 20%;
+    //max-width: 5rem;
+    height: 50%;
+  }
+
+  mdb-card-body {
+    width: 100%;
+  }
+  mdb-card-body input {
+    display: none;
+  }
+
+  .bg-perso {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.43) 100%);
+  }
+  button {
+    display: none;
+  }
+
+  .divCard{
+    margin: 0;
+  }
+}

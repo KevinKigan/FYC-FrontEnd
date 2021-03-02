@@ -1,75 +1,99 @@
 <nav aria-label="Page navigation example" class="font-weight-bold">
   <ul *ngIf="pages?.length>0" class="pagination pg-amber justify-content-center" style="height: 100%">
     <li [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
-      <a *ngIf="!paths" [routerLink]="[pathSinMarca,0]" class="page-link"
-         style="border-radius: 50px; color: white;font-size: 15px" tabindex="-1" mdbWavesEffect>Primera</a>
-      <a *ngIf="paths" [routerLink]="[pathConMarca,0]" class="page-link"
-         style="border-radius: 50px; color: white;font-size: 15px" tabindex="-1" mdbWavesEffect>Primera</a>
+      <div *ngIf="formatoPantalla()=='smallScreen'&& !paginator.first && paginator.number>1">
+        <a *ngIf="!paths" [routerLink]="[pathSinMarca,0]" class="page-link" tabindex="-1" mdbWavesEffect>1</a>
+        <a *ngIf="paths" [routerLink]="[pathConMarca,0]" class="page-link" tabindex="-1" mdbWavesEffect>1</a>
+      </div>
+      <div *ngIf="formatoPantalla()!='smallScreen'">
+        <a *ngIf="!paths" [routerLink]="[pathSinMarca,0]" class="page-link"
+           tabindex="-1" mdbWavesEffect>1</a>
+        <a *ngIf="paths" [routerLink]="[pathConMarca,0]" class="page-link"
+           tabindex="-1" mdbWavesEffect>1</a>
+      </div>
     </li>
-    <li [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
+    <li *ngIf="formatoPantalla()=='smallScreen'&& !paginator.first && paginator.number>1" style="width: 15px; transform: translateX(-10px);text-align: center;">
+      <span class="page-link disabled suspensivos" style="text-align: center" tabindex="-1">...</span>
+    </li>
+
+    <li id="prev" [ngClass]="paginator.first? 'disabled page-item': 'page-item'">
       <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.number-1]" class="page-link"
          style="border-radius: 50px;font-size: 20px"
          aria-label="Previous" mdbWavesEffect>
-        <span aria-hidden="true" style="color: white;font-size: 20px">&laquo;</span>
-        <span class="sr-only" style="color: white">Previous</span>
+        <span aria-hidden="true" style="font-size: 20px">&laquo;</span>
+        <span class="sr-only">Previous</span>
       </a>
       <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.number-1]" class="page-link"
          style="border-radius: 50px;font-size: 20px"
          aria-label="Previous" mdbWavesEffect>
-        <span aria-hidden="true" style="color: white;font-size: 20px">&laquo;</span>
-        <span class="sr-only" style="color: white">Previous</span>
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
       </a>
 
     </li>
     <li *ngFor="let page of pages" [ngClass]="page-1 == paginator.number? 'page-item active':'page-item'">
 
-      <a *ngIf="!paths" [routerLink]="[pathSinMarca,page-1]" (click)="actualizarPagina(page)" class="page-link btn1"
-         style="border-radius: 50px; color: white " mdbWavesEffect>{{page}}</a>
+      <a *ngIf="!paths" [routerLink]="[pathSinMarca,page-1]" (click)="actualizarPagina(page)" class="page-link"
+         mdbWavesEffect>{{page}}</a>
 
-      <a *ngIf="paths" [routerLink]="[pathConMarca,page-1]" (click)="actualizarPagina(page)" class="page-link btn1"
-         style="border-radius: 50px; color: white " mdbWavesEffect>{{page}}</a>
+      <a *ngIf="paths" [routerLink]="[pathConMarca,page-1]" (click)="actualizarPagina(page)" class="page-link"
+         mdbWavesEffect>{{page}}</a>
     </li>
 
     <!--      Boton siguiente-->
 
-    <li [ngClass]="paginator.last? 'disabled page-item': 'page-item'">
+    <li id="next" [ngClass]="paginator.last? 'disabled page-item': 'page-item'">
       <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.number+1]" class="page-link" aria-label="Next"
-         style="border-radius: 50px;font-size: 20px" mdbWavesEffect>
-        <span aria-hidden="true" style="color: white">&raquo;</span>
-        <span class="sr-only" style="color: white">Next</span>
+         mdbWavesEffect>
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
       </a>
 
       <!--      Boton siguiente-->
 
       <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.number+1]" class="page-link" aria-label="Next"
          style="border-radius: 50px;font-size: 20px" mdbWavesEffect>
-        <span aria-hidden="true" style="color: white">&raquo;</span>
-        <span class="sr-only" style="color: white">Next</span>
+        <span aria-hidden="true" style="font-size: 20px">&raquo;</span>
+        <span class="sr-only">Next</span>
       </a>
     </li>
 
+    <li  *ngIf="formatoPantalla()=='smallScreen'&& !paginator.last && paginator.number<paginator.totalPages-2" style="width: 20px; transform: translateX(-10px);text-align: center;">
+      <span class="page-link disabled suspensivos" tabindex="-1">...</span>
+    </li>
     <!--    Boton ultima-->
 
     <li [ngClass]="paginator.last? 'disabled page-item': 'page-item'">
-      <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.totalPages-1]" class="page-link"
-         style="border-radius: 50px; color: white;font-size: 15px" tabindex="-1" mdbWavesEffect>Última</a>
-      <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.totalPages-1]" class="page-link"
-         style="border-radius: 50px; color: white;font-size: 15px" tabindex="-1" mdbWavesEffect>Última</a>
+      <div *ngIf="formatoPantalla()=='smallScreen'&& !paginator.last && paginator.number<paginator.totalPages-2">
+        <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.totalPages-1]" class="page-link"
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
+        <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.totalPages-1]" class="page-link"
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
+      </div>
+      <div *ngIf="formatoPantalla()!='smallScreen'">
+        <a *ngIf="!paths" [routerLink]="[pathSinMarca,paginator.totalPages-1]" class="page-link"
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
+        <a *ngIf="paths" [routerLink]="[pathConMarca,paginator.totalPages-1]" class="page-link"
+           tabindex="-1" mdbWavesEffect>{{paginator.totalPages}}</a>
+      </div>
     </li>
 
     <!--    Boton para elegir items por pagina-->
 
     <li class="page-item">
-      <button class="page-link shadowPerso" style="border-radius: 50px;font-size: 15px;color: white;text-shadow: 2px 2px #1b1e21;"
+      <button *ngIf="formatoPantalla()=='smallScreen'" class="page-link shadowPerso"
+              mat-button [matMenuTriggerFor]="menu" style="margin-left: -10px">
+        Elem: {{itemsPorPagina}}</button>
+      <button *ngIf="formatoPantalla()!='smallScreen'" class="page-link shadowPerso"
               mat-button [matMenuTriggerFor]="menu">
         Elemetos: {{itemsPorPagina}}</button>
       <mat-menu #menu="matMenu" style="color: #7abaff">
-          <button [routerLink]="['/redirect/marca',idMarca]" *ngFor="let size of opcionesDePagina" mat-menu-item
-                  (click)="paginatorActualizado(size)">{{size}}</button>
+        <button (click)="paginatorActualizado(size)" *ngFor="let size of opcionesDePagina" mat-menu-item
+        >{{size}}</button>
       </mat-menu>
     </li>
     <li>
-      <span class="shadowPerso">Encontrados: {{paginator.totalElements}}</span>
+      <span class="shadowPerso">Total: {{paginator.totalElements}}</span>
     </li>
   </ul>
 </nav>

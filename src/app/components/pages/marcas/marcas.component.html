@@ -1,27 +1,28 @@
-<div style="margin-top: 7%"></div>
+<div class="initialDiv"></div>
 <app-loading *ngIf="loading"></app-loading>
-<div class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
-  <!-- Card -->
+<div id="mainDiv" class="card-deck m-4" *ngFor="let global of listaGlobal" style="align-items: center">
 
-  <mdb-card *ngFor="let marca of global" style="width: 18rem;max-width: 18rem;height: 20rem;max-height: 20rem">
-    <div class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
-      <!-- Card img -->
-<!--      <a [routerLink]="['/modelos/page',paginator.number-1]" class="page-link" style="border-radius: 50px;font-size: 20px"-->
-      <img [routerLink]="['/modelos/page',0]" src="{{urlEndPointImgMarcaLogo}}{{marca.idMarca}}" alt="Sin Imagen" class="img-fluid rounded">
+  <mdb-card *ngFor="let marca of global" class="cardPerso">
+    <div [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" class="divPhoto view rgba-white-slight waves-light" mdbWavesEffect>
+<!--      <img *ngIf="!cargadaImg(marca.idmarca)" src="https://dl.dropboxusercontent.com/s/1m5yy8wwpexgfyh/defaultImageMarca.png?dl=0" alt="Sin Imagen" class="img-fluid rounded">-->
+      <img src="{{getUrlMarca(marca.idMarca)}}" alt="Sin Imagen" class="img-fluid rounded">
       <a>
         <div class="mask"></div>
       </a>
     </div>
-    <!--Card content-->
-    <mdb-card-body class="bg-perso" >
-      <mdb-card-title>
-        <h1 style="@media (min-width: 100px)">{{marca.marcaCoche}}</h1>
-      </mdb-card-title>
-      <mdb-card-text>
-<!--        <h2>{{marca.url}}</h2>-->
-      </mdb-card-text>
-      <button mdbBtn [routerLink]="['/modelos/marca',marca.idMarca,'page',0]" type="button" color="warning" class="styleA " rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>
-    </mdb-card-body>
+    <div class="bg-perso">
+      <mdb-card-body>
+        <mdb-card-title>
+          <div style=" max-height: 100%">
+          <h2 class="truncar">{{marca.marcaCoche}}</h2>
+          </div>
+        </mdb-card-title>
+<!--        <button mdbBtn [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" type="button" color="warning"-->
+<!--                class="styleA truncar" rounded="true" mdbWavesEffect>{{marca.marcaCoche}}</button>-->
+        <input   [routerLink]="['/modelos/20/marca',marca.idMarca,'page',0]" type="button"
+                class="styleA truncar"  value="{{marca.marcaCoche}}"  mdbWavesEffect>
+      </mdb-card-body>
+    </div>
   </mdb-card>
 </div>
