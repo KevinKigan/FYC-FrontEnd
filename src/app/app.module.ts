@@ -34,6 +34,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
 import { ModeloEspecificoComponent } from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
 import { ConocemeComponent } from './components/pages/conoceme/conoceme.component';
+import { LoginComponent } from './components/pages/login/login.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     LoadingComponent,
     ModeloEspecificoComponent,
     ConocemeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

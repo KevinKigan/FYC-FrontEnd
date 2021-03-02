@@ -9,6 +9,10 @@ $limitMidSizeScreen: 1000px;
     //transform: translateY(-10px) scaleX(1.1);
 }
 
+i{
+  display: none;
+}
+
 button img{
   display: none;
 }
@@ -584,7 +588,7 @@ a:hover, a:focus {
   height: 36px;
   border: none;
   outline: none;
-  color: #fff;
+  color: #d7d7d7;
   padding-right: 4px;
   padding-left: 4px;
   background: #111;
@@ -728,14 +732,17 @@ a:hover, a:focus {
     height: 36px;
     width: 50px;
   }
-  button img{
+  button img, button i{
     display: inline-block;
     width: auto;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 25px;
     height: 90%;
   }
 
   .glow-on2{
-    transform: translateX(0%) translateY(-96%);
+    transform: translateX(0%) translateY(-105%);
   }
   #signUp {
     right: 15px;
