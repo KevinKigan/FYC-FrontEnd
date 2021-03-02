@@ -3,45 +3,81 @@
             mdbStickyHeader>
 
   <div  class="menu_bar">
-    <a class="bt-menu" (click)="setSlide()"><i class="fas fa-bars"></i>Menu</a>
-<!--    <div id="firstDivGradient" class="gradient-border gradientPerso" style="margin-bottom: 0em"></div>-->
+    <a class="bt-menu" (click)="setSlide()"><i class="fas fa-bars" style="display: inline-block"></i>Menu</a>
+    <!--    <div id="firstDivGradient" class="gradient-border gradientPerso" style="margin-bottom: 0em"></div>-->
   </div>
 
 
   <nav [ngClass]="[getSlide(),getAnimation()]" class="centerNav">
     <div class="align-items-left justify-content-center" >
-      <ul class="navbar-nav" >
+      <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive="active">
           <a>
-            <img (click)="setSlideOut()" [routerLink]="['/home']" src="https://dl.dropboxusercontent.com/s/p076br0njm8vx43/fyclogo.png?dl=0"
+            <img (click)="setSlideOut()" [routerLink]="['/home']"
+                 src="https://dl.dropboxusercontent.com/s/p076br0njm8vx43/fyclogo.png?dl=0"
                  class="d-inline-block align-top navImg" alt="">
           </a>
         </li>
-        <li class="nav-item styleLink"  routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/home']">Home <span class="sr-only"></span></a>
+        <li class="nav-item styleLink" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/home']">Home <span
+            class="sr-only"></span></a>
         </li>
         <li class="nav-item styleLink" routerLinkActive="active">
           <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/marcas']">Marcas <span
             class="sr-only"></span></a>
         </li>
         <li class="nav-item styleLink" routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/modelos']">Modelos <span
-            class="sr-only"></span></a>
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/modelos']">Modelos
+            <span
+              class="sr-only"></span></a>
         </li>
         <li class="nav-item styleLink" routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/sidebar']">Sidebar <span
-            class="sr-only"></span></a>
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/sidebar']">Sidebar
+            <span
+              class="sr-only"></span></a>
         </li>
         <li class="nav-item styleLink" routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/conoceme']">Conóceme <span
-            class="sr-only"></span></a>
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/conoceme']">Conóceme
+            <span
+              class="sr-only"></span></a>
         </li>
+        <li class="nav-item styleLink" id="navSignIn" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/sidebar']">Iniciar Sesión
+            <span
+              class="sr-only"></span></a>
+        </li>
+        <li class="nav-item styleLink" id="navSignUp" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/conoceme']">Resgistrarse
+            <span
+              class="sr-only"></span></a>
+        </li>
+        <!--        <li class="nav-item styleLink" routerLinkActive="active" style="margin-right: -20px">-->
+        <!--          <table class="table" style="width: 400px; height: 150px; background: #5ee7df">-->
+        <!--          <a mdbWavesEffect class="col-lg-2 nav-link styleLinkA glow-on" (click)="setSlideOut()" id="signUp"  type="button">Registrarse-->
+        <!--&lt;!&ndash;            <button id="signUp" class="glow-on" type="button">Registrarse</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <div class="glow-on2"></div>&ndash;&gt;-->
+        <!--          </a><a mdbWavesEffect class="col-lg-2 nav-link styleLinkA glow-on" (click)="setSlideOut()" id="signIn"  type="button">Iniciar Sesión-->
+        <!--&lt;!&ndash;            <button id="signUp" class="glow-on" type="button">Registrarse</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <div class="glow-on2"></div>&ndash;&gt;-->
+        <!--          </a>-->
+        <!--          </table>-->
+        <!--        </li>-->
       </ul>
     </div>
   </nav>
+  <button class="nav-link styleLinkA glow-on" id="signUp" type="button">
+    Registrarse
+    <i class="fas fa-user-plus"></i>
+<!--    <img src="https://dl.dropboxusercontent.com/s/afe79kyds0phn6n/signupicon.png?dl=0">-->
+    <div class="glow-on2"></div>
+  </button>
+
+  <button class="nav-link styleLinkA glow-on" id="signIn" type="button">
+    Iniciar Sesión
+    <i class="fas fa-sign-in-alt"></i>
+<!--    <img src="https://dl.dropboxusercontent.com/s/rgvbwab1wrmqlrt/signinicon.png?dl=0">-->
+    <div class="glow-on2"></div>
+  </button>
   <div id="lastDivGradient" class="gradient-border gradientPerso" style="margin-bottom: 0em"></div>
 
 </mdb-navbar>
-
-
-

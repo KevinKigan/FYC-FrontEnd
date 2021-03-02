@@ -1,10 +1,20 @@
 $limitSizeScreen: 600px;
+$limitMidSmlSizeScreen: 800px;
+$limitMidSizeScreen: 1000px;
 
 .menu_bar {
   display: none;
   margin: 0;
   padding: 0;
     //transform: translateY(-10px) scaleX(1.1);
+}
+
+i{
+  display: none;
+}
+
+button img{
+  display: none;
 }
 
 .navImg {
@@ -569,12 +579,99 @@ a:hover, a:focus {
   }
 }
 
+
+
+
+
+.glow-on {
+  width: 110px;
+  height: 36px;
+  border: none;
+  outline: none;
+  color: #d7d7d7;
+  padding-right: 4px;
+  padding-left: 4px;
+  background: #111;
+  cursor: pointer;
+  position: absolute;
+  font-size: 15px;
+  z-index: 1;
+  filter: blur(none);
+  border-radius: 10px;
+}
+#signUp{
+  top: 7px;
+  right: 20px;
+}
+
+#signIn{
+  top: 7px;
+  right: 170px;
+}
+
+.glow-on2 {
+  content: '';
+  transform: translateX(-4.5%) translateY(-77%);
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #fffb00,#ff7300,#ff0000);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  //width: calc(100% + 4px);
+  //height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  //opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+
+
+//.glow-on:active:after {
+//  background: transparent;
+//}
+//
+//.glow-on:hover:before {
+//  opacity: 1;
+//}
+//
+.glow-on:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111111;
+  filter: opacity(0.9);
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+
+
+
+
+
 //Pantallas grandes
 @media only screen and (min-width: $limitSizeScreen) {
   mdb-navbar {
     min-height: 5rem;
     max-height: 5rem;
   }
+
+  #navSignIn, #navSignUp{
+    display: none;
+  }
+
   nav {
     display: block;
     //position: fixed;
@@ -585,14 +682,97 @@ a:hover, a:focus {
   }
   .centerNav{
     margin: 0;
+    //margin-left: -15%;
     transform: translateY(10%);
+  }
+}
+//Pantallas medianas grandes
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitMidSmlSizeScreen) {
+ #signUp, #signIn{
+   font-size: 16px;
+   padding: 0;
+   top: 6px;
+ }
+
+  .glow-on{
+    height: 36px;
+    width: 110px;
+  }
+
+  .glow-on2{
+    transform: translateX(0%) translateY(-78%);
+  }
+  #signUp {
+    right: 15px;
+  }
+  #signIn{
+    right: 140px;
+  }
+
+  mdb-navbar nav div{
+    margin: 0;
+  }
+
+  nav div ul li a{
+    font-size: 20px;
+    padding-left: 2px;
+    padding-right: 0;
+  }
+}
+
+//Pantallas medianas pequeñas
+@media only screen and (max-width: $limitMidSmlSizeScreen) and (min-width: $limitSizeScreen) {
+ #signUp, #signIn{
+   font-size: 0;
+   padding: 0;
+   top: 6px;
+ }
+
+  .glow-on{
+    height: 36px;
+    width: 50px;
+  }
+  button img, button i{
+    display: inline-block;
+    width: auto;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 25px;
+    height: 90%;
+  }
+
+  .glow-on2{
+    transform: translateX(0%) translateY(-105%);
+  }
+  #signUp {
+    right: 15px;
+  }
+  #signIn{
+    right: 80px;
+  }
+
+  mdb-navbar nav div{
+    margin: 0;
+  }
+
+  nav div ul li a{
+    font-size: 16px;
+    padding-left: 2px;
+    padding-right: 0;
   }
 }
 
 //Pantallas pequeñas
 @media only screen and (max-width: $limitSizeScreen) {
+  #navSignIn, #navSignUp{
+    font-size: 15px;
+  }
   .navStyle{
     background: transparent;
+  }
+
+  button{
+    display: none;
   }
 
   nav {
@@ -670,3 +850,6 @@ a:hover, a:focus {
     //transform: translateY(20%);
   }
 }
+
+
+

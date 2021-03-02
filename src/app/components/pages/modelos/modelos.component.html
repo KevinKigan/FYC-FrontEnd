@@ -63,11 +63,10 @@
 
   <!-- Card -->
 
-  <mdb-card *ngFor="let modelo of global" class="cardPerso">
+  <mdb-card *ngFor="let modelo of global" class="cardPerso" [routerLink]="['/modelo',modelo.idModelo]">
     <div class="view rgba-white-slight waves-light h-50" mdbWavesEffect style="border-radius: 5px 5px 0 0">
       <a>
-        <img class="imgModelo" [routerLink]="['/modelo',modelo.idModelo]"
-             src="{{getUrlModelo(modelo.idModelo)}}" alt="{{modelo.imagen}}">
+        <img class="imgModelo" src="{{getUrlModelo(modelo.idModelo)}}" alt="{{modelo.imagen}}">
       </a>
       <a>
         <div class="mask"></div>
@@ -84,7 +83,7 @@
         <h3 *ngIf="isNaN(precios,modelo) && precios.size>0" class="precio">Precio no disponible</h3>
         <h3 *ngIf="!isNaN(precios,modelo)&& precios.size>0" class="precio">Desde {{formatPrecio(precios, modelo)}}€</h3>
       </mdb-card-text>
-      <input [routerLink]="['/modelo',modelo.idModelo]" type="button"
+      <input type="button"
              class="styleA truncar " value="{{modelo.modelo}}" mdbWavesEffect>
     </mdb-card-body>
   </mdb-card>

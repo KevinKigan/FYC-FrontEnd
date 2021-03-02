@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {urlEndPointImgLogo} from '../../../../environments/environment';
-import {limitInfSizeScreen, limitMidSizeScreen} from '../../../../main';
+import {limitInfSizeScreen} from '../../../config/config';
 
 @Component({
   selector: 'app-header',

@@ -50,6 +50,7 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     LoadingComponent,
     ModeloEspecificoComponent,
     ConocemeComponent,
+
   ],
   imports: [
     BrowserModule,

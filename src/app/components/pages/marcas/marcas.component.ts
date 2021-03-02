@@ -4,7 +4,7 @@ import {Marca} from '../../../models/marca';
 import {CochesService} from '../../services/coches.service';
 import {urlEndPointImgMarcaLogo} from '../../../../environments/environment';
 import {FiltroService} from '../../services/filtro.service';
-import {limitInfSizeScreen, limitMidSizeScreen, limitBigMidSizeScreen} from '../../../../main';
+import {limitBigMidSizeScreen, limitInfSizeScreen, limitMidSizeScreen} from '../../../config/config';
 
 
 @Component({
