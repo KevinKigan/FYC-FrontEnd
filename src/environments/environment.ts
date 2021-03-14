@@ -33,6 +33,11 @@ export const urlEndPointCochesPorModelo          = urlEndPoint+"/coches/modelo/"
 export const urlEndPointModelosPorMarcaPage      = urlEndPoint+"/modelospormarca/";
 
 
+export const urlEndPointUsuarios      = urlEndPoint+"/user";
+export const urlEndPointUsuariosIndex = urlEndPointUsuarios+'/index/';
+export const urlEndPointUsuariosCreate = urlEndPointUsuarios+'/create';
+
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

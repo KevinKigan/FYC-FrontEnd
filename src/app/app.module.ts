@@ -34,6 +34,10 @@ import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
 import { ModeloEspecificoComponent } from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
 import { ConocemeComponent } from './components/pages/conoceme/conoceme.component';
+import { LoginComponent } from './components/pages/credentials/login/login.component';
+import { SignupComponent } from './components/pages/credentials/signup/signup.component';
+import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
+import { VerifyComponent } from './components/pages/credentials/verify/verify.component';
 
 
 @NgModule({
@@ -50,6 +54,10 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     LoadingComponent,
     ModeloEspecificoComponent,
     ConocemeComponent,
+    LoginComponent,
+    SignupComponent,
+    UsuariosComponent,
+    VerifyComponent,
 
   ],
   imports: [

@@ -70,6 +70,7 @@ export class ModeloEspecificoComponent implements OnInit {
 
   center = {lat: 24, lng: 12};
   display?: google.maps.LatLngLiteral;
+  imagenPrincipal: string;
 
   constructor(private cochesService: CochesService,
               private activatedRoute: ActivatedRoute,
@@ -93,6 +94,9 @@ export class ModeloEspecificoComponent implements OnInit {
       this.cochesService.getModelo(id).subscribe(modelo => {
         this.modelo = modelo;
         this.modeloChart = this.modelo.modelo;
+        this.cochesService.getUrlModelo([this.modelo.idModelo]).subscribe( url=>{
+          this.imagenPrincipal = url[this.modelo.idModelo];
+        });
         this.cochesService.getCochesPorModelo(this.modelo.idModelo).subscribe(value => {
           value.forEach(coche => {
             this.coches.push(coche);
@@ -230,7 +234,7 @@ export class ModeloEspecificoComponent implements OnInit {
     if (sobrealimentacion.turbo) {
       return 'Turbo';
     } else if (sobrealimentacion.supercargador) {
-      return 'Supercargador';
+      return 'Compresor';
     } else {
       return 'Atmosférico';
     }

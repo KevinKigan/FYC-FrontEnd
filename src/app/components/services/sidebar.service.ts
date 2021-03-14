@@ -32,7 +32,7 @@ export class SidebarService {
     },
     {
       selected: false,
-      value: 'Supercargador',
+      value: 'Compresor',
       class: ''
     }
   ];
