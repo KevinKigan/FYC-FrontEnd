@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {urlEndPointImgLogo} from '../../../environments/environment';
+import {urlImgLogo} from '../../../environments/environment';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MainService {
    *
    */
   getLogo():Observable<any>{
-    return this.http.get(`${urlEndPointImgLogo}/FYClogo.png`).pipe(
+    return this.http.get(`${urlImgLogo}/FYClogo.png`).pipe(
       catchError(e =>{
         return throwError(e);
       }));

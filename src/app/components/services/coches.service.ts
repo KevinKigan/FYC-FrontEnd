@@ -3,21 +3,18 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {
-  urlEndPointModelosPorMarcaPage,
-  urlEndPointMarcas,
-  urlEndPointModelosPage,
-  urlEndPointCarrocerias,
-  urlEndPointFiltrar,
-  urlEndPointModelo,
-  urlEndPointPreciosPagina,
-  urlEndPointCochesPorModelo,
-  urlEndPointConsumo,
-  urlEndPointMotorCombustion,
-  urlEndPointChart,
-  urlEndPointChartSemejantes,
+  urlMarcas,
+  urlModelosPage,
+  urlCarrocerias,
+  urlPreciosPagina,
+  urlCochesPorModelo,
+  urlConsumo,
+  urlMotorCombustion,
+  urlChart,
+  urlChartSemejantes,
   urlEndPointModelos,
-  urlEndPointImgMarcaLogo,
-  urlEndPointImgModeloLogo
+  urlImgMarcaLogo,
+  urlImgModeloLogo
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -66,7 +63,7 @@ export class CochesService {
     modelos.forEach(modelo => {
       this.ids.push(modelo.idModelo);
     });
-    return this.http.post<string>(urlEndPointPreciosPagina, this.ids).pipe(
+    return this.http.post<string>(urlPreciosPagina, this.ids).pipe(
       map(value => {
         return value as unknown as Map<string, string>;
       })
@@ -79,7 +76,7 @@ export class CochesService {
    * @param idCoche
    */
   getDatosChart(idCoche: number): Observable<any> {
-    return this.http.get<string>(urlEndPointChart + '/' + idCoche).pipe(
+    return this.http.get<string>(urlChart + '/' + idCoche).pipe(
       map(value => {
         return value as unknown as Map<string, string>;
       })
@@ -92,7 +89,7 @@ export class CochesService {
    * @param idCoche
    */
   getDatosChartSemejantes(idCoche: number): Observable<any> {
-    return this.http.get<string>(urlEndPointChartSemejantes + '/' + idCoche).pipe(
+    return this.http.get<string>(urlChartSemejantes + '/' + idCoche).pipe(
       map(value => {
         return value as unknown as Map<string, string>;
       })
@@ -106,7 +103,7 @@ export class CochesService {
    * @param id id del modelo
    */
   getModelo(id: number): Observable<any> {
-    return this.http.get<Modelo>(urlEndPointModelo + id).pipe(
+    return this.http.get<Modelo>(urlEndPointModelos + id).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -122,7 +119,7 @@ export class CochesService {
    * @param idModelo
    */
   getCochesPorModelo(idModelo: number): Observable<any> {
-    return this.http.get<Coche[]>(urlEndPointCochesPorModelo + idModelo).pipe(
+    return this.http.get<Coche[]>(urlCochesPorModelo + idModelo).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -138,7 +135,7 @@ export class CochesService {
    * @param idsConsumos
    */
   getConsumo(idsConsumos: number[]): Observable<any> {
-    return this.http.post<Consumo[]>(urlEndPointConsumo, idsConsumos).pipe(
+    return this.http.post<Consumo[]>(urlConsumo, idsConsumos).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -154,7 +151,7 @@ export class CochesService {
    * @param idsMotores
    */
   getMotorCombustion(idsMotores: number[]): Observable<any> {
-    return this.http.post<MotorCombustion[]>(urlEndPointMotorCombustion, idsMotores).pipe(
+    return this.http.post<MotorCombustion[]>(urlMotorCombustion, idsMotores).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -173,7 +170,7 @@ export class CochesService {
    * @param pageSize
    */
   getModelosPorMarca(marca: number, page: number, pageSize: number): Observable<any> {
-    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage + pageSize + '/idmarca/' + marca + '/page/' + page).pipe(
+    return this.http.get<Modelo[]>(urlEndPointModelos + pageSize + '/idmarca/' + marca + '/page/' + page).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
           return modelo;
@@ -190,7 +187,7 @@ export class CochesService {
    *
    */
   getModelosPorMarcaSinPaginar(marca: number): Observable<any> {
-    return this.http.get<Modelo[]>(urlEndPointModelosPorMarcaPage + 'idmarca/' + marca).pipe(
+    return this.http.get<Modelo[]>(urlEndPointModelos + 'idmarca/' + marca).pipe(
       map((response: any) => {
         (response as Modelo[]).map(modelo => {
           return modelo;
@@ -207,7 +204,7 @@ export class CochesService {
    * @param pageSize
    */
   getModelosPorMarcaPath(marca: number, pageSize: number): string {
-    return urlEndPointModelosPorMarcaPage + pageSize + '/idmarca/' + marca + '/page/';
+    return urlEndPointModelos + pageSize + '/idmarca/' + marca + '/page/';
   }
 
   /**
@@ -215,7 +212,7 @@ export class CochesService {
    *
    */
   getModelosPath(): string {
-    return urlEndPointModelosPage;
+    return urlModelosPage;
   }
 
   /**
@@ -223,7 +220,7 @@ export class CochesService {
    *
    */
   getMarcas(): Observable<any> {
-    return this.http.get<Marca[]>(urlEndPointMarcas).pipe(
+    return this.http.get<Marca[]>(urlMarcas).pipe(
       map((response: any) => {
         (response as Marca[]).map(marca => {
           return marca;
@@ -238,7 +235,7 @@ export class CochesService {
    *
    */
   getCarrocerias(): Observable<any> {
-    return this.http.get<Carroceria[]>(urlEndPointCarrocerias).pipe(
+    return this.http.get<Carroceria[]>(urlCarrocerias).pipe(
       map((response: any) => {
         (response as Carroceria[]).map(carroceria => {
           return carroceria;
@@ -253,7 +250,7 @@ export class CochesService {
    *
    */
   // getCarrocerias(): Observable<any> {
-  //   return this.http.get<Carroceria[]>(urlEndPointCarrocerias).pipe(
+  //   return this.http.get<Carroceria[]>(urlCarrocerias).pipe(
   //     map((response: any) => {
   //       (response as Carroceria[]).map(carroceria=>{
   //         return carroceria;
@@ -271,7 +268,6 @@ export class CochesService {
    */
   filtrar(filtros: any, page: number, pageSize: number): Observable<any> {
     console.log(filtros);
-    console.log(pageSize);
     return this.http.post<any>(`${urlEndPointModelos}${pageSize}/filtros/page/${page}`, filtros).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
@@ -287,7 +283,7 @@ export class CochesService {
    * @param idMarca
    */
   getUrlMarca(idMarca: number): Observable<any> {
-    return this.http.get(urlEndPointImgMarcaLogo + idMarca).pipe(
+    return this.http.get(urlImgMarcaLogo + idMarca).pipe(
       map((response: any) => {
         return response;
       })
@@ -299,7 +295,7 @@ export class CochesService {
    * @param idsModelosPagina
    */
   getUrlModelo(idsModelosPagina: number[]) {
-    return this.http.post(urlEndPointImgModeloLogo, idsModelosPagina).pipe(
+    return this.http.post(urlImgModeloLogo, idsModelosPagina).pipe(
       map((response: any) => {
         return response;
       })

@@ -6,6 +6,6 @@ export class Usuario {
   image:string;
   enabled: boolean = true;
   verified: boolean = false;
-  registrationDate: Date;
+  registrationDate: string;
   roles: string[] = [];
 }

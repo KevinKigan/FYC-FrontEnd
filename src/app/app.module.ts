@@ -38,6 +38,7 @@ import { LoginComponent } from './components/pages/credentials/login/login.compo
 import { SignupComponent } from './components/pages/credentials/signup/signup.component';
 import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
 import { VerifyComponent } from './components/pages/credentials/verify/verify.component';
+import { ForgottenPasswordComponent } from './components/pages/credentials/forgotten-password/forgotten-password.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { VerifyComponent } from './components/pages/credentials/verify/verify.co
     SignupComponent,
     UsuariosComponent,
     VerifyComponent,
+    ForgottenPasswordComponent,
 
   ],
   imports: [
@@ -85,7 +87,7 @@ import { VerifyComponent } from './components/pages/credentials/verify/verify.co
     BsDropdownModule.forRoot(),
     PerfectScrollbarModule,
     MatSliderModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

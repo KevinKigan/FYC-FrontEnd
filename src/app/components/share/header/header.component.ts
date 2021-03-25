@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {urlEndPointImgLogo} from '../../../../environments/environment';
 import {limitInfSizeScreen} from '../../../config/config';
 
 @Component({
@@ -8,7 +7,6 @@ import {limitInfSizeScreen} from '../../../config/config';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  urlEndPointImgLogo = urlEndPointImgLogo;
   tipoUsuario: string = 'Usuario';
   slide = 'slideOffHeader';
 

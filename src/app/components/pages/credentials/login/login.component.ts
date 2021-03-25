@@ -15,4 +15,14 @@ export class LoginComponent implements OnInit {
   entrar() {
 
   }
+
+  forgottenPassword() {
+    document.getElementById("formularioLogin").style.display="none";
+    document.getElementById("forgotten").style.display="block";
+  }
+
+  irAlogin() {
+    document.getElementById("formularioLogin").style.display="block";
+    document.getElementById("forgotten").style.display="none";
+  }
 }

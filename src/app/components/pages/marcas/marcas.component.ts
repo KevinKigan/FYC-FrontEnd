@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Marca} from '../../../models/marca';
 import {CochesService} from '../../services/coches.service';
-import {urlEndPointImgMarcaLogo} from '../../../../environments/environment';
+import {urlImgMarcaLogo} from '../../../../environments/environment';
 import {FiltroService} from '../../services/filtro.service';
 import {limitBigMidSizeScreen, limitInfSizeScreen, limitMidSizeScreen} from '../../../config/config';
 
@@ -16,7 +16,7 @@ export class MarcasComponent implements OnInit {
 
   listaGlobal: any[] = new Array([]);
   marcas: Marca[];
-  urlEndPointImgMarcaLogo = urlEndPointImgMarcaLogo;
+  urlImgMarcaLogo = urlImgMarcaLogo;
   loading: boolean;
   imagenes = new Map<number, string>();
 

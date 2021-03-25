@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../../../models/usuario';
 import {UsuariosService} from '../../../services/usuarios.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -14,6 +15,7 @@ export class SignupComponent implements OnInit {
   pass: string = '';
   usuario:Usuario = new Usuario();
   confirmPass: string ='';
+  newUser: string='verifyNewUser';
 
   constructor(private usuariosService: UsuariosService) {
   }
@@ -90,12 +92,20 @@ export class SignupComponent implements OnInit {
   }
 
   registrar() {
-    console.log(this.usuario);
     document.getElementById("formulario").style.display="none";
     document.getElementById("verify").style.display="block";
-    // this.usuariosService.create(this.usuario).subscribe(usuario=>{
-    //   this.usuario = usuario;
-    // });
+    this.usuariosService.create(this.usuario).subscribe(value=>{
+      this.usuario = value.user;
+      console.log(value);
+      console.log(this.usuario);
+      swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: value.message,
+        showConfirmButton: false,
+        timer: 3000
+      });
+      });
   }
 
   samePassword(): boolean{

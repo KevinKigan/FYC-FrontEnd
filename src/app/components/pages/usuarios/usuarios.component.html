@@ -1,0 +1,59 @@
+<div *ngIf="listaUsuarios.length>0" class="bigDiv">
+  <table  class="table">
+    <!-- Table head -->
+    <thead class="white-text" style="background: #2f2f2e">
+    <tr>
+      <th *ngFor="let head of listaTabla">
+        <mdb-icon fas icon="{{head.icono}}" class="mr-2 yellow-text" aria-hidden="true"></mdb-icon>
+        {{head.campo}}
+      </th>
+    </thead>
+    <!-- Table head -->
+
+    <!-- Table body -->
+    <tbody *ngFor="let usuario of listaUsuarios">
+    <tr>
+      <!--      <mdb-icon far icon="{{listaTabla[0].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>-->
+      <td>
+        <mdb-icon fas icon="{{listaTabla[0].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.id}}
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[1].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.image}}
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[2].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.username}}
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[3].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.email}}
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[4].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        <span *ngIf="usuario.enabled">Si</span>
+        <span *ngIf="!usuario.enabled">No</span>
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[5].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        <span *ngIf="usuario.verified">Si</span>
+        <span *ngIf="!usuario.verified">No</span>
+      </td>
+      <td class="mr-lg-4">
+        <mdb-icon fas icon="{{listaTabla[6].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.registrationDate}}
+      </td>
+      <td>
+        <mdb-icon fas icon="{{listaTabla[7].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
+        {{usuario.roles}}
+      </td>
+      <td>
+        <button mdbBtn type="button" class="dusty-grass-gradient" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
+        <button mdbBtn type="button" (click)="eliminarUsuario(usuario)" class="peach-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Eliminar</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
