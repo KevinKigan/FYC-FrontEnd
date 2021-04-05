@@ -30,7 +30,8 @@ export class ForgottenPasswordComponent implements OnInit {
           swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Se te ha enviado un nuevo código en el caso de que estés registrado',
+            title: 'Código enviado',
+            text: 'Se te ha enviado un nuevo código en el caso de que estés registrado.',
             showConfirmButton: false,
             timer: 3000
           });

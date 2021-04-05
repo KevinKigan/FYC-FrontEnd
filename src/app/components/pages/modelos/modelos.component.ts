@@ -11,6 +11,7 @@ import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {SidebarService} from '../../services/sidebar.service';
 import {FiltroService} from '../../services/filtro.service';
 import {limitBigMidSizeScreen, limitLargeSizeScreen, limitMidSizeScreen} from '../../../config/config';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-coches',

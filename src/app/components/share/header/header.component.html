@@ -64,14 +64,21 @@
       </ul>
     </div>
   </nav>
-  <button (click)="setSlideOut()" [routerLink]="['/signup']" class="nav-link styleLinkA glow-on" id="signUp" type="button">
+  <button *ngIf="!authService.isAuthenticated()" (click)="setSlideOut()" [routerLink]="['/signup']" class="nav-link styleLinkA glow-on" id="signUp" type="button">
     Registrarse
     <i class="fas fa-user-plus"></i>
 <!--    <img src="https://dl.dropboxusercontent.com/s/afe79kyds0phn6n/signupicon.png?dl=0">-->
     <div class="glow-on2"></div>
   </button>
 
-  <button (click)="setSlideOut()" [routerLink]="['/login']" class="nav-link styleLinkA glow-on" id="signIn" type="button">
+  <button *ngIf="authService.isAuthenticated()" (click)="logout()" [routerLink]="['/signup']" class="nav-link styleLinkA glow-on" id="signUp" type="button">
+    {{authService.user.username}}, cerrar
+    <i class="fas fa-user-plus"></i>
+<!--    <img src="https://dl.dropboxusercontent.com/s/afe79kyds0phn6n/signupicon.png?dl=0">-->
+    <div class="glow-on2"></div>
+  </button>
+
+  <button *ngIf="!authService.isAuthenticated()" (click)="setSlideOut()" [routerLink]="['/login']" class="nav-link styleLinkA glow-on" id="signIn" type="button">
     Iniciar Sesión
     <i class="fas fa-sign-in-alt"></i>
 <!--    <img src="https://dl.dropboxusercontent.com/s/rgvbwab1wrmqlrt/signinicon.png?dl=0">-->

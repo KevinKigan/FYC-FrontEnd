@@ -37,6 +37,8 @@ export const urlUsuariosCreate = urlEndPointUsuarios+'create';
 export const urlUsuariosSendVerificateCode  = urlEndPointUsuarios+'send_verification_code/';
 export const urlUsuariosCheckVerificateCode = urlEndPointUsuarios+'check_verification_code/';
 
+export const urlLogin = dns + '/oauth/token';
+export const credentials = 'findyourcarapp' +':' + 'pJZbsWpVjyDwfKj';
 
 /*
  * For easier debugging in development mode, you can import the following file

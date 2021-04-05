@@ -46,11 +46,11 @@
       </td>
       <td>
         <mdb-icon fas icon="{{listaTabla[7].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
-        {{usuario.roles}}
+        {{getRoles(usuario.roles)}}
       </td>
       <td>
-        <button mdbBtn type="button" class="dusty-grass-gradient" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
-        <button mdbBtn type="button" (click)="eliminarUsuario(usuario)" class="peach-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Eliminar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" class="dusty-grass-gradient" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" (click)="eliminarUsuario(usuario)" class="peach-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Eliminar</button>
       </td>
     </tr>
     </tbody>

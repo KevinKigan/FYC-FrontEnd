@@ -27,7 +27,8 @@ export class VerifyComponent implements OnInit {
     swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'Se ha enviado un nuevo código a ' + this.usuario.email,
+      title: 'Código enviado!',
+      text: 'Se ha enviado un nuevo código a ' + this.usuario.email,
       showConfirmButton: false,
       timer: 3000
     });

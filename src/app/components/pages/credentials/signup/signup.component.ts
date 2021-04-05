@@ -101,7 +101,7 @@ export class SignupComponent implements OnInit {
       swal.fire({
         position: 'center',
         icon: 'success',
-        title: value.message,
+        text: value.message,
         showConfirmButton: false,
         timer: 3000
       });

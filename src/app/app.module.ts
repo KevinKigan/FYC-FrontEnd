@@ -8,7 +8,7 @@ import { FooterComponent } from './components/share/footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { ModelosComponent } from './components/pages/modelos/modelos.component';
@@ -39,6 +39,8 @@ import { SignupComponent } from './components/pages/credentials/signup/signup.co
 import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
 import { VerifyComponent } from './components/pages/credentials/verify/verify.component';
 import { ForgottenPasswordComponent } from './components/pages/credentials/forgotten-password/forgotten-password.component';
+import {TokenInterceptor} from './components/interceptors/token.interceptor';
+import {AuthInterceptor} from './components/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -89,7 +91,9 @@ import { ForgottenPasswordComponent } from './components/pages/credentials/forgo
     MatSliderModule,
     GoogleMapsModule,
   ],
-  providers: [],
+  providers: [{provide: 'LOCALE_ID', useValue:'es'},
+              {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true},
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

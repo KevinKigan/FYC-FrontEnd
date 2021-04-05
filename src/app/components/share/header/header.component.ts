@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {limitInfSizeScreen} from '../../../config/config';
+import {AuthService} from '../../services/auth.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +12,25 @@ export class HeaderComponent implements OnInit {
   tipoUsuario: string = 'Usuario';
   slide = 'slideOffHeader';
 
-  // public logo = 'G:/TFG/fyc-app/src/FYClogo.png';
-    panelOpenState: boolean;
-  constructor() { }
+  panelOpenState: boolean;
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.panelOpenState = false;
+  }
+
+  logout():void{
+    let user = this.authService.user.username;
+    this.authService.logout();
+    swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesión cerrada',
+      text: 'Hola '+user+', has cerrado sesión correctamente.',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
 
   alternarUsuario():void{
@@ -93,4 +108,5 @@ export class HeaderComponent implements OnInit {
   // poneratrue():void{
   //   this.mostrarNavbar=true;
   // }
+
 }

@@ -23,6 +23,7 @@ import {Carroceria} from '../../models/carroceria';
 import {Coche} from '../../models/coche';
 import {Consumo} from '../../models/consumo';
 import {MotorCombustion} from '../../models/motorCombustion';
+import {AuthService} from './auth.service';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class CochesService {
   private ids: number[] = [];
   private modelos: Observable<any>;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
   }
 
   /**
@@ -244,21 +245,6 @@ export class CochesService {
       })
     );
   }
-
-  /**
-   * Metodo para obtener todas las carrocerias
-   *
-   */
-  // getCarrocerias(): Observable<any> {
-  //   return this.http.get<Carroceria[]>(urlCarrocerias).pipe(
-  //     map((response: any) => {
-  //       (response as Carroceria[]).map(carroceria=>{
-  //         return carroceria;
-  //       });
-  //       return response;
-  //     })
-  //   );
-  // }
 
   /**
    * Metodo para filtrar los modelos segun los parametros dados
