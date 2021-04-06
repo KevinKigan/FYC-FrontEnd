@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CochesService} from './coches.service';
 import {Carroceria} from '../../models/carroceria';
-import {Modelo} from '../../models/modelo';
 import {FiltroService} from './filtro.service';
-import {Observable} from 'rxjs';
 
 
 
@@ -32,7 +30,7 @@ export class SidebarService {
     },
     {
       selected: false,
-      value: 'Supercargador',
+      value: 'Compresor',
       class: ''
     }
   ];

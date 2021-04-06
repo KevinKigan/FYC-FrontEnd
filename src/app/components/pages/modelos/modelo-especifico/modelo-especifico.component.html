@@ -1,5 +1,5 @@
-<div class="h-50">
-  <img *ngIf="modelo" class="img-fluid imgModelo" src="{{urlEndPointUploadImg}}/{{modelo.imagen}}"
+<div >
+  <img *ngIf="modelo && imagenPrincipal" class="img-fluid imgModelo" src="{{imagenPrincipal}}"
        alt="{{modelo.imagen}}">
 </div>
 <!--Tabla comparativa con modelos similares-->
@@ -115,9 +115,11 @@
               <div class="view rgba-white-slight waves-light" mdbWavesEffect>
                 <a><img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
                         style="border-radius: 5px"
-                        src="{{urlEndPointUploadImg}}/{{filaN.imagen}}"
+                        src="https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0"
+
                         alt="{{modelo.imagen}}"></a>
-                <p>{{urlEndPointUploadImg}}/{{filaN.imagen}}</p>
+                <!--                        src="{{urlEndPointUploadImg}}/{{filaN.imagen}}"-->
+                <p>{{urlUploadImg}}/{{filaN.imagen}}</p>
               </div>
             </mdb-card>
             <p [routerLink]="['/redirect/modeloespecifico',filaN.idModelo]"

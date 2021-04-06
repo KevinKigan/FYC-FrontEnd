@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Modelo} from '../../../../models/modelo';
 import {CochesService} from '../../../services/coches.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {urlEndPointUploadImg} from '../../../../../environments/environment';
+import {urlUploadImg} from '../../../../../environments/environment';
 import {Coche} from '../../../../models/coche';
 import {FiltroService} from '../../../services/filtro.service';
 import {Consumo} from '../../../../models/consumo';
@@ -36,7 +36,7 @@ export class ModeloEspecificoComponent implements OnInit {
   chartS = new Map<string, string>();
   motoresCombustion: MotorCombustion[] = [];
   loading: boolean;
-  urlEndPointUploadImg = urlEndPointUploadImg;
+  urlUploadImg = urlUploadImg;
   idsCoches: number[] = [];
   idsConsumo: number[] = [];
   idsVolumen: number[] = [];
@@ -70,6 +70,7 @@ export class ModeloEspecificoComponent implements OnInit {
 
   center = {lat: 24, lng: 12};
   display?: google.maps.LatLngLiteral;
+  imagenPrincipal: string;
 
   constructor(private cochesService: CochesService,
               private activatedRoute: ActivatedRoute,
@@ -93,6 +94,9 @@ export class ModeloEspecificoComponent implements OnInit {
       this.cochesService.getModelo(id).subscribe(modelo => {
         this.modelo = modelo;
         this.modeloChart = this.modelo.modelo;
+        this.cochesService.getUrlModelo([this.modelo.idModelo]).subscribe( url=>{
+          this.imagenPrincipal = url[this.modelo.idModelo];
+        });
         this.cochesService.getCochesPorModelo(this.modelo.idModelo).subscribe(value => {
           value.forEach(coche => {
             this.coches.push(coche);
@@ -173,7 +177,6 @@ export class ModeloEspecificoComponent implements OnInit {
     this.filaS2.push({title:'Emisiones más altas',    marca:marcaEmisionesMaxCS,modelo: modeloEmisionesMaxCS,imagen:this.chartS['modeloEmisionesMaxImage'],idModelo:this.chartS['idmodeloEmisionesMax']});
     this.filaS.push(this.filaS1);
     this.filaS.push(this.filaS2);
-    console.log(this.filaS);
   }
 
   public chartColors: Array<any> = [
@@ -230,7 +233,7 @@ export class ModeloEspecificoComponent implements OnInit {
     if (sobrealimentacion.turbo) {
       return 'Turbo';
     } else if (sobrealimentacion.supercargador) {
-      return 'Supercargador';
+      return 'Compresor';
     } else {
       return 'Atmosférico';
     }

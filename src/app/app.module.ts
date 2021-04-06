@@ -8,7 +8,7 @@ import { FooterComponent } from './components/share/footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { ModelosComponent } from './components/pages/modelos/modelos.component';
@@ -34,6 +34,13 @@ import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
 import { ModeloEspecificoComponent } from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
 import { ConocemeComponent } from './components/pages/conoceme/conoceme.component';
+import { LoginComponent } from './components/pages/credentials/login/login.component';
+import { SignupComponent } from './components/pages/credentials/signup/signup.component';
+import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
+import { VerifyComponent } from './components/pages/credentials/verify/verify.component';
+import { ForgottenPasswordComponent } from './components/pages/credentials/forgotten-password/forgotten-password.component';
+import {TokenInterceptor} from './components/interceptors/token.interceptor';
+import {AuthInterceptor} from './components/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -50,6 +57,11 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     LoadingComponent,
     ModeloEspecificoComponent,
     ConocemeComponent,
+    LoginComponent,
+    SignupComponent,
+    UsuariosComponent,
+    VerifyComponent,
+    ForgottenPasswordComponent,
 
   ],
   imports: [
@@ -77,9 +89,11 @@ import { ConocemeComponent } from './components/pages/conoceme/conoceme.componen
     BsDropdownModule.forRoot(),
     PerfectScrollbarModule,
     MatSliderModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
-  providers: [],
+  providers: [{provide: 'LOCALE_ID', useValue:'es'},
+              {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true},
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

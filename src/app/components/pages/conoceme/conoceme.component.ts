@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ConocemeService} from '../../services/conoceme.service';
-import {urlEndPointUploadImg,urlEndPointImgPropietario} from '../../../../environments/environment';
+import {urlUploadImg,urlImgPropietario} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-conoceme',
@@ -11,8 +11,8 @@ export class ConocemeComponent implements OnInit {
 
   constructor(private conocemeService: ConocemeService) { }
 
-  urlEndPointUploadImg = urlEndPointUploadImg;
-  urlEndPointImgPropietario = urlEndPointImgPropietario;
+  urlUploadImg = urlUploadImg;
+  urlImgPropietario = urlImgPropietario;
   header:string;
   intro:string;
   intro2:string;
