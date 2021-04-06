@@ -8,7 +8,7 @@ import {
   urlEndPointUsuarios,
   urlUsuariosCheckVerificateCode,
   urlUsuariosCreate,
-  urlUsuariosIndex,
+  urlUsuariosIndex, urlUsuariosMyUser,
   urlUsuariosSendVerificateCode
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
@@ -55,11 +55,39 @@ export class UsuariosService {
             position: 'center',
             icon: 'error',
             title: 'Error al obtener al usuario',
+            text: 'Error: ' + e.error.mensaje.error_description,
+            showConfirmButton: false
+          });
+          console.log(e.error);
+          if (e.error.mensaje) {
+            console.error(e.error.mensaje);
+          }
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
+   * Metodo para obtener un usuario segun su id
+   *
+   * @param username Nombre de usuario del usuario a obtener
+   */
+  getMyUserByUsername(username:string):Observable<any>{
+    return this.http.get<Usuario>(urlUsuariosMyUser+username).pipe(
+      catchError(e =>{
+        if(e.status!=401) {
+          this.router.navigate(['/modelos'])
+          swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error al obtener al usuario',
             text: 'Error: ' + e.error,
             showConfirmButton: false
           });
+          console.log(e.error);
           if (e.error.mensaje) {
-            console.error(e.error.mensaje);
+            console.error(e.error);
           }
         }
         return throwError(e);
@@ -144,4 +172,7 @@ export class UsuariosService {
     return this.http.get<string>(urlUsuariosCheckVerificateCode+id+'/'+code);
   }
 
+  getUserRawImage(username: string) {
+    return this.http.get<string>(urlUsuariosMyUser+username+'/rawimage');
+  }
 }

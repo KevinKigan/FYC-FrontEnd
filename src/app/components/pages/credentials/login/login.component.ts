@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
     this.authService.login (this.user).subscribe(response => {
       this.authService.saveUser(response.access_token);
       this.authService.saveToken(response.access_token);
+      this.usuariosService.getMyUserByUsername(response.username).subscribe(user =>{
+        this.usuariosService.getUserRawImage(user.username)
+        this.authService.saveCompleteUser(user);
+      });
       let user = this.authService.user;
       this.router.navigate(['/modelos']);
       swal.fire({

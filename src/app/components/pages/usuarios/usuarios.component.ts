@@ -29,7 +29,6 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuariosService.getUsers(0).subscribe(response=>{
-      // console.log(response);
       this.listaUsuarios = response;
       }
     );

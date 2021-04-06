@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 })
 export class AuthService {
   private _user: Usuario;
+  private _completeUser: Usuario;
   private _token: string;
 
 
@@ -56,6 +57,14 @@ export class AuthService {
   }
 
   /**
+   * Metodo para guardar el usuario
+   */
+  saveCompleteUser(user: Usuario) {
+    this._completeUser = user;
+    sessionStorage.setItem('complete_user', JSON.stringify(this._completeUser));
+  }
+
+  /**
    * Metodo para guardar en el sessionStorage el token
    *
    * @param access_token
@@ -91,6 +100,21 @@ export class AuthService {
       return this._user;
     }
     return new Usuario();
+  }
+
+  /**
+   * Metodo para obtener el usuario con todos sus datos
+   *
+   */
+  public get completeUser():Usuario{
+      return this._completeUser;
+    if(this._completeUser != null) {
+      return this._completeUser;
+    }else if (sessionStorage.getItem('complete_user')!=null){
+      this._completeUser = JSON.parse(sessionStorage.getItem('complete_user')) as Usuario
+      return this._completeUser;
+    }
+    return null;
   }
 
   /**

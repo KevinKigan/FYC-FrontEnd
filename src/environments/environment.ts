@@ -32,6 +32,7 @@ export const urlCochesPorModelo          = urlEndPointCoches+"modelo/";
 
 
 export const urlEndPointUsuarios      = urlEndPoint+"/user/";
+export const urlUsuariosMyUser        = urlEndPointUsuarios+"username/";
 export const urlUsuariosIndex = urlEndPointUsuarios+'index/';
 export const urlUsuariosCreate = urlEndPointUsuarios+'create';
 export const urlUsuariosSendVerificateCode  = urlEndPointUsuarios+'send_verification_code/';

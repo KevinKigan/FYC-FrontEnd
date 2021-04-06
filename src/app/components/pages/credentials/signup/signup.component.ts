@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Usuario} from '../../../../models/usuario';
 import {UsuariosService} from '../../../services/usuarios.service';
 import swal from 'sweetalert2';
@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
   styleUrls: ['../credentials.scss']
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('email') email: any;
   public passStrong: string;
   public colorStrong: string = 'redPass';
   public formulario:any;
@@ -116,5 +117,23 @@ export class SignupComponent implements OnInit {
     console.log('entramos');
     document.getElementById("formulario").style.display="block";
     document.getElementById("verify").style.display="none";
+  }
+
+  /**
+   * Metodo para comprobar mediante typescript que el mail es correcto
+   */
+  errorsEmail(){
+    if(this.usuario.email.length<5){
+      return false;
+    }
+    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    return !emailRegex.test(this.usuario.email);
+  }
+
+  errors() {
+    return !this.samePassword() ||
+            this.errorsEmail()  ||
+           !(this.usuario.username.length>4) ||
+           this.usuario.username.includes('.');
   }
 }
