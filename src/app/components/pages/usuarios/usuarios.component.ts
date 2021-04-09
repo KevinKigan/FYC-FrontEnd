@@ -24,7 +24,7 @@ export class UsuariosComponent implements OnInit {
   ];
   listaUsuarios:Usuario[]=[];
 
-  constructor(private usuariosService: UsuariosService, public authService: AuthService) {
+  constructor(public usuariosService: UsuariosService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -57,15 +57,5 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
-  getRoles(roles: any[]): string {
-    let rolesString:string = '';
-    roles.forEach(itemListaRoles => {
-      if(rolesString!=''){
-        rolesString+=', '+itemListaRoles.rolName;
-      }else {
-        rolesString+=itemListaRoles.rolName
-      }
-    });
-    return rolesString;
-  }
+
 }

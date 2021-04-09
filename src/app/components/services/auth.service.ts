@@ -13,6 +13,7 @@ export class AuthService {
   private _user: Usuario;
   private _completeUser: Usuario;
   private _token: string;
+  private _urlUser: string;
 
 
   constructor(private http:HttpClient) { }
@@ -63,6 +64,13 @@ export class AuthService {
     this._completeUser = user;
     sessionStorage.setItem('complete_user', JSON.stringify(this._completeUser));
   }
+  /**
+   * Metodo para guardar la url de la imagen del usuario
+   */
+  saveURLUser(url: string) {
+    this._urlUser = url;
+    sessionStorage.setItem('url_user', this._urlUser);
+  }
 
   /**
    * Metodo para guardar en el sessionStorage el token
@@ -107,7 +115,6 @@ export class AuthService {
    *
    */
   public get completeUser():Usuario{
-      return this._completeUser;
     if(this._completeUser != null) {
       return this._completeUser;
     }else if (sessionStorage.getItem('complete_user')!=null){
@@ -127,6 +134,21 @@ export class AuthService {
     }else if (sessionStorage.getItem('token')!=null){
       this._token = sessionStorage.getItem('token')
       return this._token;
+    }
+    return null;
+  }
+
+  /**
+   * Metodo para obtener la url del objeto o del sessionStorage
+   *
+   */
+  public get urlUser():string{
+
+    if(this._urlUser != null && this._urlUser != '') {
+      return this._urlUser;
+    }else if (sessionStorage.getItem('url_user')!=null && this._urlUser !=''){
+      this._urlUser = sessionStorage.getItem('url_user')
+      return this._urlUser;
     }
     return null;
   }

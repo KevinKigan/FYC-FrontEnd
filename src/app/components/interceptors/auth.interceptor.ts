@@ -25,23 +25,40 @@ export class AuthInterceptor implements HttpInterceptor {
     Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(e =>{
-        if(e.status == 401){
-          console.log('interceptor');
-          if(this.authService.isAuthenticated()){
-            this.authService.logout();
-          }
-          this.router.navigate(['/login'])
-        }else if(e.status == 403){
-
+        if(e.message.includes('failure response') && e.status != 401){
           swal.fire({
-            title: 'Acceso denegado!',
+            title: 'Error de servidor',
             position: 'center',
             icon: 'warning',
-            text: this.authService.user.username+', no tienes acceso a este recurso.',
+            text: 'No se ha podido acceder al servidor, intentalo más tarde.',
             showConfirmButton: false,
-            timer: 3000
+            timer: 5000
           })
-          this.router.navigate(['/modelos'])
+        }else {
+          if (e.status == 401) {
+            console.log('interceptor');
+            swal.fire({
+              title: 'Sesión expirada!',
+              position: 'center',
+              icon: 'info',
+              text: this.authService.user.username + ', la sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+            });
+            if (this.authService.isAuthenticated()) {
+              this.authService.logout();
+            }
+            this.router.navigate(['/login']);
+          } else if (e.status == 403) {
+
+            swal.fire({
+              title: 'Acceso denegado!',
+              position: 'center',
+              icon: 'warning',
+              text: this.authService.user.username + ', no tienes acceso a este recurso.',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            this.router.navigate(['/modelos'])
+          }
         }
         return throwError(e);
       })

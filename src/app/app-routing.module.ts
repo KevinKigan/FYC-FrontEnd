@@ -11,6 +11,7 @@ import {SignupComponent} from './components/pages/credentials/signup/signup.comp
 import {UsuariosComponent} from './components/pages/usuarios/usuarios.component';
 import {VerifyComponent} from './components/pages/credentials/verify/verify.component';
 import {AuthGuard} from './components/guards/auth.guard';
+import {UserdetailComponent} from './components/pages/usuarios/userdetail/userdetail.component';
 // import {SignupComponent} from './components/pages/credentials/signup/signup.component';
 
 
@@ -21,6 +22,7 @@ const app_routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'users', component: UsuariosComponent, canActivate: [AuthGuard, AuthGuard], data:{role:'ROLE_ADMIN'}},
+  {path: 'user/:id', component: UserdetailComponent, canActivate: [AuthGuard, AuthGuard], data:{role:'ROLE_ADMIN'}},
   {path: 'modelo/:id', component: ModeloEspecificoComponent},
   {path: 'redirect/marca/:marca', component: RedirectComponent},
   {path: 'redirect/:pageSize/marca/:marca', component: RedirectComponent},

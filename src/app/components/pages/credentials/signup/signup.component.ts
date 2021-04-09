@@ -97,7 +97,6 @@ export class SignupComponent implements OnInit {
     document.getElementById("verify").style.display="block";
     this.usuariosService.create(this.usuario).subscribe(value=>{
       this.usuario = value.user;
-      console.log(value);
       console.log(this.usuario);
       swal.fire({
         position: 'center',

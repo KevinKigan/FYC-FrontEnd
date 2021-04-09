@@ -29,8 +29,8 @@
             <span
               class="sr-only"></span></a>
         </li>
-        <li class="nav-item styleLink" routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/sidebar']">Sidebar
+        <li *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-item styleLink" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/users']">Usuarios
             <span
               class="sr-only"></span></a>
         </li>
@@ -73,12 +73,12 @@
   <div *ngIf="authService.isAuthenticated()" class="nav-link" id="divimguser">
     <a>
       <img class="styleA imgUser" (click)="test.toggle()"
-           src="https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0">
+           src="{{getUserImage()}}">
     </a>
     <div mdbCollapse #test="bs-collapse">
       <mdb-card>
         <div class="gradient-custom" style="height: 100px"></div>
-        <img class="imgUserCard" src="https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0">
+        <img *ngIf="userImage!=undefined" class="imgUserCard" src="{{getUserImage()}}">
         <mdb-card-body>
           <!--Title-->
           <mdb-card-title style="text-align: center">

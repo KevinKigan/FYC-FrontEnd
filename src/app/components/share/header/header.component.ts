@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {limitInfSizeScreen} from '../../../config/config';
 import {AuthService} from '../../services/auth.service';
 import swal from 'sweetalert2';
+import {Router} from '@angular/router';
+import {UsuariosService} from '../../services/usuarios.service';
+import {nouser} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +13,22 @@ import swal from 'sweetalert2';
 })
 export class HeaderComponent implements OnInit {
   tipoUsuario: string = 'Usuario';
+  userImage: string;
   slide = 'slideOffHeader';
 
   panelOpenState: boolean;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private router: Router, public usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
     this.panelOpenState = false;
+    this.usuariosService.getUserImage(this.authService.completeUser.id).subscribe(value => {
+      if(value.list[this.authService.completeUser.id]!=undefined){
+        this.userImage = value.list[this.authService.completeUser.id];
+      }else{
+        this.userImage = nouser;
+      }
+    })
   }
 
   logout():void{
@@ -30,7 +41,8 @@ export class HeaderComponent implements OnInit {
       text: 'Hola '+user+', has cerrado sesión correctamente.',
       showConfirmButton: false,
       timer: 3000
-    })
+    });
+    this.router.navigate(['/modelos'])
   }
 
   alternarUsuario():void{
@@ -108,5 +120,13 @@ export class HeaderComponent implements OnInit {
   // poneratrue():void{
   //   this.mostrarNavbar=true;
   // }
+
+  getUserImage(){
+    if(this.authService.urlUser!=null){
+      return this.authService.urlUser;
+    }else{
+      return nouser;
+    }
+  }
 
 }
