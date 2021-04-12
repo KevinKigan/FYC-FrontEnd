@@ -1,0 +1,45 @@
+.table{
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.bigDiv{
+  margin-left:auto;
+  margin-right:auto;
+  background: white;
+  margin-top: 200px;
+  width: 90%;
+  border-style: solid;
+  border-color: #ffee10;
+  border-radius: 15px;
+}
+
+.placeholder {
+  color: #ffee10;
+}
+.mat-focused .mat-form-field-underline{
+  color: #ffee10;
+}
+.mat-focused .mat-form-field-underline{
+  color: #ffee10;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #ffee10 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #ffee10 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #ffee10 !important;;
+}
+th, td{
+  vertical-align: middle;
+}

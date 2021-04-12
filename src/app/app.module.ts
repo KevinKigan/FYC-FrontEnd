@@ -42,6 +42,7 @@ import { ForgottenPasswordComponent } from './components/pages/credentials/forgo
 import {TokenInterceptor} from './components/interceptors/token.interceptor';
 import {AuthInterceptor} from './components/interceptors/auth.interceptor';
 import { UserdetailComponent } from './components/pages/usuarios/userdetail/userdetail.component';
+import { MarcadetailComponent } from './components/pages/marcas/marcadetail/marcadetail.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { UserdetailComponent } from './components/pages/usuarios/userdetail/user
     VerifyComponent,
     ForgottenPasswordComponent,
     UserdetailComponent,
+    MarcadetailComponent,
 
   ],
   imports: [

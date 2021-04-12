@@ -24,6 +24,11 @@
           <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/marcas']">Marcas <span
             class="sr-only"></span></a>
         </li>
+        <li *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-item styleLink" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/marcadetail']">Detalle Marcas
+            <span
+              class="sr-only"></span></a>
+        </li>
         <li class="nav-item styleLink" routerLinkActive="active">
           <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/modelos']">Modelos
             <span
@@ -71,18 +76,22 @@
     <div class="glow-on2"></div>
   </button>
   <div *ngIf="authService.isAuthenticated()" class="nav-link" id="divimguser">
-    <a>
-      <img class="styleA imgUser" (click)="test.toggle()"
-           src="{{getUserImage()}}">
+    <a style="margin-left: 75%;">
+      <div class="styleA circular--landscape">
+        <img (click)="test.toggle()"
+             src="{{getUserImage()}}">
+      </div>
     </a>
     <div mdbCollapse #test="bs-collapse">
       <mdb-card>
         <div class="gradient-custom" style="height: 100px"></div>
-        <img *ngIf="userImage!=undefined" class="imgUserCard" src="{{getUserImage()}}">
+        <div class="circular--landscapeBig imgUserCard">
+          <img *ngIf="userImage!=undefined" src="{{getUserImage()}}">
+        </div>
         <mdb-card-body>
           <!--Title-->
           <mdb-card-title style="text-align: center">
-            <h2 style="margin-top: -60px">{{authService.user.username}}</h2>
+            <h2>{{authService.user.username}}</h2>
           </mdb-card-title>
           <hr>
           <!--Text-->

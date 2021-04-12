@@ -37,12 +37,12 @@ export class AuthInterceptor implements HttpInterceptor {
         }else {
           if (e.status == 401) {
             console.log('interceptor');
-            swal.fire({
-              title: 'Sesión expirada!',
-              position: 'center',
-              icon: 'info',
-              text: this.authService.user.username + ', la sesión ha expirado. Por favor, vuelve a iniciar sesión.',
-            });
+            // swal.fire({
+            //   title: 'Sesión expirada!',
+            //   position: 'center',
+            //   icon: 'info',
+            //   text: this.authService.user.username + ', la sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+            // });
             if (this.authService.isAuthenticated()) {
               this.authService.logout();
             }

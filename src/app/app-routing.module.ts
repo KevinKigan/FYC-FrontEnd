@@ -12,6 +12,7 @@ import {UsuariosComponent} from './components/pages/usuarios/usuarios.component'
 import {VerifyComponent} from './components/pages/credentials/verify/verify.component';
 import {AuthGuard} from './components/guards/auth.guard';
 import {UserdetailComponent} from './components/pages/usuarios/userdetail/userdetail.component';
+import {MarcadetailComponent} from './components/pages/marcas/marcadetail/marcadetail.component';
 // import {SignupComponent} from './components/pages/credentials/signup/signup.component';
 
 
@@ -29,6 +30,7 @@ const app_routes: Routes = [
   {path: 'redirect/modeloespecifico/:modeloespecifico', component: RedirectComponent},
   {path: 'modelos', component: ModelosComponent},
   {path: 'marcas', component: MarcasComponent},
+  {path: 'marcadetail', component: MarcadetailComponent},
   {path: 'modelos/:pageSize/page/:page', component: ModelosComponent},
   {path: 'modelos/:pageSize/marca/:marca/page/:page', component: ModelosComponent},
   {path: 'conoceme', component: ConocemeComponent},

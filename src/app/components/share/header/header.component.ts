@@ -22,13 +22,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.panelOpenState = false;
-    this.usuariosService.getUserImage(this.authService.completeUser.id).subscribe(value => {
-      if(value.list[this.authService.completeUser.id]!=undefined){
-        this.userImage = value.list[this.authService.completeUser.id];
-      }else{
-        this.userImage = nouser;
-      }
-    })
+    if(this.authService.completeUser != null) {
+      this.usuariosService.getUserImage(this.authService.completeUser.id).subscribe(value => {
+        console.log(value);
+        if (value.list[this.authService.completeUser.id] != undefined) {
+          this.userImage = value.list[this.authService.completeUser.id];
+        } else {
+          this.userImage = nouser;
+        }
+      })
+    }
   }
 
   logout():void{
