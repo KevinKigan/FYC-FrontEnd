@@ -14,7 +14,7 @@ import {
   urlChartSemejantes,
   urlEndPointModelos,
   urlImgMarcaLogo,
-  urlImgModeloLogo
+  urlImgModeloLogo, urlSaveMarca
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -286,5 +286,12 @@ export class CochesService {
         return response;
       })
     );
+  }
+
+  /**
+   * Metodo para guardar la marca modificada
+   */
+  saveMarca(marca: Marca): Observable<any> {
+    return this.http.post(urlSaveMarca, marca);
   }
 }

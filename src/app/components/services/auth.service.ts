@@ -37,7 +37,16 @@ export class AuthService {
     return this.http.post<any>(urlLogin, params.toString(), {headers:httpHeaders}).pipe(
       catchError(e => {
         if(e.status == 400){
-          swal.fire('Error a iniciar sesión','Usuario o contraseña incorrectos', 'error');
+          if(e.error.error_description=='User is disabled'){
+            swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'Usuario deshabilitado!',
+              text: 'El usuario se encuentra deshabilitado. No es posible acceder a los servicios.',
+            });
+          }else {
+            swal.fire('Error a iniciar sesión', 'Usuario o contraseña incorrectos', 'error');
+          }
           return throwError(e);
         }
       }));

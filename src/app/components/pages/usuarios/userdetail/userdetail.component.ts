@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UsuariosService} from '../../../services/usuarios.service';
 import {ActivatedRoute} from '@angular/router';
 import {Usuario} from '../../../../models/usuario';
 import swal from 'sweetalert2';
 import {nouser} from '../../../../../environments/environment';
-import {AuthService} from '../../../services/auth.service';
 import {HttpEventType} from '@angular/common/http';
-import axios from 'axios';
+import {ModalService} from '../../../services/modal.service';
+import {AuthService} from '../../../services/auth.service';
 
 
 @Component({
@@ -16,7 +16,10 @@ import axios from 'axios';
 })
 export class UserdetailComponent implements OnInit {
 
+  @Input()
   user: Usuario;
+
+  changeRol: string[] = [];
   urlImageUser: string;
   public selectedImage: File;
   progress: number = 0;
@@ -30,28 +33,35 @@ export class UserdetailComponent implements OnInit {
     {campo: 'Verificado', icono: 'id-card'}
   ];
 
-  constructor(public usuariosService: UsuariosService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
-  }
+
+  task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'primary',
+    subtasks: [
+      {name: 'Primary', completed: false, color: 'primary'},
+      {name: 'Accent', completed: false, color: 'accent'},
+      {name: 'Warn', completed: false, color: 'warn'}
+    ]
+  };
+
+  allComplete: boolean = false;
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
-      let id: number = +params.get('id');
-      if (id) {
-        this.usuariosService.getUserById(id).subscribe(user => {
-          if (user.image == '' || user.image == null) {
-            user.image = 'Sin imagen';
-          }
-          this.user = user;
-          this.usuariosService.getUserImage(this.user.id).subscribe(value => {
-            if (value.list[this.user.id] != undefined) {
-              this.urlImageUser = value.list[this.user.id];
-            } else {
-              this.urlImageUser = nouser;
-            }
-          });
-        });
+    if (this.user.image == '' || this.user.image == null) {
+      this.user.image = 'Sin imagen';
+    }
+    this.usuariosService.getUserImage(this.user.id, false).subscribe(value => {
+      console.log(value);
+      if (value.list[this.user.id] != undefined) {
+        this.urlImageUser = value.list[this.user.id];
+      } else {
+        this.urlImageUser = nouser;
       }
     });
+  }
+
+  constructor(public usuariosService: UsuariosService, public authService: AuthService, public modalService: ModalService) {
   }
 
   selectImage(event) {
@@ -79,25 +89,79 @@ export class UserdetailComponent implements OnInit {
     } else {
       this.usuariosService.uploadImage(this.selectedImage, this.user.id)
         .subscribe(event => {
-        console.log(event);
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round((event.loaded / event.total) * 100);
-          console.log(this.progress);
-        } else if (event.type === HttpEventType.Response) {
-          let response: any = event.body;
-          this.user = response.user as Usuario;
-          swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Imagen actualizada correctamente.',
-            showConfirmButton: false,
-            timer: 2000
-          });
-          this.usuariosService.getUserImage(this.user.id).subscribe(value => {
-            this.urlImageUser = value.list[this.user.id];
-          });
-        }
+          console.log(event);
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round((event.loaded / event.total) * 100);
+            console.log(this.progress);
+          } else if (event.type === HttpEventType.Response) {
+            let response: any = event.body;
+            this.user = response.user as Usuario;
+            swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Imagen actualizada correctamente.',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.usuariosService.getUserImage(this.user.id, false).subscribe(value => {
+              this.urlImageUser = value.list[this.user.id];
+            });
+          }
+        });
+    }
+  }
+
+  saveChanges() {
+    this.usuariosService.update(this.user).subscribe(value => {
+      if(this.changeRol.length>0) {
+        this.usuariosService.setRoles(this.user, this.changeRol).subscribe(value1 => {
+          this.user.roles = value1.roles;
+        });
+      }
+      if (value.message != undefined) {
+        swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Usuario actualizado.',
+          text: value.message,
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    });
+  }
+
+  closeModal() {
+    this.urlImageUser = '';
+    this.selectedImage = null;
+    this.modalService.closeModal();
+  }
+
+  containsRole(rol: string): boolean {
+    let roles: string[] = this.usuariosService.getRoles(this.user.roles);
+    return roles.includes(rol);
+  }
+
+  getImage() {
+    if (this.urlImageUser == '') {
+      this.usuariosService.getUserImage(this.user.id, false).subscribe(value => {
+        this.urlImageUser = value.list[this.user.id];
       });
+    }
+    return this.urlImageUser;
+  }
+
+  hasErrors() {
+    return this.usuariosService.errorsEmail(this.user) ||
+      this.user.username.length < 4 ||
+      this.user.username.includes('.');
+  }
+
+  setRole(rol: string) {
+    if(this.changeRol && this.changeRol.includes(rol)){
+     this.changeRol = this.changeRol.filter(e => e !== rol);
+    }else {
+      this.changeRol.push(rol);
     }
   }
 }

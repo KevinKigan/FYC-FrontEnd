@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
     Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(e =>{
-        if(e.message.includes('failure response') && e.status != 401){
+        if(e.message.includes('failure response') && e.status != 401 && e.status != 403){
           swal.fire({
             title: 'Error de servidor',
             position: 'center',

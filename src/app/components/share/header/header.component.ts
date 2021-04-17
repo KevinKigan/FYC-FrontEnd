@@ -23,8 +23,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.panelOpenState = false;
     if(this.authService.completeUser != null) {
-      this.usuariosService.getUserImage(this.authService.completeUser.id).subscribe(value => {
-        console.log(value);
+      this.usuariosService.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
         if (value.list[this.authService.completeUser.id] != undefined) {
           this.userImage = value.list[this.authService.completeUser.id];
         } else {
@@ -126,8 +125,10 @@ export class HeaderComponent implements OnInit {
 
   getUserImage(){
     if(this.authService.urlUser!=null){
+      console.log('no hay imagen la buscamos');
       return this.authService.urlUser;
     }else{
+      console.log('no hay imagen');
       return nouser;
     }
   }

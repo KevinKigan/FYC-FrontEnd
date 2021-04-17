@@ -9,7 +9,7 @@ import {
   urlUsuariosCheckVerificateCode,
   urlUsuariosCreate,
   urlUsuariosIndex, urlUsuariosMyUser,
-  urlUsuariosSendVerificateCode
+  urlUsuariosSendVerificateCode, urlUsuariosSetRoles
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
@@ -34,7 +34,7 @@ export class UsuariosService {
     return this.http.get<Usuario[]>(urlUsuariosIndex + 20 + '/page/' + page).pipe(
       map((response: any) => {
         (response.content as Usuario[]).map(usuario => {
-          usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy','en-Us');
+          // usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy','en-Us');
           return usuario;
         });
         return response.content;
@@ -151,24 +151,24 @@ export class UsuariosService {
     );
   }
 
-  /**
-   * Metodo para borrar un usuario
-   *
-   * @param id Id del usuario a borrar
-   */
-  delete(id: number): Observable<any> {
-    return this.http.delete<Usuario>(urlEndPointUsuarios+id).pipe(
-      catchError(e => {
-        if (e.error.mensaje) {
-          console.error(e.error.mensaje);
-        }
-        if (e.status == 400) { // Error de formulario
-          return throwError(e);
-        }
-        return throwError(e);
-      })
-    );
-  }
+  // /**
+  //  * Metodo para deshabilitar un usuario
+  //  *
+  //  * @param id Id del usuario a borrar
+  //  */
+  // disable(id: number): Observable<any> {
+  //   return this.http.get<Usuario>(urlEndPointUsuarios+'disable/'+id).pipe(
+  //     catchError(e => {
+  //       if (e.error.mensaje) {
+  //         console.error(e.error.mensaje);
+  //       }
+  //       if (e.status == 400) { // Error de formulario
+  //         return throwError(e);
+  //       }
+  //       return throwError(e);
+  //     })
+  //   );
+  // }
 
   /**
    * Metodo para solicitar un codigo de verificacion
@@ -190,10 +190,15 @@ export class UsuariosService {
     return this.http.get<string>(urlUsuariosCheckVerificateCode+id+'/'+code);
   }
 
-  getUserImage(id: number) : Observable<any>{
+  /**
+   * Metodo para obtener la imagen del usuario, -1 busca todos los usuarios
+   * @param id
+   * @param saveImage
+   */
+  getUserImage(id: number, saveImage: boolean) : Observable<any>{
     return this.http.get<string>(urlImgUser+id).pipe(
       map((response:any)=>{
-        if(response.list[id]!=undefined){
+        if(response.list[id]!=undefined && saveImage){
           this.authService.saveURLUser(response.list[id])
         }
         return response;
@@ -201,14 +206,10 @@ export class UsuariosService {
     );
   }
 
-  getRoles(roles: any[]): string {
-    let rolesString:string = '';
+  getRoles(roles: any[]): string[] {
+    let rolesString:string[] = [];
     roles.forEach(itemListaRoles => {
-      if(rolesString!=''){
-        rolesString+=', '+itemListaRoles.rolName;
-      }else {
-        rolesString+=itemListaRoles.rolName
-      }
+        rolesString.push(itemListaRoles.rolName);
     });
     return rolesString;
   }
@@ -267,5 +268,22 @@ export class UsuariosService {
     //   })
     // );
   }
+  registrationDate(user: Usuario): string {
+    return formatDate(user.registrationDate, 'dd/MM/yyyy','en-Us');
+  }
 
+  /**
+   * Metodo para comprobar mediante typescript que el mail es correcto
+   */
+  errorsEmail(usuario: Usuario){
+    if(usuario.email.length<5){
+      return true;
+    }
+    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    return !emailRegex.test(usuario.email);
+  }
+
+  setRoles(user: Usuario, roles:String[]): Observable<any> {
+    return this.http.post(urlUsuariosSetRoles+user.id, roles);
+  }
 }

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Usuario} from '../../../../models/usuario';
 import swal from 'sweetalert2';
 import {UsuariosService} from '../../../services/usuarios.service';
+import {nouser} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,11 @@ export class LoginComponent implements OnInit {
       this.authService.saveToken(response.access_token);
       this.usuariosService.getMyUserByUsername(response.username).subscribe(user =>{
         this.authService.saveCompleteUser(user);
+        this.usuariosService.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
+          if (value.list[this.authService.completeUser.id] != undefined) {
+            this.authService.saveURLUser(value.list[this.authService.completeUser.id]);
+          }
+        })
       });
       let user = this.authService.user;
       this.router.navigate(['/modelos']);

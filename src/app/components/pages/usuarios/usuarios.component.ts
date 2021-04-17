@@ -3,6 +3,8 @@ import {UsuariosService} from '../../services/usuarios.service';
 import {Usuario} from '../../../models/usuario';
 import swal from 'sweetalert2';
 import {AuthService} from '../../services/auth.service';
+import {nouser} from '../../../../environments/environment';
+import {ModalService} from '../../services/modal.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -11,45 +13,62 @@ import {AuthService} from '../../services/auth.service';
 })
 export class UsuariosComponent implements OnInit {
 
+  selectedUser:Usuario;
+  loading: boolean = true;
+  images: string[];
+  nouser = nouser;
   listaTabla: any[] = [
     {campo:'Id',                icono:'fingerprint'},
     {campo:'Imagen',            icono:'image'},
-    {campo:'Nombre de Usuario', icono:'user-alt'},
+    {campo:'Usuario',           icono:'user-alt'},
     {campo:'Email',             icono:'envelope'},
     {campo:'Habilitado',        icono:'low-vision'},
     {campo:'Verificado',        icono:'id-card'},
-    {campo:'Fecha de Registro', icono:'calendar-alt'},
+    {campo:'Registro',          icono:'calendar-alt'},
     {campo:'Roles',             icono:'leaf'},
     {campo:'Acciones',          icono:'edit'}
   ];
   listaUsuarios:Usuario[]=[];
 
-  constructor(public usuariosService: UsuariosService, public authService: AuthService) {
+  constructor(public usuariosService: UsuariosService, public authService: AuthService, public modalService: ModalService) {
   }
 
   ngOnInit(): void {
     this.usuariosService.getUsers(0).subscribe(response=>{
       this.listaUsuarios = response;
+      this.usuariosService.getUserImage(-1, false).subscribe(value => {
+        this.images = value.list;
+      })
+      this.loading = false;
       }
     );
 
   }
 
-  eliminarUsuario(usuario: Usuario) {
+  habilitar(usuario: Usuario, habilitar:boolean) {
+    let enable;
+    let enable2;
+    if(habilitar){
+      enable = 'Habilitar';
+      enable2 = 'habilitado';
+    }else{
+      enable = 'Deshabilitar';
+      enable2 = 'deshabilitado';
+    }
     swal.fire({
-      title: 'Seguro que quieres borrar al usuario '+usuario.username+'?',
-      text: "No se podrán revertir los cambios!",
+      title: '¿'+enable+' a '+usuario.username+'?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar usuario!'
+      confirmButtonText: 'Si, '+enable+' usuario!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuariosService.delete(usuario.id).subscribe(value => {
+        usuario.enabled = habilitar;
+        this.usuariosService.update(usuario).subscribe(value => {
           swal.fire(
-            'Borrado!',
-            'Se ha borrado al usuario '+usuario.username+'.',
+            'Actualizado!',
+            'Se ha '+enable2+' al usuario '+usuario.username+'.',
             'success'
           )
         });
@@ -57,5 +76,8 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
-
+  openModal(usuario: Usuario) {
+    this.selectedUser = usuario;
+    this.modalService.openModal();
+  }
 }

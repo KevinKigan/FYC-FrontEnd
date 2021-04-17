@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
   confirmPass: string ='';
   newUser: string='verifyNewUser';
 
-  constructor(private usuariosService: UsuariosService) {
+  constructor(public usuariosService: UsuariosService) {
   }
 
   ngOnInit(): void {
@@ -118,20 +118,10 @@ export class SignupComponent implements OnInit {
     document.getElementById("verify").style.display="none";
   }
 
-  /**
-   * Metodo para comprobar mediante typescript que el mail es correcto
-   */
-  errorsEmail(){
-    if(this.usuario.email.length<5){
-      return false;
-    }
-    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    return !emailRegex.test(this.usuario.email);
-  }
 
   errors() {
     return !this.samePassword() ||
-            this.errorsEmail()  ||
+            this.usuariosService.errorsEmail(this.usuario)  ||
            !(this.usuario.username.length>4) ||
            this.usuario.username.includes('.');
   }

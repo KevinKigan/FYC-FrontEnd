@@ -2,22 +2,24 @@ import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MdbTableDirective} from 'angular-bootstrap-md';
 import {Marca} from '../../../../models/marca';
 import {CochesService} from '../../../services/coches.service';
+import {ModalService} from '../../../services/modal.service';
 
 @Component({
   selector: 'app-marcadetail',
-  templateUrl: './marcadetail.component.html',
-  styleUrls: ['./marcadetail.component.scss']
+  templateUrl: './marcasdetails.component.html',
+  styleUrls: ['./marcasdetails.component.scss']
 })
-export class MarcadetailComponent implements OnInit {
+export class MarcasdetailsComponent implements OnInit {
   @ViewChild(MdbTableDirective, {static: true}) mdbTable: MdbTableDirective;
   marcas: Marca[];
   selectedMarca: Marca;
   imagenes = new Map<number, string>();
+  loading: boolean;
   value = '';
   searchText: string = '';
   previous: string;
 
-  constructor(private cochesService:CochesService) {
+  constructor(private cochesService:CochesService, private modalService: ModalService) {
   }
 
   @HostListener('input') oninput() {
@@ -29,9 +31,11 @@ export class MarcadetailComponent implements OnInit {
   }
 
   iniciar() {
+    this.loading = true;
     this.cochesService.getMarcas().subscribe(response => {
       this.cochesService.getUrlMarca(-1).subscribe(urls => {
         this.imagenes = urls;
+        this.loading = false;
       });
       this.marcas = response as Marca[];
       this.mdbTable.setDataSource(this.marcas);
@@ -57,12 +61,9 @@ export class MarcadetailComponent implements OnInit {
 
   openModal(marca: Marca) {
     this.selectedMarca = marca;
-    // this.modalService.openModal();
+    this.modalService.openModal();
   }
-  closeModal(marca: Marca) {
-    this.selectedMarca = marca;
-    // this.modalService.closeModal();
-  }
+
   getUrlMarca(idMarca: number) {
     if(this.imagenes[idMarca]==undefined){
       return 'https://dl.dropboxusercontent.com/s/1m5yy8wwpexgfyh/defaultImageMarca.png?dl=0';

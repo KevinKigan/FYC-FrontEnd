@@ -14,6 +14,7 @@ const dns = "http://localhost:8080";
 export const urlEndPoint                    = dns+"/api";
 export const urlEndPointCoches              = urlEndPoint+"/coches/";
 export const urlEndPointModelos             = urlEndPoint+"/modelos/";
+export const urlSaveMarca                   = urlEndPointModelos+"save_marca";
 export const urlChart                       = urlEndPointCoches+"chart";
 export const urlMarcas                      = urlEndPointModelos+"marcas";
 export const urlConsumo                     = urlEndPointCoches+"consumo";
@@ -39,6 +40,7 @@ export const urlEndPointUsuarios            = urlEndPoint+"/user/";
 export const urlUsuariosMyUser              = urlEndPointUsuarios+"username/";
 export const urlUsuariosIndex               = urlEndPointUsuarios+'index/';
 export const urlUsuariosCreate              = urlEndPointUsuarios+'create';
+export const urlUsuariosSetRoles            = urlEndPointUsuarios+'set_roles/';
 export const urlUsuariosSendVerificateCode  = urlEndPointUsuarios+'send_verification_code/';
 export const urlUsuariosCheckVerificateCode = urlEndPointUsuarios+'check_verification_code/';
 
