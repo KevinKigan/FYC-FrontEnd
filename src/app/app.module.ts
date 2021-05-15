@@ -32,7 +32,7 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {MatSliderModule} from '@angular/material/slider';
 import {LoadingComponent} from './components/share/loading/loading.component';
-import {ModeloEspecificoComponent} from './components/pages/modelos/modelo-especifico/modelo-especifico.component';
+import {ModeloEspecificoUserComponent} from './components/pages/modelos/modelo-especifico/user/modelo-especifico-user.component';
 import {ConocemeComponent} from './components/pages/conoceme/conoceme.component';
 import {LoginComponent} from './components/pages/credentials/login/login.component';
 import {SignupComponent} from './components/pages/credentials/signup/signup.component';
@@ -47,6 +47,9 @@ import {MarcaEspecificaComponent} from './components/pages/marcas/marcadetail/ma
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import { ModelodetailsComponent } from './components/pages/modelos/modelodetails/modelodetails.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ModeloEspecificoAdminComponent } from './components/pages/modelos/modelo-especifico/admin/modelo-especifico-admin.component';
 
 
 @NgModule({
@@ -61,7 +64,7 @@ import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/m
     MarcasComponent,
     SidebarComponent,
     LoadingComponent,
-    ModeloEspecificoComponent,
+    ModeloEspecificoUserComponent,
     ConocemeComponent,
     LoginComponent,
     SignupComponent,
@@ -71,6 +74,8 @@ import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/m
     UserdetailComponent,
     MarcasdetailsComponent,
     MarcaEspecificaComponent,
+    ModelodetailsComponent,
+    ModeloEspecificoAdminComponent,
 
   ],
   imports: [
@@ -104,6 +109,7 @@ import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/m
     GoogleMapsModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   providers: [{provide: 'LOCALE_ID', useValue: 'es'},
     { provide: MAT_DATE_LOCALE, useValue: 'es' },

@@ -125,10 +125,8 @@ export class HeaderComponent implements OnInit {
 
   getUserImage(){
     if(this.authService.urlUser!=null){
-      console.log('no hay imagen la buscamos');
       return this.authService.urlUser;
     }else{
-      console.log('no hay imagen');
       return nouser;
     }
   }

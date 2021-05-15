@@ -14,22 +14,32 @@ const dns = "http://localhost:8080";
 export const urlEndPoint                    = dns+"/api";
 export const urlEndPointCoches              = urlEndPoint+"/coches/";
 export const urlEndPointModelos             = urlEndPoint+"/modelos/";
-export const urlSaveMarca                   = urlEndPointModelos+"save_marca";
+
 export const urlChart                       = urlEndPointCoches+"chart";
-export const urlMarcas                      = urlEndPointModelos+"marcas";
-export const urlConsumo                     = urlEndPointCoches+"consumo";
-export const urlUploadImg                   = urlEndPointModelos+"imagen";
+export const urlConsumo                     = urlEndPointCoches+"consumo/";
+export const urlTipoMotor                   = urlEndPointCoches+"tipo_motor/";
+export const urlEmisiones                   = urlEndPointCoches+"emisiones/";
 export const urlCochesPage                  = urlEndPointCoches+"page/";
+export const urlListConsumo                 = urlEndPointCoches+"consumo";
+export const urlTiposMotores                = urlEndPointCoches+"tipos_motores";
+export const urlPreciosPagina               = urlEndPointCoches+"precios";
+export const urlMotorElectrico              = urlEndPointCoches+"electrico/";
+export const urlChartSemejantes             = urlEndPointCoches+"chartsemejantes";
+export const urlMotorCombustion             = urlEndPointCoches+"combustion/tipo_motor/";
+export const urlCochesPorModelo             = urlEndPointCoches+"modelo/";
+export const urlMotoresCombustion           = urlEndPointCoches+"motorescombustion";
+
+export const urlMarcas                      = urlEndPointModelos+"marcas";
+export const urlSaveMarca                   = urlEndPointModelos+"save_marca";
+export const urlUploadImg                   = urlEndPointModelos+"imagen";
 export const urlCarrocerias                 = urlEndPointModelos+"carrocerias";
 export const urlModelosPage                 = urlEndPointModelos+"page/";
-export const urlPreciosPagina               = urlEndPointCoches+"precios";
-export const urlChartSemejantes             = urlEndPointCoches+"chartsemejantes";
-export const urlMotorCombustion             = urlEndPointCoches+"motorescombustion";
-export const urlCochesPorModelo             = urlEndPointCoches+"modelo/";
+export const urlCarroceriasPorModelo        = urlEndPointModelos+"carrocerias_por_modelo";
+
 
 
 export const urlImg                         = urlEndPoint+'/img';
-export const urlImgUpload                   = urlImg+"/upload";
+export const urlImgUpload                   = urlImg+"/upload/";
 export const urlImgPropietario              = urlImg+"/propietario";
 export const urlImgModeloLogo               = urlImg+"/modeloslogo";
 export const urlImgUser                     = urlImg+"/getUserImage/";

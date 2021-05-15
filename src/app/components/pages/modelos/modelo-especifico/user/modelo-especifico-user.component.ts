@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {Modelo} from '../../../../models/modelo';
-import {CochesService} from '../../../services/coches.service';
+import {Modelo} from '../../../../../models/modelo';
+import {CochesService} from '../../../../services/coches.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {urlUploadImg} from '../../../../../environments/environment';
-import {Coche} from '../../../../models/coche';
-import {FiltroService} from '../../../services/filtro.service';
-import {Consumo} from '../../../../models/consumo';
-import {Volumen} from '../../../../models/volumen';
-import {MotorCombustion} from '../../../../models/motorCombustion';
-import {Sobrealimentacion} from '../../../../models/sobrealimentacion';
+import {urlUploadImg} from '../../../../../../environments/environment';
+import {Coche} from '../../../../../models/coche';
+import {FiltroService} from '../../../../services/filtro.service';
+import {Consumo} from '../../../../../models/consumo';
+import {Volumen} from '../../../../../models/volumen';
+import {MotorCombustion} from '../../../../../models/motorCombustion';
+import {Sobrealimentacion} from '../../../../../models/sobrealimentacion';
 
 
 @Component({
   selector: 'app-modelo-especifico',
-  templateUrl: './modelo-especifico.component.html',
-  styleUrls: ['./modelo-especifico.component.scss']
+  templateUrl: './modelo-especifico-user.component.html',
+  styleUrls: ['./modelo-especifico-user.component.scss']
 })
-export class ModeloEspecificoComponent implements OnInit {
+export class ModeloEspecificoUserComponent implements OnInit {
   public chartTypeRadar: string = 'radar';
   public chartType: string = 'bar';
   filtros: string[] = ['Precio', 'Consumo', 'Potencia', 'Emisiones', 'Cilindrada'];
@@ -106,7 +106,7 @@ export class ModeloEspecificoComponent implements OnInit {
             this.idsMotor.push(coche.tipoMotor.idTipoMotor);
             this.cocheSeleccionado = coche;
           });
-          this.cochesService.getConsumo(this.idsConsumo).subscribe(consumos => {
+          this.cochesService.getListConsumo(this.idsConsumo).subscribe(consumos => {
             this.consumos = consumos;
           });
           this.cochesService.getDatosChart(this.cocheSeleccionado.idCoche).subscribe(chart => {
@@ -122,7 +122,7 @@ export class ModeloEspecificoComponent implements OnInit {
               this.setLoading(false);
             });
           });
-          this.cochesService.getMotorCombustion(this.idsMotor).subscribe(motores => {
+          this.cochesService.getListMotoresCombustion(this.idsMotor).subscribe(motores => {
             this.motoresCombustion = motores;
           });
 

@@ -71,5 +71,14 @@ export class MarcasdetailsComponent implements OnInit {
       return this.imagenes[idMarca];
     }
   }
+
+  /**
+   * Metodo para actualizar la imagen de la marca en el listado
+   * mediante el emitter de marca-especifica.ts
+   * @param map
+   */
+  actualizarImagen(map: Map<string,string>) {
+    this.imagenes[map.get('id')] = map.get('image');
+  }
 }
 

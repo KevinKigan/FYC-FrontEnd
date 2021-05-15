@@ -1,15 +1,14 @@
 
-<div class="bigDiv white-text" style="background: #2f2f2e;margin-top: 100px; width: 30%">
+<div class="bigDiv white-text" style="background: #2f2f2e;margin-top: 100px; width: 270px">
   <div class="col-md-12 mx-auto">
     <mat-form-field class="example-form-field my-1" style="display: flex; justify-content: center;">
-      <mat-label style="color: #faf7cb; font-size: 18px">Buscar Marca</mat-label>
+      <mat-label style="color: white; font-size: 18px">Buscar Marca</mat-label>
       <input matInput type="text" [(ngModel)]="searchText" id="search">
     </mat-form-field>
   </div>
 </div>
 
-<app-marca-especifica [marca]="selectedMarca" *ngIf="selectedMarca"></app-marca-especifica>
-
+<app-marca-especifica [marca]="selectedMarca" [image] ="imagenes[selectedMarca.idMarca]" *ngIf="selectedMarca" (actualizadaImagen)="actualizarImagen($event)"></app-marca-especifica>
 
 <div class="bigDiv" style="margin-top: 20px">
   <table mdbTable class="table">

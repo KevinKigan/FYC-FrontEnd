@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {
@@ -14,7 +14,14 @@ import {
   urlChartSemejantes,
   urlEndPointModelos,
   urlImgMarcaLogo,
-  urlImgModeloLogo, urlSaveMarca
+  urlImgModeloLogo,
+  urlSaveMarca,
+  urlImgUpload,
+  urlCarroceriasPorModelo,
+  urlTiposMotores,
+  urlMotorElectrico,
+  urlMotoresCombustion,
+  urlListConsumo, urlTipoMotor, urlEmisiones
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -24,6 +31,9 @@ import {Coche} from '../../models/coche';
 import {Consumo} from '../../models/consumo';
 import {MotorCombustion} from '../../models/motorCombustion';
 import {AuthService} from './auth.service';
+import {MotorElectrico} from '../../models/motorElectrico';
+import {TipoMotor} from '../../models/tipoMotor';
+import {Emisiones} from '../../models/emisiones';
 
 
 @Injectable({
@@ -132,11 +142,26 @@ export class CochesService {
   }
 
   /**
-   * Metodo para obtener lso consumos segun una lista
+   * Metodo para obtener los consumos segun una lista
    * @param idsConsumos
    */
-  getConsumo(idsConsumos: number[]): Observable<any> {
-    return this.http.post<Consumo[]>(urlConsumo, idsConsumos).pipe(
+  getListConsumo(idsConsumos: number[]): Observable<any> {
+    return this.http.post<Consumo[]>(urlListConsumo, idsConsumos).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+  /**
+   * Metodo para obtener el consumos segun si id
+   * @param id
+   */
+  getConsumo(id: number): Observable<any> {
+    return this.http.get<Consumo>(urlConsumo + id).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -151,8 +176,44 @@ export class CochesService {
    * metodo para obtener los motores de combustion segun una lista
    * @param idsMotores
    */
-  getMotorCombustion(idsMotores: number[]): Observable<any> {
-    return this.http.post<MotorCombustion[]>(urlMotorCombustion, idsMotores).pipe(
+  getListMotoresCombustion(idsMotores: number[]): Observable<any> {
+    return this.http.post<MotorCombustion[]>(urlMotoresCombustion, idsMotores).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+  /**
+   * metodo para obtener el motor de combustion segun el id
+   * @param id
+   */
+  getMotorCombustionByIdTipoMotor(id: number): Observable<any> {
+    this.http.get<MotorCombustion>(urlMotorCombustion+id).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    ).subscribe(value => {
+        console.log('retornado');
+        console.log(value);
+      }
+    );
+
+    return;
+  }
+  /**
+   * metodo para obtener los motores de electricos segun una lista
+   * @param idsMotores
+   */
+  getMotorElectrico(id: number): Observable<any> {
+    return this.http.get<MotorElectrico>(urlMotorElectrico + id).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -293,5 +354,60 @@ export class CochesService {
    */
   saveMarca(marca: Marca): Observable<any> {
     return this.http.post(urlSaveMarca, marca);
+  }
+
+  /**
+   * Metodo para actualizar la imagen de la marca
+   * @param file
+   * @param idMarca
+   */
+  uploadMarcaImage(file: File, idMarca) {
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', idMarca)
+    // Creamos httprequest para tener constancia del progreso de la peticion
+    const req = new HttpRequest('POST',urlImgUpload+'marcas', formData,{
+      reportProgress: true,
+
+    });
+    return this.http.request(req);
+  }
+
+  getCarroceriasPorModelo(idsModelos: number[]): Observable<any> {
+    return this.http.post(urlCarroceriasPorModelo, idsModelos);
+  }
+
+  /**
+   * Metodo para obtener los tiempos de motores de los coches
+   */
+  getTiposMotor(idsTiposMotor: number[]) {
+    return this.http.post(urlTiposMotores,idsTiposMotor);
+  }
+
+  /**
+   * Metodo para obtener el tipo de motore del coche
+   */
+  getTipoMotor(id: number) {
+    return this.http.get<TipoMotor>(urlTipoMotor+id).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  getEmisiones(id: number) {
+    return this.http.get<Emisiones>(urlEmisiones+id).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
   }
 }

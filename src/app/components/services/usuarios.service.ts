@@ -220,7 +220,7 @@ export class UsuariosService {
     formData.append('file', file);
     formData.append('id', id)
     // Creamos httprequest para tener constancia del progreso de la peticion
-    const req = new HttpRequest('POST',urlImgUpload, formData,{
+    const req = new HttpRequest('POST',urlImgUpload+'users', formData,{
       reportProgress: true,
 
     });
