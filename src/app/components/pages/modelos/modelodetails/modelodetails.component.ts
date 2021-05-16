@@ -26,8 +26,6 @@ export class ModelodetailsComponent implements OnInit {
       this.loading = true;
       let idModelo = +params.get('idModelo');
       this.cochesService.getCochesPorModelo(idModelo).subscribe(response => {
-        console.log(idModelo);
-        console.log(response);
         this.coches = response;
         this.coches.sort((a, b) => {
           if (a.caryear > b.caryear) {
@@ -39,7 +37,6 @@ export class ModelodetailsComponent implements OnInit {
 
         this.cochesService.getTiposMotor(this.coches.map(coche => coche.tipoMotor.idTipoMotor)).subscribe((response) => {
           this.tiposMotores = response['tipos_motores'];
-          console.log(this.tiposMotores);
           this.loading = false;
         });
       });

@@ -21,6 +21,7 @@ export const urlTipoMotor                   = urlEndPointCoches+"tipo_motor/";
 export const urlEmisiones                   = urlEndPointCoches+"emisiones/";
 export const urlCochesPage                  = urlEndPointCoches+"page/";
 export const urlListConsumo                 = urlEndPointCoches+"consumo";
+export const urlCombustibles                = urlEndPointCoches+"tipos_combustibles";
 export const urlTiposMotores                = urlEndPointCoches+"tipos_motores";
 export const urlPreciosPagina               = urlEndPointCoches+"precios";
 export const urlMotorElectrico              = urlEndPointCoches+"electrico/";
@@ -28,6 +29,7 @@ export const urlChartSemejantes             = urlEndPointCoches+"chartsemejantes
 export const urlMotorCombustion             = urlEndPointCoches+"combustion/tipo_motor/";
 export const urlCochesPorModelo             = urlEndPointCoches+"modelo/";
 export const urlMotoresCombustion           = urlEndPointCoches+"motorescombustion";
+export const urlNormativasConsumos          = urlEndPointCoches+"normativas_consumos";
 
 export const urlMarcas                      = urlEndPointModelos+"marcas";
 export const urlSaveMarca                   = urlEndPointModelos+"save_marca";

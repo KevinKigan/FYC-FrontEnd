@@ -21,7 +21,7 @@ import {
   urlTiposMotores,
   urlMotorElectrico,
   urlMotoresCombustion,
-  urlListConsumo, urlTipoMotor, urlEmisiones
+  urlListConsumo, urlTipoMotor, urlEmisiones, urlCombustibles, urlNormativasConsumos
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -34,6 +34,9 @@ import {AuthService} from './auth.service';
 import {MotorElectrico} from '../../models/motorElectrico';
 import {TipoMotor} from '../../models/tipoMotor';
 import {Emisiones} from '../../models/emisiones';
+import {Combustible} from '../../models/combustible';
+import {TipoCombustible} from '../../models/tipoCombustible';
+import {TipoEmisiones} from '../../models/tipoEmisiones';
 
 
 @Injectable({
@@ -399,14 +402,35 @@ export class CochesService {
     );
   }
 
+  /**
+   * Metodo para obtener todas las emisiones segun el id especificado
+   * @param id
+   */
   getEmisiones(id: number) {
-    return this.http.get<Emisiones>(urlEmisiones+id).pipe(
-      catchError(e => {
-        if (e.status != 401 && e.error.mensaje) {
-          this.router.navigate(['/modelos']);
-          console.error(e.error.mensaje);
-        }
-        return throwError(e);
+    return this.http.get<Emisiones>(urlEmisiones+id);
+  }
+
+  /**
+   * Metodo para obtener todos los tipos de combustibles
+   */
+  getTiposCombustibles() {
+    return this.http.get(urlCombustibles).pipe(
+      map((response: any) => {
+        (response.tipos_combustibles as TipoCombustible[]).map(tipo => {
+          return tipo;
+        });
+        return response;
+      })
+    );
+  }
+
+  getNormativasConsumos() {
+    return this.http.get(urlNormativasConsumos).pipe(
+      map((response: any) => {
+        (response.normativas as TipoEmisiones[]).map(tipo => {
+          return tipo;
+        });
+        return response;
       })
     );
   }
