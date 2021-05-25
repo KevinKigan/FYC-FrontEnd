@@ -34,7 +34,7 @@
                              [(ngModel)]="modelGen[j+i*arrayCol.length]" (change)="checkErrors(camposGen[j + i * arrayCol.length],'gen', modelGen[j+i*arrayCol.length])">
                     </div>
                   </mat-form-field>
-                  <button mdbBtn [ngClass]="btnsClassGen[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                  <button *ngIf="camposGen[j + i * arrayCol.length]!='Marca' && camposGen[j + i * arrayCol.length]!='Modelo'" mdbBtn [ngClass]="btnsClassGen[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
                           type="button"
                           (click)="changeEnableButton('gen',j+i*arrayCol.length)" class="btnrounded" rounded="true"
                           size="sm">
@@ -268,7 +268,7 @@
                   class="btnrounded peach-gradient" rounded="true" size="sm">
             Cerrar
           </button>
-          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button" (click)="saveChanges()"
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" [disabled]="enableSave" type="button" (click)="saveChanges()"
                   class="btnrounded dusty-grass-gradient" rounded="true" size="sm">
             Guardar cambios
           </button>

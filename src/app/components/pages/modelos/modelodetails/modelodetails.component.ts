@@ -34,8 +34,8 @@ export class ModelodetailsComponent implements OnInit {
             return 1;
           }
         });
-
         this.cochesService.getTiposMotor(this.coches.map(coche => coche.tipoMotor.idTipoMotor)).subscribe((response) => {
+          console.log(response);
           this.tiposMotores = response['tipos_motores'];
           this.loading = false;
         });

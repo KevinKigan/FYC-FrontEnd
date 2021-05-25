@@ -21,7 +21,7 @@ import {
   urlTiposMotores,
   urlMotorElectrico,
   urlMotoresCombustion,
-  urlListConsumo, urlTipoMotor, urlEmisiones, urlCombustibles, urlNormativasConsumos
+  urlListConsumo, urlTipoMotor, urlEmisiones, urlCombustibles, urlNormativasConsumos, urlCochesSave, urlVolumen
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -34,7 +34,6 @@ import {AuthService} from './auth.service';
 import {MotorElectrico} from '../../models/motorElectrico';
 import {TipoMotor} from '../../models/tipoMotor';
 import {Emisiones} from '../../models/emisiones';
-import {Combustible} from '../../models/combustible';
 import {TipoCombustible} from '../../models/tipoCombustible';
 import {TipoEmisiones} from '../../models/tipoEmisiones';
 
@@ -176,6 +175,40 @@ export class CochesService {
   }
 
   /**
+   *
+   * Metodo para guardar el consumo
+   * @param consumo a guardar
+   */
+  saveConsumo(consumo: Consumo): Observable<any> {
+    return this.http.post<Consumo>(urlConsumo + 'save',consumo).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
+   *
+   * Metodo para guardar el motor de combustion
+   * @param motorCombustion a guardar
+   */
+  saveMotorCombustion(motorCombustion: MotorCombustion): Observable<any> {
+    return this.http.post<Consumo>(urlMotorCombustion + 'save',motorCombustion).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
    * metodo para obtener los motores de combustion segun una lista
    * @param idsMotores
    */
@@ -195,7 +228,7 @@ export class CochesService {
    * @param id
    */
   getMotorCombustionByIdTipoMotor(id: number): Observable<any> {
-    this.http.get<MotorCombustion>(urlMotorCombustion+id).pipe(
+    this.http.get<MotorCombustion>(urlMotorCombustion+'tipo_motor/'+id).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -344,7 +377,7 @@ export class CochesService {
    * Metodo para obtener todos las urls de las imagenes de los modelos
    * @param idsModelosPagina
    */
-  getUrlModelo(idsModelosPagina: number[]) {
+  getUrlModelo(idsModelosPagina: number[]): Observable<any> {
     return this.http.post(urlImgModeloLogo, idsModelosPagina).pipe(
       map((response: any) => {
         return response;
@@ -364,7 +397,7 @@ export class CochesService {
    * @param file
    * @param idMarca
    */
-  uploadMarcaImage(file: File, idMarca) {
+  uploadMarcaImage(file: File, idMarca): Observable<any> {
     let formData = new FormData();
     formData.append('file', file);
     formData.append('id', idMarca)
@@ -383,14 +416,14 @@ export class CochesService {
   /**
    * Metodo para obtener los tiempos de motores de los coches
    */
-  getTiposMotor(idsTiposMotor: number[]) {
+  getTiposMotor(idsTiposMotor: number[]): Observable<any> {
     return this.http.post(urlTiposMotores,idsTiposMotor);
   }
 
   /**
    * Metodo para obtener el tipo de motore del coche
    */
-  getTipoMotor(id: number) {
+  getTipoMotor(id: number): Observable<any> {
     return this.http.get<TipoMotor>(urlTipoMotor+id).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
@@ -406,14 +439,14 @@ export class CochesService {
    * Metodo para obtener todas las emisiones segun el id especificado
    * @param id
    */
-  getEmisiones(id: number) {
+  getEmisiones(id: number): Observable<any> {
     return this.http.get<Emisiones>(urlEmisiones+id);
   }
 
   /**
    * Metodo para obtener todos los tipos de combustibles
    */
-  getTiposCombustibles() {
+  getTiposCombustibles(): Observable<any> {
     return this.http.get(urlCombustibles).pipe(
       map((response: any) => {
         (response.tipos_combustibles as TipoCombustible[]).map(tipo => {
@@ -424,7 +457,7 @@ export class CochesService {
     );
   }
 
-  getNormativasConsumos() {
+  getTipoEmisiones(): Observable<any> {
     return this.http.get(urlNormativasConsumos).pipe(
       map((response: any) => {
         (response.normativas as TipoEmisiones[]).map(tipo => {
@@ -433,5 +466,13 @@ export class CochesService {
         return response;
       })
     );
+  }
+
+  saveCoche(coche: Coche): Observable<any> {
+    return this.http.post(urlCochesSave, coche);
+  }
+
+  getVolumenById(idVolumen: number) {
+    return this.http.get(urlVolumen+idVolumen);
   }
 }
