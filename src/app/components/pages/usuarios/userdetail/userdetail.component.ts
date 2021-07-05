@@ -52,7 +52,6 @@ export class UserdetailComponent implements OnInit {
       this.user.image = 'Sin imagen';
     }
     this.usuariosService.getUserImage(this.user.id, false).subscribe(value => {
-      console.log(value);
       if (value.list[this.user.id] != undefined) {
         this.urlImageUser = value.list[this.user.id];
       } else {
@@ -89,10 +88,8 @@ export class UserdetailComponent implements OnInit {
     } else {
       this.usuariosService.uploadImage(this.selectedImage, this.user.id)
         .subscribe(event => {
-          console.log(event);
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round((event.loaded / event.total) * 100);
-            console.log(this.progress);
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
             this.user = response.user as Usuario;

@@ -57,9 +57,9 @@
         </ul>
       </td>
       <td>
-        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" (click)="openModal(usuario)" class="dusty-grass-gradient" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
-        <button *ngIf="authService.hasRole('ROLE_ADMIN') && usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,false)" class="peach-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Deshabilitar</button>
-        <button *ngIf="authService.hasRole('ROLE_ADMIN') && !usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,true)" class="tempting-azure-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Habilitar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" (click)="openModal(usuario)" class="dusty-grass-gradient" style="border-radius: 8px" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN') && usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,false)" class="peach-gradient" style="color: #2f2f2e; border-radius: 8px" rounded="true" size="sm" mdbWavesEffect>Deshabilitar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN') && !usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,true)" class="tempting-azure-gradient" style="color: #2f2f2e; border-radius: 8px" rounded="true" size="sm" mdbWavesEffect>Habilitar</button>
       </td>
     </tr>
     </tbody>

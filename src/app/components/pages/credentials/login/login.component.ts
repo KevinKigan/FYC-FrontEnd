@@ -33,28 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   entrar() {
-    this.authService.login (this.user).subscribe(response => {
-      this.authService.saveUser(response.access_token);
-      this.authService.saveToken(response.access_token);
-      this.usuariosService.getMyUserByUsername(response.username).subscribe(user =>{
-        this.authService.saveCompleteUser(user);
-        this.usuariosService.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
-          if (value.list[this.authService.completeUser.id] != undefined) {
-            this.authService.saveURLUser(value.list[this.authService.completeUser.id]);
-          }
-        })
-      });
-      let user = this.authService.user;
-      this.router.navigate(['/modelos']);
-      swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Sesión iniciada!',
-        text: 'Se ha iniciado sesión exitosamente ' + user.username+'.',
-        showConfirmButton: false,
-        timer: 3000
-      });
-    });
+    this.usuariosService.entrar(this.user, true);
   }
 
   forgottenPassword() {

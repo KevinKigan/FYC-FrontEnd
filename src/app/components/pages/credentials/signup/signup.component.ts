@@ -96,8 +96,6 @@ export class SignupComponent implements OnInit {
     document.getElementById("formulario").style.display="none";
     document.getElementById("verify").style.display="block";
     this.usuariosService.create(this.usuario).subscribe(value=>{
-      this.usuario = value.user;
-      console.log(this.usuario);
       swal.fire({
         position: 'center',
         icon: 'success',
@@ -105,6 +103,9 @@ export class SignupComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       });
+      console.log(this.usuario);
+      this.usuariosService.entrar(this.usuario, false);
+      this.usuario = value.user;
       });
   }
 
@@ -113,7 +114,6 @@ export class SignupComponent implements OnInit {
   }
 
   volverARegistro($event: any) {
-    console.log('entramos');
     document.getElementById("formulario").style.display="block";
     document.getElementById("verify").style.display="none";
   }

@@ -44,11 +44,9 @@ export const urlCarroceriasPorModelo        = urlEndPointModelos+"carrocerias_po
 
 export const urlImg                         = urlEndPoint+'/img';
 export const urlImgUpload                   = urlImg+"/upload/";
-export const urlImgPropietario              = urlImg+"/propietario";
 export const urlImgModeloLogo               = urlImg+"/modeloslogo";
 export const urlImgUser                     = urlImg+"/getUserImage/";
 export const urlImgMarcaLogo                = urlImg+"/marcaslogo/";
-
 
 export const urlEndPointUsuarios            = urlEndPoint+"/user/";
 export const urlUsuariosMyUser              = urlEndPointUsuarios+"username/";
@@ -57,10 +55,12 @@ export const urlUsuariosCreate              = urlEndPointUsuarios+'create';
 export const urlUsuariosSetRoles            = urlEndPointUsuarios+'set_roles/';
 export const urlUsuariosSendVerificateCode  = urlEndPointUsuarios+'send_verification_code/';
 export const urlUsuariosCheckVerificateCode = urlEndPointUsuarios+'check_verification_code/';
-
 export const urlLogin = dns + '/oauth/token';
-export const credentials = 'findyourcarapp' +':' + 'pJZbsWpVjyDwfKj';
-export const nouser = 'https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0'
+
+export const credentials        = 'findyourcarapp' +':' + 'pJZbsWpVjyDwfKj';
+export const urlImgPropietario  = "https://dl.dropboxusercontent.com/s/fkfmzq5vkpqfzev/propietario.png?dl=0";
+export const urlImgBackKnowme   = "https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0";
+export const nouser             = 'https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0'
 
 /*
  * For easier debugging in development mode, you can import the following file

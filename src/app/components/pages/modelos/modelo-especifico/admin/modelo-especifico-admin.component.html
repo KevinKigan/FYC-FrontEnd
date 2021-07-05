@@ -50,6 +50,35 @@
               </small>
             </div>
           </div>
+          <div *ngIf="modelVolumen.length>0" class="my-5">
+            <h3>Volúmenes</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[7]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelVolumen.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposVol[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsVol[i+j]" type="text"
+                           [(ngModel)]="modelVolumen[j+i*arrayCol.length]" (change)="checkErrors(camposVol[j + i * arrayCol.length],'vol', modelVolumen[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassVol[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('vol',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[7]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
           <div *ngIf="modelMotCombustion.length>0" class="my-5">
             <h3>Motor Combustión</h3>
             <hr>
@@ -127,7 +156,7 @@
             <hr>
             <div *ngIf="modelConsAltCombustion.length>0 || modelConsElectrico.length>0"
                  style="width: 180px;margin-top: 40px;">
-              <h4 class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}
+              <h4 *ngIf="motorCombustion.combustible.tipoCombustibleNormal" class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}
                 (L/100Km)</h4>
               <hr class="subHr">
             </div>

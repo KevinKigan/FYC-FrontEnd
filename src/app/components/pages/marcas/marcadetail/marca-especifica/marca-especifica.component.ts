@@ -57,9 +57,6 @@ export class MarcaEspecificaComponent implements OnInit {
       let idsModelos = this.modelos.map(modelo => modelo.idModelo);
       this.cochesService.getCarroceriasPorModelo(idsModelos).subscribe(mapa_carrocerias => {
         this.carrocerias = mapa_carrocerias.carrocerias;
-        console.log(this.carrocerias);
-        console.log(this.carrocerias[834]);
-
       })
       this.modelos.sort((modeloA, modeloB) => {
         if (modeloA.modelo.toUpperCase() < modeloB.modelo.toUpperCase()) {
@@ -186,7 +183,6 @@ export class MarcaEspecificaComponent implements OnInit {
   selectImage(event) {
     this.selectedImage = event.target.files[0];
     this.progress = 0;
-    console.log(this.selectedImage);
     if (this.selectedImage.type.indexOf('image/png') < 0) {
       swal.fire({
         icon: 'warning',
@@ -212,10 +208,8 @@ export class MarcaEspecificaComponent implements OnInit {
     } else {
       this.cochesService.uploadMarcaImage(this.selectedImage, this.marca.idMarca)
         .subscribe(event => {
-          console.log(event);
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round((event.loaded / event.total) * 100);
-            console.log(this.progress);
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
             this.marca = response.marca as Marca;

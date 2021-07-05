@@ -399,7 +399,6 @@ export class ModeloEspecificoUserComponent implements OnInit {
    * @param comparar Parametro de comparacion solicitado
    */
   compararPor(comparar: string) {
-    console.log(comparar);
     this.comparar = comparar;
   }
 

@@ -36,6 +36,7 @@ import {TipoMotor} from '../../models/tipoMotor';
 import {Emisiones} from '../../models/emisiones';
 import {TipoCombustible} from '../../models/tipoCombustible';
 import {TipoEmisiones} from '../../models/tipoEmisiones';
+import {Volumen} from '../../models/volumen';
 
 
 @Injectable({
@@ -192,12 +193,43 @@ export class CochesService {
   }
 
   /**
+   * Metodo para guardar el volumen
+   * @param volumen A guardar
+   */
+  saveVolumen(volumen: Volumen): Observable<any>{
+    return this.http.post<Volumen>(urlVolumen + 'save',volumen).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+  /**
    *
    * Metodo para guardar el motor de combustion
    * @param motorCombustion a guardar
    */
   saveMotorCombustion(motorCombustion: MotorCombustion): Observable<any> {
-    return this.http.post<Consumo>(urlMotorCombustion + 'save',motorCombustion).pipe(
+    return this.http.post<MotorCombustion>(urlMotorCombustion + 'save',motorCombustion).pipe(
+      catchError(e => {
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/modelos']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+  /**
+   *
+   * Metodo para guardar el motor electrico
+   * @param motorElectrico a guardar
+   */
+  saveMotorElectrico(motorElectrico: MotorElectrico): Observable<any> {
+    return this.http.post<MotorElectrico>(urlMotorElectrico + 'save',motorElectrico).pipe(
       catchError(e => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/modelos']);
@@ -236,11 +268,7 @@ export class CochesService {
         }
         return throwError(e);
       })
-    ).subscribe(value => {
-        console.log('retornado');
-        console.log(value);
-      }
-    );
+    ).subscribe();
 
     return;
   }
@@ -473,6 +501,6 @@ export class CochesService {
   }
 
   getVolumenById(idVolumen: number) {
-    return this.http.get(urlVolumen+idVolumen);
+    return this.http.get<Volumen>(urlVolumen+idVolumen);
   }
 }

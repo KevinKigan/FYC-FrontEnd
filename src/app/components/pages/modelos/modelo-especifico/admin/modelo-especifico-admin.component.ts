@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {ModalService} from '../../../../services/modal.service';
 import {CochesService} from '../../../../services/coches.service';
 import {Router} from '@angular/router';
@@ -12,7 +12,6 @@ import {TipoEmisiones} from '../../../../../models/tipoEmisiones';
 import {Carroceria} from '../../../../../models/carroceria';
 import swal from 'sweetalert2';
 import {Emisiones} from '../../../../../models/emisiones';
-import {HP_Electrico} from '../../../../../models/HP_Electrico';
 import {Volumen} from '../../../../../models/volumen';
 
 @Component({
@@ -25,23 +24,26 @@ export class ModeloEspecificoAdminComponent implements OnInit {
   @Input() coche: Coche;
 
   volumen: Volumen;
-  btnsGen: boolean[] = [];
-  btnsMotC: boolean[] = [];
-  btnsMotE: boolean[] = [];
-  btnsEmi: boolean[] = [];
-  btnsCons: boolean[] = [];
-  btnsConsAlt: boolean[] = [];
-  btnsConsEle: boolean[] = [];
-  errorsGen: string[] = [];
-  errorsMotC: string[] = [];
-  errorsMotE: string[] = [];
-  errorsEmi: string[] = [];
-  errorsCons: string[] = [];
-  errorsConsAlt: string[] = [];
-  errorsConsEle: string[] = [];
-  carrocerias: Carroceria[] = [];
+  btnsGen: boolean        [] = [];
+  btnsVol: boolean        [] = [];
+  btnsMotC: boolean       [] = [];
+  btnsMotE: boolean       [] = [];
+  btnsEmi: boolean        [] = [];
+  btnsCons: boolean       [] = [];
+  btnsConsAlt: boolean    [] = [];
+  btnsConsEle: boolean    [] = [];
+  errorsGen: string       [] = [];
+  errorsMotC: string      [] = [];
+  errorsMotE: string      [] = [];
+  errorsEmi: string       [] = [];
+  errorsVol: string       [] = [];
+  errorsCons: string      [] = [];
+  errorsConsAlt: string   [] = [];
+  errorsConsEle: string   [] = [];
+  carrocerias: Carroceria [] = [];
   tipoEmisiones: TipoEmisiones[];
   tipoCombustibles: TipoCombustible[];
+  saved: number = 0;
   emisiones: Emisiones;
   enableSave: boolean = false;
   erroresCategoria: any[] = [
@@ -50,18 +52,19 @@ export class ModeloEspecificoAdminComponent implements OnInit {
   ];
   btns: any[] = [
     this.btnsGen, this.btnsMotC, this.btnsMotE,
-    this.btnsCons, this.btnsConsAlt, this.btnsConsEle, this.btnsEmi
+    this.btnsCons, this.btnsConsAlt, this.btnsConsEle, this.btnsEmi, this.btnsVol
   ];
-  btnsClassGen: string[] = [];
-  btnsClassMotC: string[] = [];
-  btnsClassMotE: string[] = [];
-  btnsClassEmi: string[] = [];
-  btnsClassCons: string[] = [];
-  btnsClassConsAlt: string[] = [];
-  btnsClassConsEle: string[] = [];
+  btnsClassGen: string     [] = [];
+  btnsClassMotC: string    [] = [];
+  btnsClassMotE: string    [] = [];
+  btnsClassEmi: string     [] = [];
+  btnsClassCons: string    [] = [];
+  btnsClassConsAlt: string [] = [];
+  btnsClassConsEle: string [] = [];
+  btnsClassVol: string     [] = [];
   btnsClass: any[] = [
     this.btnsClassGen, this.btnsClassMotC, this.btnsClassMotE, this.btnsClassCons,
-    this.btnsClassConsAlt, this.btnsClassConsEle, this.btnsClassEmi
+    this.btnsClassConsAlt, this.btnsClassConsEle, this.btnsClassEmi, this.btnsClassVol
   ];
   arrayCol: number[] = [0, 1, 2];
   arraRow: number[] = [0, 1, 2];
@@ -69,26 +72,27 @@ export class ModeloEspecificoAdminComponent implements OnInit {
   motorCombustion: MotorCombustion;
   consumo: Consumo;
   motorElectrico: MotorElectrico;
-  model: any[] = [];
-  modelGen: any[] = [];
-  modelMotCombustion: any[] = [];
-  modelEmiCombustion: any[] = [];
-  modelEmiAltCombustion: any[] = [];
-  modelConsCombustion: any[] = [];
-  modelConsAltCombustion: any[] = [];
-  modelConsElectrico: any[] = [];
-  modelMotElectrico: any[] = [];
-  modelMotor: any[] = [];
+  modelGen: any               [] = [];
+  modelVolumen: any           [] = [];
+  modelMotCombustion: any     [] = [];
+  modelEmiCombustion: any     [] = [];
+  modelConsCombustion: any    [] = [];
+  modelConsAltCombustion: any [] = [];
+  modelConsElectrico: any     [] = [];
+  modelMotElectrico: any      [] = [];
+  modelMotor: any             [] = [];
   camposNumber: string[] = [
     'Año de Lanzamiento', 'Precio (€)', 'Cilindrada (L)', 'Cilindros', 'Potencia (CV)', 'Consumo Ciudad',
     'Consumo Autopista', 'Consumo Mixto', 'Consumo Alt Ciudad', 'Consumo Alt Autopista', 'Consumo Alt Mixto',
     'Consumo Eléctrico Ciudad', 'Consumo Eléctrico Autopista', 'Consumo Eléctrico Mixto', 'CO2', 'CO2 Alternativo',
-    'Tiempo de Carga 220V (h)', 'Potencia (CV) Versión', 'Potencia (kWh) Versión'
+    'Tiempo de Carga 220V (h)', 'Potencia (CV) Versión', 'Potencia (kWh) Versión', 'Habitáculo (L)', 'Maletero (L)',
+    'Habitáculo Versión', 'Maletero Versión'
   ];
   camposDecimal: string[] = [
     'Cilindrada (L)', , 'Consumo Ciudad',
     'Consumo Autopista', 'Consumo Mixto', 'Consumo Alt Ciudad', 'Consumo Alt Autopista', 'Consumo Alt Mixto',
-    'Consumo Eléctrico Ciudad', 'Consumo Eléctrico Autopista', 'Consumo Eléctrico Mixto'
+    'Consumo Eléctrico Ciudad', 'Consumo Eléctrico Autopista', 'Consumo Eléctrico Mixto', 'Habitáculo (L)', 'Maletero (L)',
+    'Habitáculo Versión (L)', 'Maletero Versión (L)'
   ];
   camposGen: string[] = [
     'Marca',
@@ -128,6 +132,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     'Normativa Euro'
   ];
   camposMotElectrico: string[] = [];
+  camposVol: string[] = [];
   selects: string[] = ['Carrocería', 'Transmisión', 'Eje Motriz', 'Turbo', 'Compresor', 'Tipo Combustible', 'Normativa Euro'];
   private marcasString: string[] = [];
   private modelosString: string[] = [];
@@ -144,13 +149,16 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     this.booleanString, this.tipoCombustiblesString, this.tipoEmisionesString
   ];
   private marcaSelected: Marca;
+  private versionesElectricas: number;
+  private itemsToSave: number = 0;
 
 
   constructor(public modalService: ModalService, private cochesService: CochesService, private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log(this.coche);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
     this.configurarItems();
   }
 
@@ -160,7 +168,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
    */
   configurarItems() {
     this.configurarGeneral();
-    this.configurarVolumen()
+    this.configurarVolumen();
     this.configurarMotores();
     this.configurarSelects();
   }
@@ -170,18 +178,30 @@ export class ModeloEspecificoAdminComponent implements OnInit {
    * y reiniciar las variables
    */
   closeModal() {
-    //TODO
-    // this.btn1 = true;
-    // this.btn2 = true;
-    // this.modelosOriginal = [];
-    // this.carrocerias = [];
-    // this.btn1class = 'peach-gradient';
-    // this.btn2class = 'peach-gradient';
+    this.coche = null;
+    this.btns.forEach((lista: boolean[]) => {
+      lista.fill(true, 0, lista.length);
+    });
+    this.btnsClass.forEach((lista: string[]) => {
+      lista.fill('peach-gradient', 0, lista.length);
+    });
+    this.volumen = null;
+    this.modelGen               = [];
+    this.modelVolumen           = [];
+    this.modelMotCombustion     = [];
+    this.modelEmiCombustion     = [];
+    this.modelConsCombustion    = [];
+    this.modelConsAltCombustion = [];
+    this.modelConsElectrico     = [];
+    this.modelMotElectrico      = [];
+    this.modelMotor             = [];
+    this.motorCombustion = null;
+    this.consumo = null;
+    this.motorElectrico = null;
     this.modalService.closeModal();
   }
 
   saveChanges() {
-    //TODO volumen
     this.coche.caryear = this.modelGen[3];
     this.coche.precio = this.modelGen[4];
     this.coche.transmision = this.modelGen[5];
@@ -201,27 +221,25 @@ export class ModeloEspecificoAdminComponent implements OnInit {
         this.coche.carroceria = carroceria;
       }
     });
-    this.motorCombustion.emisiones.co2 = this.modelEmiCombustion[0];
     if (this.modelEmiCombustion[1] != null) {
-      this.motorCombustion.emisiones.co2 = this.modelEmiCombustion[0];
+      this.emisiones.co2 = +this.modelEmiCombustion[0];
       this.emisiones.tipoEmisiones.tipoEmisiones = this.modelEmiCombustion[1];
       this.cochesService.getTipoEmisiones();
       this.tipoEmisiones.forEach(tipoEmisiones => {
         if (tipoEmisiones.tipoEmisiones == this.emisiones.tipoEmisiones.tipoEmisiones) {
-          console.log('Es ' + tipoEmisiones.tipoEmisiones);
           this.emisiones.tipoEmisiones = tipoEmisiones;
         }
       });
       this.motorCombustion.emisiones = this.emisiones;
     }
-    this.motorCombustion.cilindrada = +this.modelMotCombustion[0]
-    this.motorCombustion.cilindros = +this.modelMotCombustion[1]
+    this.motorCombustion.cilindrada = +this.modelMotCombustion[0];
+    this.motorCombustion.cilindros = +this.modelMotCombustion[1];
     this.motorCombustion.hp = +this.modelMotCombustion[2];
-    this.tipoCombustibles.forEach(combustible =>{
-      if(combustible.tipoCombustible.includes(this.modelMotCombustion[5])){
+    this.tipoCombustibles.forEach(combustible => {
+      if (combustible.tipoCombustible.includes(this.modelMotCombustion[5])) {
         this.motorCombustion.combustible.tipoCombustibleNormal = combustible;
       }
-    })
+    });
     if (this.consumo.idConsumoNormal != null) {
       this.consumo.idConsumoNormal.ciudad    = this.modelConsCombustion[0];
       this.consumo.idConsumoNormal.autopista = this.modelConsCombustion[1];
@@ -238,67 +256,93 @@ export class ModeloEspecificoAdminComponent implements OnInit {
       this.consumo.idConsumoElectrico.combinado = this.modelConsElectrico[2];
     }
 
-    this.modelMotCombustion[3] == 'Si'?
+    this.modelMotCombustion[3] == 'Si' ?
       this.motorCombustion.sobrealimentacion.turbo = true : this.motorCombustion.sobrealimentacion.turbo = false;
-    this.modelMotCombustion[4] == 'Si'?
+    this.modelMotCombustion[4] == 'Si' ?
       this.motorCombustion.sobrealimentacion.supercargador = true : this.motorCombustion.sobrealimentacion.supercargador = false;
-
-    console.log(this.motorCombustion.sobrealimentacion);
     this.cochesService.saveConsumo(this.consumo).subscribe(value => {
-      console.log(value);
-      console.log(this.consumo);
-    })
-    this.cochesService.saveMotorCombustion(this.motorCombustion).subscribe(value => {
-      console.log(value);
-    })
-    this.coche.tipoMotor.motorCombustion = this.motorCombustion;
-
-    // if (this.modelMotElectrico.length>0) {
-    //   this.motorElectrico.tCarga220v = this.modelMotElectrico[0];
-    //   let hps: HP_Electrico[];
-    //   this.motorElectrico.hps =
-    //   let version: number = 1;
-    //   this.modelMotElectrico.forEach(hps => {
-    //     this.modelMotElectrico[this.modelMotElectrico.length] = hps.hp;
-    //     this.camposMotElectrico[this.modelMotElectrico.length - 1] = 'Potencia (CV) Versión ' + (version);
-    //     this.btnsMotE[this.btnsMotE.length] = true;
-    //     this.btnsClassMotE[this.btnsClassMotE.length] = 'peach-gradient';
-    //     version++;
-    //   });
-    //   version = 1;
-    //   this.motorElectrico.potenciasElectricas.forEach(kWh => {
-    //     this.modelMotElectrico[this.modelMotElectrico.length] = kWh.potencia;
-    //     this.camposMotElectrico[this.modelMotElectrico.length - 1] = 'Potencia (kWh) Versión ' + (version);
-    //     this.btnsMotE[this.btnsMotE.length] = true;
-    //     this.btnsClassMotE[this.btnsClassMotE.length] = 'peach-gradient';
-    //     version++;
-    //   });
-    // }
-    //TODO falta guardar el motor electrico
-
-
-
-    // TODO falta (tambien motor electrico)
-    // TODO volumen
-    this.cochesService.saveCoche(this.coche).subscribe(response => {
-      if (response.error != undefined) {
-        swal.fire({
-          title: 'Error al guardar',
-          position: 'center',
-          icon: 'error',
-          text: response.error,
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else {
-        //TODO guardar motor, volumen, consumos
-
-      }
+      this.consumo = value.consumo;
+      this.coche.consumo = this.consumo;
+      this.saved++;
+      this.checkSaveCoche();
     });
-    // actualizarMotor();
-    // Traccion
-    // Turbo
-    // Compresor
+    if (this.motorCombustion != null) {
+      this.motorCombustion.emisiones = this.emisiones;
+      this.cochesService.saveMotorCombustion(this.motorCombustion).subscribe(value => {
+        this.motorCombustion = value.motorCombustion;
+        this.saved++;
+        this.checkSaveCoche();
+      });
+    }
+    if (this.motorElectrico != null) {
+      this.motorElectrico.tCarga220v = this.modelMotElectrico[0];
+      let indHP: number = 0;
+      let indKWh: number = 0;
+      for (let i = 0; i < this.modelMotElectrico.length; i++) {
+        if (this.camposMotElectrico[i].includes('kWh')) {
+          this.motorElectrico.potenciasElectricas[indKWh].potencia = +this.modelMotElectrico[i];
+          indKWh++;
+        } else if (this.camposMotElectrico[i].includes('CV')) {
+          this.motorElectrico.hps[indHP].hp = +this.modelMotElectrico[i];
+          indHP++;
+        }
+      }
+      this.coche.tipoMotor.motorCombustion = this.motorCombustion;
+      if (this.motorElectrico != null) {
+        this.cochesService.saveMotorElectrico(this.motorElectrico).subscribe(value => {
+          this.motorElectrico = value.motorElectrico;
+          this.saved++;
+          this.checkSaveCoche();
+        });
+      }
+    }
+    if (this.volumen != null) {
+      if (this.volumen.volumenHatchback != null) {
+        this.volumen.volumenHatchback.volumenHabitaculo = +this.modelVolumen[0];
+        this.volumen.volumenHatchback.volumenMaletero = +this.modelVolumen[1];
+      } else if (this.volumen.volumen4p != null) {
+        this.volumen.volumen4p.volumenHabitaculo = +this.modelVolumen[0];
+        this.volumen.volumen4p.volumenMaletero = +this.modelVolumen[1];
+      }
+      if (this.volumen.volumen2p != null) {
+        this.volumen.volumen2p.volumenHabitaculo = +this.modelVolumen[0];
+        this.volumen.volumen2p.volumenMaletero = +this.modelVolumen[1];
+      }
+      this.cochesService.saveVolumen(this.volumen).subscribe(value => {
+        this.volumen = value.volumen;
+        this.saved++;
+        this.checkSaveCoche();
+      });
+    }
+    if (this.motorElectrico != null) {
+      this.coche.tipoMotor.motorElectrico = this.motorElectrico;
+    }
+  }
+
+  checkSaveCoche() {
+    if (this.saved == this.itemsToSave) {
+      this.cochesService.saveCoche(this.coche).subscribe(response => {
+        if (response.error != undefined) {
+          swal.fire({
+            title: 'Error al guardar',
+            position: 'center',
+            icon: 'error',
+            text: response.error,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else if (response.message != undefined) {
+          swal.fire({
+            title: 'Guardado correctamente',
+            position: 'center',
+            icon: 'success',
+            text: response.message,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      });
+    }
   }
 
   /**
@@ -336,6 +380,10 @@ export class ModeloEspecificoAdminComponent implements OnInit {
       }
       case 'emi': {
         indexGlobal = 6;
+        break;
+      }
+      case 'vol': {
+        indexGlobal = 7;
         break;
       }
     }
@@ -476,6 +524,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     });
     this.cochesService.getTipoMotor(this.coche.tipoMotor.idTipoMotor).subscribe(value => {
       if (value.motorCombustion != null) {
+        this.itemsToSave++;
         this.motorCombustion = value.motorCombustion;
         this.modelMotCombustion[0] = this.motorCombustion.cilindrada;
         this.modelMotCombustion[1] = this.motorCombustion.cilindros;
@@ -507,7 +556,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
 
         this.cochesService.getConsumo(this.coche.consumo.idConsumo).subscribe(value => {
           this.consumo = value;
-          console.log(this.consumo);
+          this.itemsToSave++;
           if (this.consumo.idConsumoNormal != null) {
             this.modelConsCombustion[0] = this.consumo.idConsumoNormal.ciudad;
             this.modelConsCombustion[1] = this.consumo.idConsumoNormal.autopista;
@@ -515,10 +564,6 @@ export class ModeloEspecificoAdminComponent implements OnInit {
             this.configurarColumnas(this.modelConsCombustion, 3);
           }
           if (this.consumo.idConsumoAlternativo != null) {
-            if (this.motorCombustion.combustible.tipoCombustibleAlternativo == null) {
-              this.motorCombustion.combustible.tipoCombustibleAlternativo = new TipoCombustible();
-              this.motorCombustion.combustible.tipoCombustibleAlternativo.tipoCombustible = 'Alternativo';
-            }
             this.modelConsAltCombustion[0] = this.consumo.idConsumoAlternativo.ciudad;
             this.modelConsAltCombustion[1] = this.consumo.idConsumoAlternativo.autopista;
             this.modelConsAltCombustion[2] = this.consumo.idConsumoAlternativo.combinado;
@@ -545,6 +590,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
         });
       }
       if (value.motorElectrico != null) {
+        this.itemsToSave++;
         this.motorElectrico = value.motorElectrico;
         this.modelMotElectrico[0] = this.motorElectrico.tCarga220v;
         this.camposMotElectrico[0] = 'Tiempo de Carga 220V (h)';
@@ -567,6 +613,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
           this.btnsClassMotE[this.btnsClassMotE.length] = 'peach-gradient';
           version++;
         });
+        this.versionesElectricas = version - 1;
         this.configurarColumnas(this.modelMotElectrico, 2);
       }
     });
@@ -592,14 +639,6 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     });
   }
 
-  // transform(element: string): string {
-  //   if(element=='false') return 'No';
-  //   if(element=='true') return 'Si';
-  //   if(element=='AWD') return 'Total';
-  //   if(element=='RWD') return 'Trasero';
-  //   if(element=='FWD') return 'Delantero';
-  // }
-
   /**
    *  Metodo para comprobar errores
    * @param campo  Nombre del campo del modelo a revisar
@@ -614,7 +653,6 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     let modelCheck: any[] = [];
     let index: number;
     let categoria: string[];
-
     switch (campos) {
       case 'gen': {
         camposCheck = this.camposGen;
@@ -659,6 +697,12 @@ export class ModeloEspecificoAdminComponent implements OnInit {
         index = 6;
         break;
       }
+      case 'vol': {
+        camposCheck = this.camposVol;
+        modelCheck = this.modelVolumen;
+        index = 7;
+        break;
+      }
     }
     camposCheck.forEach(campoFE => {
       let campoFEMod = campoFE;
@@ -670,11 +714,6 @@ export class ModeloEspecificoAdminComponent implements OnInit {
         if (isNaN(+model)) {
           errores[errores.length] = 'El campo ' + campoFE + numero;
         }
-        // else if(this.camposDecimal.includes(campoFEMod)){
-        //  if(Number.isInteger(+model)){
-        //    console.log(Number.parseFloat(model));
-        //  }
-        // }
         if (model.trim() == '') {
           errores[errores.length] = 'El campo ' + campoFE + obligatorio;
         }
@@ -688,6 +727,7 @@ export class ModeloEspecificoAdminComponent implements OnInit {
     this.errorsConsAlt = this.erroresCategoria[4];
     this.errorsConsEle = this.erroresCategoria[5];
     this.errorsEmi = this.erroresCategoria[6];
+    this.errorsVol = this.erroresCategoria[7];
 
     errores.length > 0 ? this.enableSave = true : this.enableSave = false;
   }
@@ -701,11 +741,42 @@ export class ModeloEspecificoAdminComponent implements OnInit {
 
   private configurarVolumen() {
     this.volumen = this.coche.modelo.volumen;
-    if(this.volumen!=null){
-      console.log(this.volumen);
-      this.cochesService.getVolumenById(this.volumen.idVolumen).subscribe(value =>{
-
-      })
+    if (this.volumen != null) {
+      this.cochesService.getVolumenById(this.volumen.idVolumen).subscribe(value => {
+        this.volumen = value;
+        this.itemsToSave++;
+        let itms: number = 0;
+        console.log(this.volumen);
+        if (value.volumen2p != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenMaletero;
+          itms++;
+        }
+        if (value.volumen4p != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumen4p.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumen4p.volumenMaletero;
+          itms++;
+        }
+        if (value.volumenHatchback != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumenHatchback.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumenHatchback.volumenMaletero;
+          itms++;
+        }
+        for (let i = 0; i < itms * 2; i++) {
+          this.btnsClassVol[this.btnsClassVol.length] = 'peach-gradient';
+          this.btnsVol[i] = true;
+        }
+        if (itms == 1) {
+          this.camposVol[this.camposVol.length] = 'Habitáculo (L)';
+          this.camposVol[this.camposVol.length] = 'Maletero (L)';
+        } else if (itms > 1) {
+          for (let i = 0; i < itms; i++) {
+            this.camposVol[this.camposVol.length] = 'Habitáculo Versión' + i + ' (L)';
+            this.camposVol[this.camposVol.length] = 'Maletero Versión' + i + ' (L)';
+          }
+        }
+        this.configurarColumnas(this.modelVolumen, 7);
+      });
     }
   }
 }

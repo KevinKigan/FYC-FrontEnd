@@ -113,7 +113,6 @@ export class SidebarComponent implements OnInit {
       this.precio = value.toString();
     }
     // this.interval = cambiarIntervalo(value);
-    // console.log('actualizamos valor '+this.interval);
     return this.precio;
   }
 
@@ -192,7 +191,6 @@ export class SidebarComponent implements OnInit {
 
   // setLoading(load: boolean) {
   //   this.filtroService.setLoading(load);
-  //   console.log("SidebarComponent lo ponemos a "+load);
   //   this.loading = this.filtroService.getLoading();
   // }
 

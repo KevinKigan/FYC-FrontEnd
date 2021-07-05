@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Marca} from '../../../../models/marca';
 import {CochesService} from '../../../services/coches.service';
 import {Coche} from '../../../../models/coche';
 import {TipoMotor} from '../../../../models/tipoMotor';
@@ -35,7 +34,6 @@ export class ModelodetailsComponent implements OnInit {
           }
         });
         this.cochesService.getTiposMotor(this.coches.map(coche => coche.tipoMotor.idTipoMotor)).subscribe((response) => {
-          console.log(response);
           this.tiposMotores = response['tipos_motores'];
           this.loading = false;
         });

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import swal from 'sweetalert2';
 import {Usuario} from '../../../../models/usuario';
 import {UsuariosService} from '../../../services/usuarios.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-verify',
@@ -14,7 +15,7 @@ export class VerifyComponent implements OnInit {
   @Input() tipo: string;
   codigo: string = '';
 
-  constructor(private usuariosService: UsuariosService) {
+  constructor(private usuariosService: UsuariosService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,9 +40,9 @@ export class VerifyComponent implements OnInit {
   }
 
   verificarCodigo() {
-    console.log(this.usuario);
     this.usuariosService.checkCodeVerification(this.usuario.id, this.codigo).subscribe(value => {
-      if(value.menssaje!=null || value.menssaje!=undefined){
+      console.log(value);
+      if(value.message!=null || value.message!=undefined){
         swal.fire({
           position: 'center',
           icon: 'success',
@@ -49,6 +50,7 @@ export class VerifyComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         });
+        this.router.navigate(['/modelos']);
       }else if(value.error!=null || value.error!=undefined){
         swal.fire({
           position: 'center',

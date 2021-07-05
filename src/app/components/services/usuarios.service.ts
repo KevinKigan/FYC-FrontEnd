@@ -49,14 +49,6 @@ export class UsuariosService {
    */
   getUserById(id:number):Observable<any>{
     return this.http.get<Usuario>(urlEndPointUsuarios+id).pipe(
-      // map((response: any) =>{
-      //   console.log(response);
-      //   (response as Usuario[]).map(usuario => {
-      //     usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy', 'en-Us');
-      //     return usuario;
-      //   });
-      //   return response;
-      // }),
       map((response: any) =>{
         if(response as Usuario){
             let usuario = response as Usuario
@@ -75,7 +67,6 @@ export class UsuariosService {
             text: 'Error: ' + e.error.mensaje.error_description,
             showConfirmButton: false
           });
-          console.log(e.error);
           if (e.error.mensaje) {
             console.error(e.error.mensaje);
           }
@@ -103,7 +94,6 @@ export class UsuariosService {
             text: 'Error: ' + e.error,
             showConfirmButton: false
           });
-          console.log(e.error);
           if (e.error.mensaje) {
             console.error(e.error);
           }
@@ -225,48 +215,6 @@ export class UsuariosService {
 
     });
     return this.http.request(req);
-
-    // return await axios.post(
-    //   urlImgUpload,
-    //   formData,
-    //   {
-    //     // headers: {
-    //     //   'Content-Type': 'multipart/form-data'
-    //     // },
-    //     onUploadProgress(e) {
-    //       let progress = Math.round((e.loaded * 100.0) / e.total);
-    //       console.log(progress);
-    //       // imageUploadbar.setAttribute('value', progress);
-    //     }
-    //   }
-    // );
-    // imagePreview.src = res.data.secure_url;
-    // return this.http.post(urlImgUpload, formData).pipe(
-    //   map((response: any) =>{
-    //     this.authService.saveCompleteUser(response.user as Usuario)
-    //     return response.user as Usuario}),
-    //
-    //   catchError(e=>{
-    //     console.log(e);
-    //     if(e.status !=401 && e.error!= undefined) {
-    //       if(e.error.message!= undefined && e.error.message.includes('Maximum upload size exceeded')) {
-    //         swal.fire({
-    //           icon: 'error',
-    //           title: 'Error al subir imagen.',
-    //           text: 'Tamaño del fichero supera el máximo permitido (2MB).'
-    //         })
-    //       }else{
-    //         swal.fire({
-    //           icon: 'error',
-    //           title: 'Error al subir imagen.',
-    //           text: e.error
-    //         })
-    //       }
-    //
-    //     }
-    //     return throwError(e);
-    //   })
-    // );
   }
   registrationDate(user: Usuario): string {
     return formatDate(user.registrationDate, 'dd/MM/yyyy','en-Us');
@@ -285,5 +233,30 @@ export class UsuariosService {
 
   setRoles(user: Usuario, roles:String[]): Observable<any> {
     return this.http.post(urlUsuariosSetRoles+user.id, roles);
+  }
+
+  entrar(user: Usuario, redirect: boolean) {
+    this.authService.login (user).subscribe(response => {
+      this.authService.saveUser(response.access_token);
+      this.authService.saveToken(response.access_token);
+      this.getMyUserByUsername(response.username).subscribe(user =>{
+        this.authService.saveCompleteUser(user);
+        this.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
+          if (value.list[this.authService.completeUser.id] != undefined) {
+            this.authService.saveURLUser(value.list[this.authService.completeUser.id]);
+          }
+        })
+      });
+      let user = this.authService.user;
+      if(redirect) this.router.navigate(['/modelos']);
+      swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Sesión iniciada!',
+        text: 'Se ha iniciado sesión exitosamente ' + user.username+'.',
+        showConfirmButton: false,
+        timer: 3000
+      });
+    });
   }
 }
