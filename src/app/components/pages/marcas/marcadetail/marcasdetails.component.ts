@@ -38,6 +38,13 @@ export class MarcasdetailsComponent implements OnInit {
         this.loading = false;
       });
       this.marcas = response as Marca[];
+      this.marcas.sort((a, b) => {
+        if (a.marcaCoche.toUpperCase() < b.marcaCoche.toUpperCase()) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
       this.mdbTable.setDataSource(this.marcas);
       this.previous = this.mdbTable.getDataSource();
     });

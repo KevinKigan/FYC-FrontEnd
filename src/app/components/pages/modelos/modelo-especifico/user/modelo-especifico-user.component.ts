@@ -63,6 +63,7 @@ export class ModeloEspecificoUserComponent implements OnInit {
   chartDatasetsEmisiones: Array<any> = [];
   chartDatasetsConsumo: Array<any> = [];
   chartDatasetsPotencia: Array<any> = [];
+  images: Map<number, string> = new Map;
   private minimoPrecio: any;
   private minimoPotencia: any;
   private minimoEmisiones: any;
@@ -134,6 +135,30 @@ export class ModeloEspecificoUserComponent implements OnInit {
   }
 
   asignarValores(chartS: Map<string,string>){
+    let ids: number[] = [];
+    ids.push(+chartS['idmodeloConsumoMax']);
+    ids.push(+chartS['idmodeloConsumoMin']);
+    ids.push(+chartS['idmodeloEmisionesMax']);
+    ids.push(+chartS['idmodeloEmisionesMin']);
+    ids.push(+chartS['idmodeloPotenciaMax']);
+    ids.push(+chartS['idmodeloPotenciaMin']);
+    ids.push(+chartS['idmodeloPrecioMax']);
+    ids.push(+chartS['idmodeloPrecioMin']);
+    this.images.set(+chartS['idmodeloConsumoMax'],  'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloConsumoMin'],  'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloEmisionesMax'],'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloEmisionesMin'],'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPotenciaMax'], 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPotenciaMin'], 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPrecioMax'],   'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPrecioMin'],   'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.cochesService.getUrlModelo(ids).subscribe(urls =>{
+      ids.forEach(id => {
+        if (urls[id] != undefined) {
+          this.images.set(id,urls [id]);
+        }
+      });
+    });
     this.chartS = chartS;
     this.precioC = +this.chart['Precio'];
     this.consumoC = +this.chart['ConsumoMedio'];

@@ -113,12 +113,12 @@
           <div class="imgST1">
             <mdb-card style=" z-index:0" class="imgST1">
               <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-                <a><img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
+                <a>
+                  <img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
                         style="border-radius: 5px"
-                        src="https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0"
+                        src="{{images.get(+filaN.idModelo)}}"
 
-                        alt="{{modelo.imagen}}"></a>
-                <!--                        src="{{urlEndPointUploadImg}}/{{filaN.imagen}}"-->
+                  alt="{{filaN.idModelo}}"></a>
                 <p>{{urlUploadImg}}/{{filaN.imagen}}</p>
               </div>
             </mdb-card>

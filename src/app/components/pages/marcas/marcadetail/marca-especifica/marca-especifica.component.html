@@ -113,16 +113,24 @@
                     <td>{{modelo.idModelo}}</td>
                     <td class="font-weight-bold">{{modelo.modelo}}</td>
                     <td>
-                      <mat-spinner *ngIf="carrocerias.length==0" color="accent" [diameter]="30" style="margin: auto"></mat-spinner>
+                      <mat-spinner *ngIf="carrocerias.length==0" color="accent" [diameter]="30"
+                                   style="margin: auto"></mat-spinner>
                       {{carrocerias[modelo.idModelo]}}
                     </td>
-                    <td>
-                      <button mdbBtn type="button" class="dusty-grass-gradient btnrounded" rounded="true" size="sm"
-                              mdbWavesEffect (click)="editarModelo(modelo.idModelo)">Editar
-                      </button>
-                      <button mdbBtn type="button" class="peach-gradient btnrounded" style="color: #2f2f2e"
-                              rounded="true" size="sm" mdbWavesEffect>Eliminar
-                      </button>
+                    <td style="width: 50%;">
+                      <div class="row">
+                        <div class="col" style="display: flex; justify-content: flex-end; margin: auto">
+                          <button mdbBtn type="button" class="dusty-grass-gradient btnrounded" style="height: 35px;" rounded="true" size="sm"
+                                  mdbWavesEffect (click)="editarModelo(modelo.idModelo)">Editar
+                          </button>
+                        </div>
+                        <div class="col" style="display: flex; justify-content: flex-start;">
+                          <img class="urlImageModelo" src="{{id_image.get(modelo.idModelo)}}" alt="Imagen Usuario">
+                          <input type="file" name="upload" class="upload-box upload"
+                                 style="width: 60%;" placeholder="Actualizar imagen"
+                                 (change)="selectImageModelo($event, modelo.idModelo)">
+                        </div>
+                      </div>
                     </td>
                   </tr>
                   </tbody>

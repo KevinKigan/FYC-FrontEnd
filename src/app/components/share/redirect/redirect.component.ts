@@ -1,9 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Modelo} from '../../../models/modelo';
-import {CochesService} from '../../services/coches.service';
-import {ModelosComponent} from '../../pages/modelos/modelos.component';
-import {mod} from 'ngx-bootstrap/chronos/utils';
 
 @Component({
   selector: 'app-redirect',
