@@ -436,6 +436,23 @@ export class CochesService {
     });
     return this.http.request(req);
   }
+  /**
+   * Metodo para actualizar la imagen del modelo
+   * @param file
+   * @param idModelo
+   */
+  uploadModeloImage(file: File, idModelo): Observable<any> {
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', idModelo)
+    console.log(formData);
+    // Creamos httprequest para tener constancia del progreso de la peticion
+    const req = new HttpRequest('POST',urlImgUpload+'modelo', formData,{
+      reportProgress: true,
+
+    });
+    return this.http.request(req);
+  }
 
   getCarroceriasPorModelo(idsModelos: number[]): Observable<any> {
     return this.http.post(urlCarroceriasPorModelo, idsModelos);

@@ -25,7 +25,10 @@ export class MarcaEspecificaComponent implements OnInit {
   }
 
   progress: number = 0;
+
+  imageModelo: string;
   selectedImage: File;
+  selectedImageModelo: File;
   fade: string = 'fadeIn';
   searchText: string = '';
   modelos: Modelo[] = [];
@@ -38,6 +41,7 @@ export class MarcaEspecificaComponent implements OnInit {
   btn2class: string = 'peach-gradient';
   previous: string;
   carrocerias: string[] = []
+  id_image: Map<number,string> = new Map();
 
 
   constructor(public modalService: ModalService, private cochesService: CochesService, private router: Router) { }
@@ -68,6 +72,19 @@ export class MarcaEspecificaComponent implements OnInit {
       if(this.modelosOriginal.length==0){
         this.modelosOriginal = this.modelos;
       }
+      let ids: number [] = [];
+      this.modelos.forEach(mod  => {
+        ids.push(mod.idModelo);
+      })
+      this.cochesService.getUrlModelo(ids).subscribe(urls => {
+        this.modelos.forEach(mod  => {
+          if(urls[mod.idModelo] == undefined){
+            this.id_image.set(mod.idModelo, 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+          }else {
+            this.id_image.set(mod.idModelo, urls[mod.idModelo]);
+          }
+        })
+      })
       this.nombreModelos = this.modelos.map(modelo => modelo.modelo);
       this.mdbTable.setDataSource(this.nombreModelos);
       this.previous = this.mdbTable.getDataSource();
@@ -191,6 +208,60 @@ export class MarcaEspecificaComponent implements OnInit {
       });
       this.selectedImage = null;
     }
+
+  }/**
+   * Metodo para seleccionar una imagen del modelo
+   * @param event
+   * @param idModelo
+   */
+  selectImageModelo(event, idModelo: number) {
+    this.selectedImageModelo = event.target.files[0];
+    this.progress = 0;
+    if(this.selectedImageModelo.size > 2000000){
+      swal.fire({
+        icon: 'error',
+        title: 'Error de fichero',
+        text: 'El archivo debe ser inferior a 2MB.',
+      });
+    }else {
+      if (this.selectedImageModelo.type.indexOf('image') < 0) {
+        swal.fire({
+          icon: 'warning',
+          title: 'Fallo en la selección',
+          text: 'El archivo debe ser de tipo imagen.',
+        });
+      } else {
+        this.cochesService.uploadModeloImage(this.selectedImageModelo, idModelo)
+          .subscribe(event => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round((event.loaded / event.total) * 100);
+            } else if (event.type === HttpEventType.Response) {
+              let response: any = event.body
+              console.log(response);
+              if (response.message != undefined) {
+                this.modelos.forEach(mod => {
+                  if (mod.idModelo == response.modelo.idModelo) {
+                    this.cochesService.getUrlModelo([mod.idModelo]).subscribe(urls => {
+                      this.id_image.set(mod.idModelo, urls[mod.idModelo]);
+                    });
+                  }
+                })
+                swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Imagen actualizada correctamente.',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }
+              this.cochesService.getUrlModelo([idModelo]).subscribe(urls => {
+                this.imageModelo = urls[idModelo];
+              });
+            }
+          });
+      }
+    }
+    this.selectedImageModelo = null;
   }
 
   /**
