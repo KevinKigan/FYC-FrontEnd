@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {urlEndPointImgLogo} from '../../../../environments/environment';
 import {limitInfSizeScreen} from '../../../config/config';
+import {AuthService} from '../../services/auth.service';
+import swal from 'sweetalert2';
+import {Router} from '@angular/router';
+import {UsuariosService} from '../../services/usuarios.service';
+import {nouser} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +12,39 @@ import {limitInfSizeScreen} from '../../../config/config';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  urlEndPointImgLogo = urlEndPointImgLogo;
   tipoUsuario: string = 'Usuario';
+  userImage: string;
   slide = 'slideOffHeader';
 
-  // public logo = 'G:/TFG/fyc-app/src/FYClogo.png';
-    panelOpenState: boolean;
-  constructor() { }
+  panelOpenState: boolean;
+
+  constructor(public authService: AuthService, private router: Router, public usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
     this.panelOpenState = false;
+    if(this.authService.completeUser != null) {
+      this.usuariosService.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
+        if (value.list[this.authService.completeUser.id] != undefined) {
+          this.userImage = value.list[this.authService.completeUser.id];
+        } else {
+          this.userImage = nouser;
+        }
+      })
+    }
+  }
+
+  logout():void{
+    let user = this.authService.user.username;
+    this.authService.logout();
+    swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesión cerrada',
+      text: 'Hola '+user+', has cerrado sesión correctamente.',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    this.router.navigate(['/modelos'])
   }
 
   alternarUsuario():void{
@@ -95,4 +122,13 @@ export class HeaderComponent implements OnInit {
   // poneratrue():void{
   //   this.mostrarNavbar=true;
   // }
+
+  getUserImage(){
+    if(this.authService.urlUser!=null){
+      return this.authService.urlUser;
+    }else{
+      return nouser;
+    }
+  }
+
 }

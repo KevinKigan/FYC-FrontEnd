@@ -86,7 +86,7 @@
         Elem: {{itemsPorPagina}}</button>
       <button *ngIf="formatoPantalla()!='smallScreen'" class="page-link shadowPerso"
               mat-button [matMenuTriggerFor]="menu">
-        Elemetos: {{itemsPorPagina}}</button>
+        Elementos: {{itemsPorPagina}}</button>
       <mat-menu #menu="matMenu" style="color: #7abaff">
         <button (click)="paginatorActualizado(size)" *ngFor="let size of opcionesDePagina" mat-menu-item
         >{{size}}</button>

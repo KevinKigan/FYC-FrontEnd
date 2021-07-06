@@ -1,5 +1,5 @@
-<div class="h-50">
-  <img *ngIf="modelo" class="img-fluid imgModelo" src="{{urlEndPointUploadImg}}/{{modelo.imagen}}"
+<div >
+  <img *ngIf="modelo && imagenPrincipal" class="img-fluid imgModelo" src="{{imagenPrincipal}}"
        alt="{{modelo.imagen}}">
 </div>
 <!--Tabla comparativa con modelos similares-->
@@ -113,11 +113,13 @@
           <div class="imgST1">
             <mdb-card style=" z-index:0" class="imgST1">
               <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-                <a><img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
+                <a>
+                  <img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
                         style="border-radius: 5px"
-                        src="{{urlEndPointUploadImg}}/{{filaN.imagen}}"
-                        alt="{{modelo.imagen}}"></a>
-                <p>{{urlEndPointUploadImg}}/{{filaN.imagen}}</p>
+                        src="{{images.get(+filaN.idModelo)}}"
+
+                  alt="{{filaN.idModelo}}"></a>
+                <p>{{urlUploadImg}}/{{filaN.imagen}}</p>
               </div>
             </mdb-card>
             <p [routerLink]="['/redirect/modeloespecifico',filaN.idModelo]"
@@ -177,7 +179,7 @@
       <td>{{motorCombustion.cilindrada}}</td>
       <td>{{motorCombustion.cilindros}}</td>
       <td>{{motorCombustion.hp}}</td>
-      <td>{{motorCombustion.emisiones.CO2}}</td>
+      <td>{{motorCombustion.emisiones.co2}}</td>
       <td>{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}</td>
       <td>{{sobreAlimentacion(motorCombustion.sobrealimentacion)}}</td>
       <td>{{coches[index].caryear}}</td>

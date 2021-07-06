@@ -1,0 +1,308 @@
+<div *ngIf="modalService.modal" class="open-modal animationPerso fadeIn">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog-scrollable modal-lg bg-dark" role="document"
+         style="margin: 8% auto;border-radius: 20px; height: 80%;">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-light">
+          <h2 class="modal-title">{{coche.modelo.modelo}} {{coche.idCoche}}</h2>
+          <button mdbBtn (click)="closeModal()" type="button" color="danger" outline="true" mdbWavesEffect
+                  style="padding: 5px 10px; border-radius: 10px;">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="modelGen.length>0" >
+            <h3>General</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[0]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelGen.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label style="color: orange; font-size: 18px">{{camposGen[j + i * arrayCol.length]}}</mat-label>
+                    <div *ngIf="contains(camposGen[j + i * arrayCol.length], selects)">
+                      <mat-select [disabled]="btnsGen[j+i*arrayCol.length]" [(ngModel)]="modelGen[j+i*arrayCol.length]"
+                                  name="">
+                        <mat-option *ngFor="let element of getElements(camposGen[j + i * arrayCol.length])"
+                                    [value]="element" (change)="changeSelect(element)">
+                          {{element}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                    <div *ngIf="!contains(camposGen[j + i * arrayCol.length], selects)">
+                      <input matInput [disabled]="btnsGen[j+i*arrayCol.length]" type="text"
+                             [(ngModel)]="modelGen[j+i*arrayCol.length]" (change)="checkErrors(camposGen[j + i * arrayCol.length],'gen', modelGen[j+i*arrayCol.length])">
+                    </div>
+                  </mat-form-field>
+                  <button *ngIf="camposGen[j + i * arrayCol.length]!='Marca' && camposGen[j + i * arrayCol.length]!='Modelo'" mdbBtn [ngClass]="btnsClassGen[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('gen',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[0]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelVolumen.length>0" class="my-5">
+            <h3>Volúmenes</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[7]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelVolumen.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposVol[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsVol[i+j]" type="text"
+                           [(ngModel)]="modelVolumen[j+i*arrayCol.length]" (change)="checkErrors(camposVol[j + i * arrayCol.length],'vol', modelVolumen[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassVol[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('vol',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[7]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelMotCombustion.length>0" class="my-5">
+            <h3>Motor Combustión</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[1]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelMotCombustion.length> j+i*arrayCol.length">
+
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposMotC[j + i * arrayCol.length]}}</mat-label>
+                    <div *ngIf="contains(camposMotC[j + i * arrayCol.length], selects)">
+                      <mat-select [disabled]="btnsMotC[j+i*arrayCol.length]"
+                                  [(ngModel)]="modelMotCombustion[j+i*arrayCol.length]"
+                                  name="">
+                        <mat-option *ngFor="let element of getElements(camposMotC[j + i * arrayCol.length])"
+                                    [value]="element" (change)="changeSelect(element)">
+                          {{element}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                    <div *ngIf="!contains(camposMotC[j + i * arrayCol.length], selects)">
+                      <input matInput [disabled]="btnsMotC[i+j]" type="text"
+                             [(ngModel)]="modelMotCombustion[j+i*arrayCol.length]" (change)="checkErrors(camposMotC[j + i * arrayCol.length],'motC', modelMotCombustion[j+i*arrayCol.length])">
+                    </div>
+                  </mat-form-field>
+
+                  <button mdbBtn [ngClass]="btnsClassMotC[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('motC',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[1]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelMotElectrico.length>0" class="my-5">
+            <h3>Motor Eléctrico</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[2]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelMotElectrico.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposMotElectrico[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsMotE[j+i*arrayCol.length]" type="text"
+                           [(ngModel)]="modelMotElectrico[j+i*arrayCol.length]" (change)="checkErrors(camposMotElectrico[j + i * arrayCol.length],'motE', modelMotElectrico[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassMotE[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('motE',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[2]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelConsCombustion.length>0" class="my-5">
+            <h3>Consumos</h3>
+            <hr>
+            <div *ngIf="modelConsAltCombustion.length>0 || modelConsElectrico.length>0"
+                 style="width: 180px;margin-top: 40px;">
+              <h4 *ngIf="motorCombustion.combustible.tipoCombustibleNormal" class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}
+                (L/100Km)</h4>
+              <hr class="subHr">
+            </div>
+            <div class="row my-5" *ngFor="let i of arrayRow[3]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelConsCombustion.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposConC[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsCons[i+j]" type="text"
+                           [(ngModel)]="modelConsCombustion[j+i*arrayCol.length]" (change)="checkErrors(camposConC[j + i * arrayCol.length],'cons', modelConsCombustion[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassCons[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('cons',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[3]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelConsAltCombustion.length>0" class="my-5">
+            <div style="width: 180px">
+              <h4 class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleAlternativo.tipoCombustible}}
+                (L/100Km)</h4>
+              <hr class="subHr">
+            </div>
+            <div class="row my-5" *ngFor="let i of arrayRow[4]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelConsAltCombustion.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposConC[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsConsAlt[i+j]" type="text"
+                           [(ngModel)]="modelConsAltCombustion[j+i*arrayCol.length]" (change)="checkErrors(camposConC[j + i * arrayCol.length],'consAlt', modelConsAltCombustion[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassConsAlt[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('consAlt',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[4]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelConsElectrico.length>0" class="my-5">
+            <div *ngIf="modelConsAltCombustion.length>0 || modelConsElectrico.length>0" style="width: 180px">
+              <h4 class="colorLabelMultiple">Eléctrico (kW/h)</h4>
+              <hr class="subHr">
+            </div>
+            <div class="row my-5" *ngFor="let i of arrayRow[5]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelConsElectrico.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposConC[j + i * arrayCol.length]}}</mat-label>
+                    <input matInput [disabled]="btnsConsEle[i+j]" type="text"
+                           [(ngModel)]="modelConsElectrico[j+i*arrayCol.length]" (change)="checkErrors(camposConC[j + i * arrayCol.length],'consEle', modelConsElectrico[j+i*arrayCol.length])">
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassConsEle[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('consEle',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[5]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="modelEmiCombustion.length>0" class="my-5">
+            <h3>Emisiones CO2 (g/Km)</h3>
+            <hr>
+            <div class="row my-5" *ngFor="let i of arrayRow[6]">
+              <div class="col" *ngFor="let j of arrayCol">
+                <div *ngIf="modelEmiCombustion.length> j+i*arrayCol.length">
+                  <mat-form-field class="example-form-field"
+                                  style="width: 170px; justify-content: center;">
+                    <mat-label
+                      style="color: orange; font-size: 18px">{{camposEmi[j + i * arrayCol.length]}}</mat-label>
+                    <div *ngIf="contains(camposEmi[j + i * arrayCol.length], selects)">
+                      <mat-select [disabled]="btnsEmi[j+i*arrayCol.length]"
+                                  [(ngModel)]="modelEmiCombustion[j+i*arrayCol.length]"
+                                  name="">
+                        <mat-option *ngFor="let element of getElements(camposEmi[j + i * arrayCol.length])"
+                                    [value]="element" (change)="changeSelect(element)">
+                          {{element}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                    <div *ngIf="!contains(camposEmi[j + i * arrayCol.length], selects)">
+                      <input matInput [disabled]="btnsEmi[i+j]" type="text"
+                             [(ngModel)]="modelEmiCombustion[j+i*arrayCol.length]" (change)="checkErrors(camposEmi[j + i * arrayCol.length],'emi', modelEmiCombustion[j+i*arrayCol.length])">
+                    </div>
+                  </mat-form-field>
+                  <button mdbBtn [ngClass]="btnsClassEmi[j+i*arrayCol.length]" mdbWavesEffect style="height: 35px;"
+                          type="button"
+                          (click)="changeEnableButton('emi',j+i*arrayCol.length)" class="btnrounded" rounded="true"
+                          size="sm">
+                    <span *ngIf="btns[0]"><i class="fas fa-edit"></i></span>
+                    <span *ngIf="!btns[0]"><i class="fas fa-edit"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let error of erroresCategoria[6]">
+              <small class="form-text text-muted mb-4">
+                <p class="redPass">{{error}}</p>
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button" (click)="closeModal()"
+                  class="btnrounded peach-gradient" rounded="true" size="sm">
+            Cerrar
+          </button>
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" [disabled]="enableSave" type="button" (click)="saveChanges()"
+                  class="btnrounded dusty-grass-gradient" rounded="true" size="sm">
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

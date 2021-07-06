@@ -1,0 +1,151 @@
+<div *ngIf="modalService.modal" class="open-modal animationPerso fadeIn">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-lg bg-dark" role="document" style="top: 12%; border-radius: 20px;">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-light">
+          <h2 class="modal-title">{{user.username}}</h2>
+          <button mdbBtn (click)="closeModal()" type="button" color="danger" outline="true"
+                  mdbWavesEffect style="padding: 5px 10px; border-radius: 10px;">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-4" style="margin: auto; left:0; display: flex; justify-content: center;padding-left: 50px;">
+              <ul class="list-group">
+                <li>
+                  <mat-form-field class="example-form-field my-1"
+                                  style="display: inline-block; justify-content: center;">
+                    <mat-label style="color: orange; font-size: 18px">Nombre de usuario</mat-label>
+                    <input matInput type="text" [(ngModel)]="user.username" name="username"
+                           required minlength="4"  #name="ngModel" id="search">
+                  </mat-form-field>
+                  <div *ngIf="name.invalid && name.touched" class="validacion">
+                    <div *ngIf="name.errors.required">
+                      <small class="form-text text-muted mb-4">
+                        <p class="redPass">El nombre de usuario es obligatorio.</p>
+                      </small>
+                    </div>
+                    <div *ngIf="name.errors.minlength">
+                      <small class="form-text text-muted mb-4">
+                        <p class="redPass">Mínimo 4 caracteres.</p>
+                      </small>
+                    </div>
+                  </div>
+                  <div *ngIf="user.username.includes('.')" class="validacion">
+                    <small class="form-text text-muted mb-4">
+                      <p class="redPass">En nombre de usuario no puede contener un punto.</p>
+                    </small>
+                  </div>
+                </li>
+                <li>
+                  <mat-form-field class="example-form-field my-1"
+                                  style="display: inline-block; justify-content: center;">
+                    <mat-label style="color: orange; font-size: 18px">Email</mat-label>
+                    <input matInput type="email" [(ngModel)]="user.email" name="email" #email="ngModel"
+                           required email #email=ngModel>
+                  </mat-form-field>
+                  <div *ngIf="email.invalid && email.touched">
+                    <div *ngIf="email.errors.required">
+                      <small class="form-text text-muted mb-4">
+                        <p class="redPass">El email es obligatorio.</p>
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <div *ngIf="usuariosService.errorsEmail(user)">
+                      <small class="form-text text-muted mb-4">
+                        <p class="redPass">Se debe introducir un email valido.</p>
+                      </small>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <mat-form-field color="accent" appearance="fill" style="margin-left: -11px;">
+                    <mat-label style="color: orange; font-size: 18px">Fecha de registro</mat-label>
+                    <input matInput disabled [matDatepicker]="picker" class="form-control" [(ngModel)]="user.registrationDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                  <hr style="color: #d98c00;margin-top: -20px;">
+                </li>
+                <li>
+                  <section class="sectionPerso">
+                    <label class="section-margin-perso">Habilitado:</label>
+                    <mat-radio-group [(ngModel)]="user.enabled">
+                      <mat-radio-button class="section-margin-perso" [disabled]="authService.completeUser.id==user.id" (change)="setRole('ROLE_ADMIN')" [value]="true">Si</mat-radio-button>
+                      <mat-radio-button class="section-margin-perso" [disabled]="authService.completeUser.id==user.id" (change)="setRole('ROLE_ADMIN')" [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </section>
+                </li>
+                <li>
+                  <section class="sectionPerso">
+                    <label class="section-margin-perso">Verificado:</label>
+                    <mat-radio-group [(ngModel)]="user.verified">
+                      <mat-radio-button class="section-margin-perso" [value]="true">Si</mat-radio-button>
+                      <mat-radio-button class="section-margin-perso" [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </section>
+                </li>
+                <li>
+                  Roles:
+                  <section class="example-section">
+                    <mat-checkbox class="example-margin" [checked]="containsRole('ROLE_USER')" [disabled]="true">Usuario</mat-checkbox>
+                  </section>
+                  <section class="example-section">
+                    <mat-checkbox class="example-margin" [checked]="containsRole('ROLE_ADMIN')" [disabled]="authService.completeUser.id==user.id" (change)="setRole('ROLE_ADMIN')"
+                                  id="checkBoxAdmin">Administrador</mat-checkbox>
+                  </section>
+                </li>
+              </ul>
+              <!--              </div>-->
+            </div>
+
+            <div class="col-sm-8">
+              <div class="col" style="display: flex; justify-content: center;">
+                <img class="urlImageUser" src="{{getImage()}}" alt="Imagen Usuario">
+              </div>
+              <div class="file-field md-form" style="display: flex; justify-content: center;">
+                <div style="display: inline-block"
+                     class="btnrounded sunny-morning-gradient color-block z-depth-1-half p-2 button-wrapper">
+                  <span mdbWavesEffect class="label" style="font-size: 12px;">Seleccionar imagen</span>
+                  <input type="file" name="upload" class="upload-box upload" placeholder="Actualizar imagen"
+                         (change)="selectImage($event)">
+                </div>
+                <div class="file-path-wrapper truncar" style="display: inline-block;margin: auto 2%; width: 30%; max-width: 30%">
+                  <div *ngIf="selectedImage"  style="font-size: 12px;" class="file-path truncar">{{selectedImage.name}}</div>
+                  <div *ngIf="!selectedImage" style="font-size: 12px;" class="file-path">Actualizar imagen</div>
+                  <hr class="hrPerso">
+                </div>
+                <div style="display: inline-block"
+                     class="btnrounded dusty-grass-gradient color-block z-depth-1-half p-2 button-wrapper">
+      <span mdbWavesEffect class="label" style="font-size: 12px;">
+        Actualizar imagen
+      </span>
+                  <input type="text" name="upload" class="upload-box upload" placeholder="Actualizar imagen"
+                         (click)="uploadImage()">
+                </div>
+              </div>
+              <div *ngIf="progress > 0" class="progress" style="max-width: 80%; margin: auto">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+                     attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{width: progress+'%'}">{{progress}}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button"
+                  (click)="closeModal()" class="btnrounded peach-gradient" rounded="true" size="sm">
+            Cerrar
+          </button>
+          <button [disabled]="hasErrors()" mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button" (click)="saveChanges()"
+                  class="btnrounded dusty-grass-gradient" rounded="true" size="sm">
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

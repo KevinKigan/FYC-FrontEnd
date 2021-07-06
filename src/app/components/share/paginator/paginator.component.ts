@@ -1,8 +1,7 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {CochesService} from '../../services/coches.service';
-import {Router} from '@angular/router';
-import {ModelosComponent} from '../../pages/modelos/modelos.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-paginator',
@@ -24,9 +23,9 @@ export class PaginatorComponent implements OnInit {
   pageEvent: PageEvent;
   to: number;
   cargado: boolean = false;
-  pathSinMarca = '/modelos/'+this.itemsPorPagina+'/page';
+  pathSinMarca : string;
 
-  constructor(private cochesService: CochesService, private router:Router) {
+  constructor(private cochesService: CochesService, private router:Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -44,6 +43,10 @@ export class PaginatorComponent implements OnInit {
 
 
   private initPaginator(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.itemsPorPagina = +params.get('pageSize');
+      this.pathSinMarca = '/modelos/'+this.itemsPorPagina+'/page';
+    });
     if (this.paginator !== undefined) {
       this.cargado = true;
       if(this.paths!==undefined) {
@@ -92,7 +95,7 @@ export class PaginatorComponent implements OnInit {
 
   paginatorActualizado(size:number): void {
     this.itemsPorPagina = size;
-    this.redirectPath = '/redirect/'+size+'/marca';
+    this.redirectPath = '/redirect/'+this.itemsPorPagina+'/marca';
     this.pathSinMarca = '/modelos/'+this.itemsPorPagina+'/page';
     this.router.navigate([this.redirectPath,this.idMarca]);
   }

@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {Modelo} from '../../../../models/modelo';
-import {CochesService} from '../../../services/coches.service';
+import {Modelo} from '../../../../../models/modelo';
+import {CochesService} from '../../../../services/coches.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {urlEndPointUploadImg} from '../../../../../environments/environment';
-import {Coche} from '../../../../models/coche';
-import {FiltroService} from '../../../services/filtro.service';
-import {Consumo} from '../../../../models/consumo';
-import {Volumen} from '../../../../models/volumen';
-import {MotorCombustion} from '../../../../models/motorCombustion';
-import {Sobrealimentacion} from '../../../../models/sobrealimentacion';
+import {urlUploadImg} from '../../../../../../environments/environment';
+import {Coche} from '../../../../../models/coche';
+import {FiltroService} from '../../../../services/filtro.service';
+import {Consumo} from '../../../../../models/consumo';
+import {Volumen} from '../../../../../models/volumen';
+import {MotorCombustion} from '../../../../../models/motorCombustion';
+import {Sobrealimentacion} from '../../../../../models/sobrealimentacion';
 
 
 @Component({
   selector: 'app-modelo-especifico',
-  templateUrl: './modelo-especifico.component.html',
-  styleUrls: ['./modelo-especifico.component.scss']
+  templateUrl: './modelo-especifico-user.component.html',
+  styleUrls: ['./modelo-especifico-user.component.scss']
 })
-export class ModeloEspecificoComponent implements OnInit {
+export class ModeloEspecificoUserComponent implements OnInit {
   public chartTypeRadar: string = 'radar';
   public chartType: string = 'bar';
   filtros: string[] = ['Precio', 'Consumo', 'Potencia', 'Emisiones', 'Cilindrada'];
@@ -36,7 +36,7 @@ export class ModeloEspecificoComponent implements OnInit {
   chartS = new Map<string, string>();
   motoresCombustion: MotorCombustion[] = [];
   loading: boolean;
-  urlEndPointUploadImg = urlEndPointUploadImg;
+  urlUploadImg = urlUploadImg;
   idsCoches: number[] = [];
   idsConsumo: number[] = [];
   idsVolumen: number[] = [];
@@ -63,6 +63,7 @@ export class ModeloEspecificoComponent implements OnInit {
   chartDatasetsEmisiones: Array<any> = [];
   chartDatasetsConsumo: Array<any> = [];
   chartDatasetsPotencia: Array<any> = [];
+  images: Map<number, string> = new Map;
   private minimoPrecio: any;
   private minimoPotencia: any;
   private minimoEmisiones: any;
@@ -70,6 +71,7 @@ export class ModeloEspecificoComponent implements OnInit {
 
   center = {lat: 24, lng: 12};
   display?: google.maps.LatLngLiteral;
+  imagenPrincipal: string;
 
   constructor(private cochesService: CochesService,
               private activatedRoute: ActivatedRoute,
@@ -93,6 +95,9 @@ export class ModeloEspecificoComponent implements OnInit {
       this.cochesService.getModelo(id).subscribe(modelo => {
         this.modelo = modelo;
         this.modeloChart = this.modelo.modelo;
+        this.cochesService.getUrlModelo([this.modelo.idModelo]).subscribe( url=>{
+          this.imagenPrincipal = url[this.modelo.idModelo];
+        });
         this.cochesService.getCochesPorModelo(this.modelo.idModelo).subscribe(value => {
           value.forEach(coche => {
             this.coches.push(coche);
@@ -102,7 +107,7 @@ export class ModeloEspecificoComponent implements OnInit {
             this.idsMotor.push(coche.tipoMotor.idTipoMotor);
             this.cocheSeleccionado = coche;
           });
-          this.cochesService.getConsumo(this.idsConsumo).subscribe(consumos => {
+          this.cochesService.getListConsumo(this.idsConsumo).subscribe(consumos => {
             this.consumos = consumos;
           });
           this.cochesService.getDatosChart(this.cocheSeleccionado.idCoche).subscribe(chart => {
@@ -118,7 +123,7 @@ export class ModeloEspecificoComponent implements OnInit {
               this.setLoading(false);
             });
           });
-          this.cochesService.getMotorCombustion(this.idsMotor).subscribe(motores => {
+          this.cochesService.getListMotoresCombustion(this.idsMotor).subscribe(motores => {
             this.motoresCombustion = motores;
           });
 
@@ -130,6 +135,30 @@ export class ModeloEspecificoComponent implements OnInit {
   }
 
   asignarValores(chartS: Map<string,string>){
+    let ids: number[] = [];
+    ids.push(+chartS['idmodeloConsumoMax']);
+    ids.push(+chartS['idmodeloConsumoMin']);
+    ids.push(+chartS['idmodeloEmisionesMax']);
+    ids.push(+chartS['idmodeloEmisionesMin']);
+    ids.push(+chartS['idmodeloPotenciaMax']);
+    ids.push(+chartS['idmodeloPotenciaMin']);
+    ids.push(+chartS['idmodeloPrecioMax']);
+    ids.push(+chartS['idmodeloPrecioMin']);
+    this.images.set(+chartS['idmodeloConsumoMax'],  'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloConsumoMin'],  'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloEmisionesMax'],'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloEmisionesMin'],'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPotenciaMax'], 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPotenciaMin'], 'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPrecioMax'],   'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.images.set(+chartS['idmodeloPrecioMin'],   'https://dl.dropboxusercontent.com/s/vdhgs1xu5nseb7j/defaultImageModelo.jpg?dl=0');
+    this.cochesService.getUrlModelo(ids).subscribe(urls =>{
+      ids.forEach(id => {
+        if (urls[id] != undefined) {
+          this.images.set(id,urls [id]);
+        }
+      });
+    });
     this.chartS = chartS;
     this.precioC = +this.chart['Precio'];
     this.consumoC = +this.chart['ConsumoMedio'];
@@ -173,7 +202,6 @@ export class ModeloEspecificoComponent implements OnInit {
     this.filaS2.push({title:'Emisiones más altas',    marca:marcaEmisionesMaxCS,modelo: modeloEmisionesMaxCS,imagen:this.chartS['modeloEmisionesMaxImage'],idModelo:this.chartS['idmodeloEmisionesMax']});
     this.filaS.push(this.filaS1);
     this.filaS.push(this.filaS2);
-    console.log(this.filaS);
   }
 
   public chartColors: Array<any> = [
@@ -230,7 +258,7 @@ export class ModeloEspecificoComponent implements OnInit {
     if (sobrealimentacion.turbo) {
       return 'Turbo';
     } else if (sobrealimentacion.supercargador) {
-      return 'Supercargador';
+      return 'Compresor';
     } else {
       return 'Atmosférico';
     }
@@ -396,7 +424,6 @@ export class ModeloEspecificoComponent implements OnInit {
    * @param comparar Parametro de comparacion solicitado
    */
   compararPor(comparar: string) {
-    console.log(comparar);
     this.comparar = comparar;
   }
 

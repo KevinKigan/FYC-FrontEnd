@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CochesService} from './coches.service';
 import {Carroceria} from '../../models/carroceria';
-import {Modelo} from '../../models/modelo';
 import {FiltroService} from './filtro.service';
-import {Observable} from 'rxjs';
 
 
 
@@ -32,7 +30,7 @@ export class SidebarService {
     },
     {
       selected: false,
-      value: 'Supercargador',
+      value: 'Compresor',
       class: ''
     }
   ];
@@ -210,23 +208,23 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Documentacion',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-book',
       active: false,
       type: 'simple',
       badge: {
-        text: 'Beta',
+        text: '¿?',
         class: 'badge-primary'
       },
     },
     {
-      title: 'Calendario',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-calendar',
       active: false,
       type: 'simple'
     },
     {
-      title: 'Ejemplos',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-folder',
       active: false,
       type: 'simple'

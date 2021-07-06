@@ -6,7 +6,6 @@ $limitMidSizeScreen: 1000px;
   display: none;
   margin: 0;
   padding: 0;
-    //transform: translateY(-10px) scaleX(1.1);
 }
 
 i{
@@ -43,17 +42,7 @@ button img{
 }
 
 .styleLink {
-
   height: 100%;
-}
-
-a img {
-
-}
-
-.ulPerso {
-  //vertical-align: center;
-  //left: -5%;
 }
 
 ul li {
@@ -277,14 +266,12 @@ section {
 .styleA {
   position: relative;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 10%;
+  height: auto;
   text-align: center;
   line-height: 63px;
-  background: #333;
   border-radius: 50%;
   font-size: 30px;
-  color: #666;
   transition: .5s;
 }
 
@@ -293,9 +280,9 @@ section {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+  //width: 100%;
+  //height: 100%;
+  //border-radius: 50%;
   background: #ffee10;
   transition: .3s;
   transform: scale(.9);
@@ -308,17 +295,6 @@ section {
 }
 
 .styleA:hover {
-  color: #ffee10;
-  box-shadow: 0 0 20px #ffee10;
-  text-shadow: 0 0 20px #ffee10;
-}
-
-.styleB:hover::before {
-  /*transform: scale(1.1);*/
-  /*box-shadow: 0 0 15px #ffee10;*/
-}
-
-.styleB:hover {
   color: #ffee10;
   box-shadow: 0 0 20px #ffee10;
   text-shadow: 0 0 20px #ffee10;
@@ -599,14 +575,69 @@ a:hover, a:focus {
   filter: blur(none);
   border-radius: 10px;
 }
-#signUp{
+.signUp{
   top: 7px;
   right: 20px;
 }
+#divimguser{
+  right: 0;
+  position: absolute;
+  margin-top: -64px;
+  height: auto;
+  width: 300px;
+  padding: 10px 5px;
+}
+.imgUserCard{
+  //top: 0;
+  //left: 0;
+  //z-index: 1;
+  border-style: solid;
+  //border-radius: 50%;
+  border-width: 6px;
+  border-color: white;
+}
 
-#signIn{
+.circular--landscape {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%
+}
+.circular--landscapeBig {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  margin-top: -18%;
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%
+}
+
+.circular--landscape img, .circular--landscapeBig img {
+  max-width: 100%;
+  min-height: 100%;
+  margin: auto;
+
+    display:block;
+    //margin:auto;
+
+}
+
+.signIn{
   top: 7px;
   right: 170px;
+}
+
+.gradient-custom {
+  background: #f6d365;
+  background: -webkit-linear-gradient(to right, rgba(246, 211, 101, 0.5), rgba(253, 160, 133, 0.5));
+  background: linear-gradient(to right, rgba(246, 211, 101, 0.5), rgba(253, 160, 133, 0.5));
+
 }
 
 .glow-on2 {
@@ -775,6 +806,9 @@ a:hover, a:focus {
     display: none;
   }
 
+  #divimguser{
+    visibility: hidden;
+  }
   nav {
     position: fixed;
     height: 100%;
@@ -849,6 +883,50 @@ a:hover, a:focus {
     margin-top: 62px;
     //transform: translateY(20%);
   }
+  .styleA {
+    position: relative;
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+    background: linear-gradient(0deg, rgba(37,37,37,0.0576334269662921) 0%, rgba(255,204,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252525",endColorstr="#ffcc00",GradientType=1);
+    width: 70%; height: 40%;  font-size: 16px;
+    max-width: 100%;
+    border-radius: 50px;
+    border-color: transparent;
+    white-space: normal;
+    box-shadow: 0 0 5px #666;
+    border-width: 0;
+    color: #666;
+    transition: .5s;
+    margin-left: 25%;
+    transform: translateX(-15%);
+  }
+
+  .styleA::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ffee10;
+    transition: .3s;
+    transform: scale(.9);
+    z-index: -1;
+  }
+
+  .styleA:hover::before {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ffee10;
+
+    font-style: italic;
+  }
+
+  .styleA:hover {
+    box-shadow: 0 0 20px #ffee10;
+    text-shadow: 0 0 20px #ffee10;
+    color: #666;
+  }
+
 }
 
 
