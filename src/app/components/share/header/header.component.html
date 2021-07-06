@@ -24,13 +24,18 @@
           <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/marcas']">Marcas <span
             class="sr-only"></span></a>
         </li>
+        <li *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-item styleLink" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/detalle_marcas']">Detalle Marcas
+            <span
+              class="sr-only"></span></a>
+        </li>
         <li class="nav-item styleLink" routerLinkActive="active">
           <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/modelos']">Modelos
             <span
               class="sr-only"></span></a>
         </li>
-        <li class="nav-item styleLink" routerLinkActive="active">
-          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/sidebar']">Sidebar
+        <li *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-item styleLink" routerLinkActive="active">
+          <a mdbWavesEffect class="nav-link styleLinkA" (click)="setSlideOut()" [routerLink]="['/users']">Usuarios
             <span
               class="sr-only"></span></a>
         </li>
@@ -71,23 +76,26 @@
     <div class="glow-on2"></div>
   </button>
   <div *ngIf="authService.isAuthenticated()" class="nav-link" id="divimguser">
-    <a>
-      <img class="styleA imgUser" (click)="test.toggle()"
-           src="https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0">
+    <a style="margin-left: 75%;">
+      <div class="styleA circular--landscape">
+        <img (click)="test.toggle()"
+             src="{{getUserImage()}}">
+      </div>
     </a>
     <div mdbCollapse #test="bs-collapse">
       <mdb-card>
         <div class="gradient-custom" style="height: 100px"></div>
-        <img class="imgUserCard" src="https://dl.dropboxusercontent.com/s/wc73isc87220p2c/nouser.png?dl=0">
+        <div class="circular--landscapeBig imgUserCard">
+          <img *ngIf="userImage!=undefined" src="{{getUserImage()}}">
+        </div>
         <mdb-card-body>
           <!--Title-->
           <mdb-card-title style="text-align: center">
-            <h2 style="margin-top: -60px">{{authService.user.username}}</h2>
+            <h2>{{authService.user.username}}</h2>
           </mdb-card-title>
-          <hr>
+          <hr class="hrPerso">
           <!--Text-->
-          <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-            content.
+          <mdb-card-text> Texto de prueba
           </mdb-card-text>
 
           <button (click)="logout()" mdbBtn color="primary" mdbWavesEffect>Cerrar Sesión</button>
@@ -95,21 +103,6 @@
       </mdb-card>
     </div>
   </div>
-  <!--  <button *ngIf="authService.isAuthenticated()" (click)="logout()" [routerLink]="['/login']" class="nav-link styleLinkA glow-on signUp"  type="button">-->
-  <!--  <div *ngIf="authService.isAuthenticated()" (click)="test.toggle()" class="nav-link styleLinkA glow-on signUp"  type="button">-->
-  <!--  -->
-  <!--  <div *ngIf="authService.isAuthenticated()" mdbBtn color="primary" (click)="test.toggle()" mdbWavesEffect-->
-  <!--            class="nav-link styleLinkA glow-on signUp waves-light">-->
-
-  <!--      <div class="" mdbCollapse #test="bs-collapse">-->
-  <!--        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim-->
-  <!--          keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>-->
-  <!--      </div>-->
-  <!--    <i class="fas fa-user-plus"></i>-->
-  <!--&lt;!&ndash;    <img src="https://dl.dropboxusercontent.com/s/afe79kyds0phn6n/signupicon.png?dl=0">&ndash;&gt;-->
-  <!--    <div class="glow-on2"></div>-->
-  <!--  </div>-->
-
   <button *ngIf="!authService.isAuthenticated()" (click)="setSlideOut()" [routerLink]="['/login']"
           class="nav-link styleLinkA glow-on signIn" type="button">
     Iniciar Sesión

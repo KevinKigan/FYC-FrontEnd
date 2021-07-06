@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import swal from 'sweetalert2';
 import {Usuario} from '../../models/usuario';
 import {
-  urlEndPointUsuarios,
+  urlEndPointUsuarios, urlImgUser, urlImgUpload,
   urlUsuariosCheckVerificateCode,
   urlUsuariosCreate,
   urlUsuariosIndex, urlUsuariosMyUser,
-  urlUsuariosSendVerificateCode
+  urlUsuariosSendVerificateCode, urlUsuariosSetRoles
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {AuthService} from './auth.service';
+import axios, {AxiosResponse} from 'axios';
 
 
 @Injectable({
@@ -33,7 +34,7 @@ export class UsuariosService {
     return this.http.get<Usuario[]>(urlUsuariosIndex + 20 + '/page/' + page).pipe(
       map((response: any) => {
         (response.content as Usuario[]).map(usuario => {
-          usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy','en-Us');
+          // usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy','en-Us');
           return usuario;
         });
         return response.content;
@@ -48,6 +49,14 @@ export class UsuariosService {
    */
   getUserById(id:number):Observable<any>{
     return this.http.get<Usuario>(urlEndPointUsuarios+id).pipe(
+      map((response: any) =>{
+        if(response as Usuario){
+            let usuario = response as Usuario
+            usuario.registrationDate = formatDate(usuario.registrationDate, 'dd/MM/yyyy', 'en-Us');
+            return usuario;
+          }
+          return response;
+      }),
       catchError(e =>{
         if(e.status!=401) {
           this.router.navigate(['/users'])
@@ -58,7 +67,6 @@ export class UsuariosService {
             text: 'Error: ' + e.error.mensaje.error_description,
             showConfirmButton: false
           });
-          console.log(e.error);
           if (e.error.mensaje) {
             console.error(e.error.mensaje);
           }
@@ -75,7 +83,8 @@ export class UsuariosService {
    */
   getMyUserByUsername(username:string):Observable<any>{
     return this.http.get<Usuario>(urlUsuariosMyUser+username).pipe(
-      catchError(e =>{
+        catchError(e=>{
+
         if(e.status!=401) {
           this.router.navigate(['/modelos'])
           swal.fire({
@@ -85,7 +94,6 @@ export class UsuariosService {
             text: 'Error: ' + e.error,
             showConfirmButton: false
           });
-          console.log(e.error);
           if (e.error.mensaje) {
             console.error(e.error);
           }
@@ -133,24 +141,24 @@ export class UsuariosService {
     );
   }
 
-  /**
-   * Metodo para borrar un usuario
-   *
-   * @param id Id del usuario a borrar
-   */
-  delete(id: number): Observable<any> {
-    return this.http.delete<Usuario>(urlEndPointUsuarios+id).pipe(
-      catchError(e => {
-        if (e.error.mensaje) {
-          console.error(e.error.mensaje);
-        }
-        if (e.status == 400) { // Error de formulario
-          return throwError(e);
-        }
-        return throwError(e);
-      })
-    );
-  }
+  // /**
+  //  * Metodo para deshabilitar un usuario
+  //  *
+  //  * @param id Id del usuario a borrar
+  //  */
+  // disable(id: number): Observable<any> {
+  //   return this.http.get<Usuario>(urlEndPointUsuarios+'disable/'+id).pipe(
+  //     catchError(e => {
+  //       if (e.error.mensaje) {
+  //         console.error(e.error.mensaje);
+  //       }
+  //       if (e.status == 400) { // Error de formulario
+  //         return throwError(e);
+  //       }
+  //       return throwError(e);
+  //     })
+  //   );
+  // }
 
   /**
    * Metodo para solicitar un codigo de verificacion
@@ -172,7 +180,83 @@ export class UsuariosService {
     return this.http.get<string>(urlUsuariosCheckVerificateCode+id+'/'+code);
   }
 
-  getUserRawImage(username: string) {
-    return this.http.get<string>(urlUsuariosMyUser+username+'/rawimage');
+  /**
+   * Metodo para obtener la imagen del usuario, -1 busca todos los usuarios
+   * @param id
+   * @param saveImage
+   */
+  getUserImage(id: number, saveImage: boolean) : Observable<any>{
+    return this.http.get<string>(urlImgUser+id).pipe(
+      map((response:any)=>{
+        if(response.list[id]!=undefined && saveImage){
+          this.authService.saveURLUser(response.list[id])
+        }
+        return response;
+    })
+    );
+  }
+
+  getRoles(roles: any[]): string[] {
+    let rolesString:string[] = [];
+    roles.forEach(itemListaRoles => {
+        rolesString.push(itemListaRoles.rolName);
+    });
+    return rolesString;
+  }
+
+  // async uploadImage(file: File, id): Promise<AxiosResponse> {
+    uploadImage(file:File, id): Observable<HttpEvent<{}>>{
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id)
+    // Creamos httprequest para tener constancia del progreso de la peticion
+    const req = new HttpRequest('POST',urlImgUpload+'users', formData,{
+      reportProgress: true,
+
+    });
+    return this.http.request(req);
+  }
+  registrationDate(user: Usuario): string {
+    return formatDate(user.registrationDate, 'dd/MM/yyyy','en-Us');
+  }
+
+  /**
+   * Metodo para comprobar mediante typescript que el mail es correcto
+   */
+  errorsEmail(usuario: Usuario){
+    if(usuario.email.length<5){
+      return true;
+    }
+    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    return !emailRegex.test(usuario.email);
+  }
+
+  setRoles(user: Usuario, roles:String[]): Observable<any> {
+    return this.http.post(urlUsuariosSetRoles+user.id, roles);
+  }
+
+  entrar(user: Usuario, redirect: boolean) {
+    this.authService.login (user).subscribe(response => {
+      this.authService.saveUser(response.access_token);
+      this.authService.saveToken(response.access_token);
+      this.getMyUserByUsername(response.username).subscribe(user =>{
+        this.authService.saveCompleteUser(user);
+        this.getUserImage(this.authService.completeUser.id, true).subscribe(value => {
+          if (value.list[this.authService.completeUser.id] != undefined) {
+            this.authService.saveURLUser(value.list[this.authService.completeUser.id]);
+          }
+        })
+      });
+      let user = this.authService.user;
+      if(redirect) this.router.navigate(['/modelos']);
+      swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Sesión iniciada!',
+        text: 'Se ha iniciado sesión exitosamente ' + user.username+'.',
+        showConfirmButton: false,
+        timer: 3000
+      });
+    });
   }
 }

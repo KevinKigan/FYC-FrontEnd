@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
   confirmPass: string ='';
   newUser: string='verifyNewUser';
 
-  constructor(private usuariosService: UsuariosService) {
+  constructor(public usuariosService: UsuariosService) {
   }
 
   ngOnInit(): void {
@@ -96,9 +96,6 @@ export class SignupComponent implements OnInit {
     document.getElementById("formulario").style.display="none";
     document.getElementById("verify").style.display="block";
     this.usuariosService.create(this.usuario).subscribe(value=>{
-      this.usuario = value.user;
-      console.log(value);
-      console.log(this.usuario);
       swal.fire({
         position: 'center',
         icon: 'success',
@@ -106,6 +103,9 @@ export class SignupComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       });
+      console.log(this.usuario);
+      this.usuariosService.entrar(this.usuario, false);
+      this.usuario = value.user;
       });
   }
 
@@ -114,25 +114,14 @@ export class SignupComponent implements OnInit {
   }
 
   volverARegistro($event: any) {
-    console.log('entramos');
     document.getElementById("formulario").style.display="block";
     document.getElementById("verify").style.display="none";
   }
 
-  /**
-   * Metodo para comprobar mediante typescript que el mail es correcto
-   */
-  errorsEmail(){
-    if(this.usuario.email.length<5){
-      return false;
-    }
-    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    return !emailRegex.test(this.usuario.email);
-  }
 
   errors() {
     return !this.samePassword() ||
-            this.errorsEmail()  ||
+            this.usuariosService.errorsEmail(this.usuario)  ||
            !(this.usuario.username.length>4) ||
            this.usuario.username.includes('.');
   }

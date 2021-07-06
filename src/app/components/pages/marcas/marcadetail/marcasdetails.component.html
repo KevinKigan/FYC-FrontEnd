@@ -1,0 +1,46 @@
+
+<div class="bigDiv white-text" style="background: #2f2f2e;margin-top: 100px; width: 270px">
+  <div class="col-md-12 mx-auto">
+    <mat-form-field class="example-form-field my-1" style="display: flex; justify-content: center;">
+      <mat-label style="color: white; font-size: 18px">Buscar Marca</mat-label>
+      <input matInput type="text" [(ngModel)]="searchText" id="search">
+    </mat-form-field>
+  </div>
+</div>
+
+<app-marca-especifica [marca]="selectedMarca" [image] ="imagenes[selectedMarca.idMarca]" *ngIf="selectedMarca" (actualizadaImagen)="actualizarImagen($event)"></app-marca-especifica>
+
+<div class="bigDiv" style="margin-top: 20px">
+  <table mdbTable class="table">
+    <thead class="white-text" style="background: #2f2f2e">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Logo</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Página Web</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody >
+    <tr *ngFor="let marca of marcas; let i = index">
+      <td>{{marca.idMarca}}</td>
+      <td style="width: 110px"><img src="{{getUrlMarca(marca.idMarca)}}" alt="Sin Imagen" style="max-height: 40px"
+                                    class="img-fluid rounded"></td>
+      <td class="font-weight-bold">{{marca.marcaCoche}}</td>
+      <td style="max-width: 200px"><a style="color: #ff7300" href="{{marca.url}}">{{marca.url}}</a></td>
+      <td>
+        <button mdbBtn type="button" (click)="openModal(marca)" class="dusty-grass-gradient btnrounded" rounded="true" size="sm"
+                mdbWavesEffect>Editar
+        </button>
+        <button mdbBtn type="button" (click)="eliminarMarca(marca)" class="peach-gradient btnrounded" style="color: #2f2f2e"
+                rounded="true" size="sm" mdbWavesEffect>Eliminar
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<app-loading *ngIf="loading" ></app-loading>

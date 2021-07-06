@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Usuario} from '../../../../models/usuario';
 import swal from 'sweetalert2';
 import {UsuariosService} from '../../../services/usuarios.service';
+import {nouser} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -32,24 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   entrar() {
-    this.authService.login (this.user).subscribe(response => {
-      this.authService.saveUser(response.access_token);
-      this.authService.saveToken(response.access_token);
-      this.usuariosService.getMyUserByUsername(response.username).subscribe(user =>{
-        this.usuariosService.getUserRawImage(user.username)
-        this.authService.saveCompleteUser(user);
-      });
-      let user = this.authService.user;
-      this.router.navigate(['/modelos']);
-      swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Sesión iniciada!',
-        text: 'Se ha iniciado sesión exitosamente ' + user.username+'.',
-        showConfirmButton: false,
-        timer: 3000
-      });
-    });
+    this.usuariosService.entrar(this.user, true);
   }
 
   forgottenPassword() {

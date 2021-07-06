@@ -208,23 +208,23 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Documentacion',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-book',
       active: false,
       type: 'simple',
       badge: {
-        text: 'Beta',
+        text: '¿?',
         class: 'badge-primary'
       },
     },
     {
-      title: 'Calendario',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-calendar',
       active: false,
       type: 'simple'
     },
     {
-      title: 'Ejemplos',
+      title: '¿Añadir nuevo filtro?',
       icon: 'fa fa-folder',
       active: false,
       type: 'simple'

@@ -1,0 +1,152 @@
+<div *ngIf="modalService.modal" class="open-modal animationPerso fadeIn">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog-scrollable modal-lg bg-dark" role="document"
+         style="margin: 8% auto;border-radius: 20px; height: 80%;">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-light">
+          <h2 class="modal-title">{{marca.marcaCoche}}</h2>
+          <button mdbBtn (click)="closeModal()" type="button" color="danger" outline="true" mdbWavesEffect
+                  style="padding: 5px 10px; border-radius: 10px;">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-4"
+                 style="margin: auto; left:0; display: flex; justify-content: center;padding-left: 50px;">
+              <ul class="list-group">
+                <li>
+                  <div style="display: inline-flex">
+                    <mat-form-field class="example-form-field my-1"
+                                    style="display: inline-block; justify-content: center;">
+                      <mat-label style="color: orange; font-size: 18px">Nombre de la marca</mat-label>
+                      <input matInput [disabled]="btn1" type="text" [(ngModel)]="marca.marcaCoche">
+                    </mat-form-field>
+                    <button mdbBtn [ngClass]="btn1class" mdbWavesEffect style="margin-left: 20px;height: 35px;"
+                            type="button"
+                            (click)="changeEnableButton(1)" class="btnrounded" rounded="true" size="sm">
+                      <span *ngIf="btn1">Habilitar</span>
+                      <span *ngIf="!btn1">Deshabilitar</span>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <div style="display: inline-block">
+                    <mat-form-field class="example-form-field my-1"
+                                    style="display: inline-block; justify-content: center;">
+                      <mat-label style="color: orange; font-size: 18px">Web de la marca</mat-label>
+                      <input matInput [disabled]="btn2" type="text" [(ngModel)]="marca.url">
+                    </mat-form-field>
+                    <button mdbBtn [ngClass]="btn2class" mdbWavesEffect style="margin-left: 20px;height: 35px;"
+                            type="button"
+                            (click)="changeEnableButton(2)" class="btnrounded" rounded="true" size="sm">
+                      <span *ngIf="btn2">Habilitar</span>
+                      <span *ngIf="!btn2">Deshabilitar</span>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-7">
+              <div class="col" style="display: flex; justify-content: center;">
+                <img class="urlImageMarca" src="{{image}}" alt="Imagen Usuario">
+              </div>
+              <div class="file-field md-form" style="display: flex; justify-content: center;">
+                <div style="display: inline-block"
+                     class="btnrounded sunny-morning-gradient color-block z-depth-1-half p-2 button-wrapper">
+                  <span mdbWavesEffect class="label" style="font-size: 12px;">Seleccionar imagen</span>
+                  <input type="file" name="upload" class="upload-box upload" placeholder="Actualizar imagen"
+                         (change)="selectImage($event)">
+                </div>
+                <div class="file-path-wrapper truncar"
+                     style="display: inline-block;margin: auto 2%; width: 30%; max-width: 30%">
+                  <div *ngIf="selectedImage" style="font-size: 12px;"
+                       class="file-path truncar">{{selectedImage.name}}</div>
+                  <div *ngIf="!selectedImage" style="font-size: 12px;" class="file-path">Actualizar imagen</div>
+                  <hr class="hrPerso">
+                </div>
+                <div style="display: inline-block"
+                     class="btnrounded dusty-grass-gradient color-block z-depth-1-half p-2 button-wrapper">
+      <span mdbWavesEffect class="label" style="font-size: 12px;">
+        Actualizar imagen
+      </span>
+                  <input type="text" name="upload" class="upload-box upload" placeholder="Actualizar imagen"
+                         (click)="uploadImage()">
+                </div>
+              </div>
+              <div *ngIf="progress > 0" class="progress" style="max-width: 80%; margin: auto">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                     role="progressbar"
+                     attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{width: progress+'%'}">{{progress}}%
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div *ngIf="this.modelos.length>0" class="row">
+            <div class="col-sm-12">
+              <div class="bigDiv white-text" style="background: #2f2f2e;margin-top: 10px; width: 270px">
+                <div class="col-md-12 mx-auto">
+                  <mat-form-field class="example-form-field my-1" style="display: flex; justify-content: center;">
+                    <mat-label style="color: white; font-size: 18px">Buscar Modelo</mat-label>
+                    <input matInput type="text" [(ngModel)]="searchText">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="bigDiv" style="margin-top: 20px;max-height:300px; overflow:auto;">
+                <table mdbTable class="table">
+                  <thead class="white-text" style="background: #2f2f2e">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Carroceria</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let modelo of modelos; let i = index">
+                    <td>{{modelo.idModelo}}</td>
+                    <td class="font-weight-bold">{{modelo.modelo}}</td>
+                    <td>
+                      <mat-spinner *ngIf="carrocerias.length==0" color="accent" [diameter]="30" style="margin: auto"></mat-spinner>
+                      {{carrocerias[modelo.idModelo]}}
+                    </td>
+                    <td>
+                      <button mdbBtn type="button" class="dusty-grass-gradient btnrounded" rounded="true" size="sm"
+                              mdbWavesEffect (click)="editarModelo(modelo.idModelo)">Editar
+                      </button>
+                      <button mdbBtn type="button" class="peach-gradient btnrounded" style="color: #2f2f2e"
+                              rounded="true" size="sm" mdbWavesEffect>Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button" (click)="closeModal()"
+                  class="btnrounded peach-gradient" rounded="true" size="sm">
+            Cerrar
+          </button>
+          <button mdbBtn mdbWavesEffect style="margin: 10px 20px;" type="button" (click)="saveChanges()"
+                  class="btnrounded dusty-grass-gradient" rounded="true" size="sm">
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,8 @@
+<div *ngIf="loading" style="margin-top: 150px">
+<app-loading></app-loading>
+</div>
+<app-userdetail [user]="selectedUser" *ngIf="selectedUser"></app-userdetail>
+
 <div *ngIf="listaUsuarios.length>0" class="bigDiv">
   <table  class="table">
     <!-- Table head -->
@@ -19,8 +24,8 @@
         {{usuario.id}}
       </td>
       <td>
-        <mdb-icon fas icon="{{listaTabla[1].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
-        {{usuario.image}}
+        <img *ngIf="images && images[usuario.id]" class="img-fluid rounded" style="max-width: 100px" src="{{images[usuario.id]}}" alt="Sin Imagen">
+        <img *ngIf="!(images && images[usuario.id])" class="img-fluid rounded" style="max-width: 100px" src="{{nouser}}" alt="Sin Imagen">
       </td>
       <td>
         <mdb-icon fas icon="{{listaTabla[2].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
@@ -42,15 +47,19 @@
       </td>
       <td class="mr-lg-4">
         <mdb-icon fas icon="{{listaTabla[6].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
-        {{usuario.registrationDate}}
+        {{this.usuariosService.registrationDate(usuario)}}
       </td>
       <td>
-        <mdb-icon fas icon="{{listaTabla[7].icono}}" class="mr-2 grey-text" aria-hidden="true"></mdb-icon>
-        {{getRoles(usuario.roles)}}
+        <ul *ngFor="let rol of usuariosService.getRoles(usuario.roles)" style="vertical-align: middle">
+          <li style="vertical-align: middle">
+            {{rol}}
+          </li>
+        </ul>
       </td>
       <td>
-        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" class="dusty-grass-gradient" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
-        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" (click)="eliminarUsuario(usuario)" class="peach-gradient" style="color: #2f2f2e" rounded="true" size="sm" mdbWavesEffect>Eliminar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" mdbBtn type="button" (click)="openModal(usuario)" class="dusty-grass-gradient" style="border-radius: 8px" rounded="true"  size="sm" mdbWavesEffect>Editar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN') && usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,false)" class="peach-gradient" style="color: #2f2f2e; border-radius: 8px" rounded="true" size="sm" mdbWavesEffect>Deshabilitar</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN') && !usuario.enabled" mdbBtn type="button" (click)="habilitar(usuario,true)" class="tempting-azure-gradient" style="color: #2f2f2e; border-radius: 8px" rounded="true" size="sm" mdbWavesEffect>Habilitar</button>
       </td>
     </tr>
     </tbody>

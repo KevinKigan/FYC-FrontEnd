@@ -1,0 +1,59 @@
+<h1 *ngIf="!loading" style="margin-top: 150px">{{coches[0].marca.marcaCoche}} {{coches[0].modelo.modelo}}</h1>
+<div *ngIf="loading" style="margin-top: 150px"></div>
+<div class="bigDiv">
+<!--  <app-loading *ngIf="loading"></app-loading>-->
+  <table mdbTable class="table">
+    <thead class="white-text" style="background: #2f2f2e">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Carrocería</th>
+      <th scope="col">Eje Motriz</th>
+      <th scope="col">Transmisión</th>
+      <th scope="col">Año</th>
+      <th scope="col">Alimentación</th>
+      <th scope="col">Potencia (cv)</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let coche of coches; let i = index">
+      <td>{{coche.idCoche}}</td>
+      <td>{{coche.carroceria.carroceria}}</td>
+      <td>{{coche.ejeMotriz}}</td>
+      <td>{{coche.transmision}}</td>
+      <td>{{coche.caryear}}</td>
+      <td>
+        <mat-spinner *ngIf="tiposMotores.length==0" color="accent" [diameter]="30" style="margin: auto"></mat-spinner>
+        <div *ngIf="tiposMotores[coche.tipoMotor.idTipoMotor] &&
+        tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion.sobrealimentacion.supercargador">
+          Supercargador
+        </div>
+        <div *ngIf="tiposMotores[coche.tipoMotor.idTipoMotor] &&
+        tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion.sobrealimentacion.turbo">
+          Turbo
+        </div>
+        <div *ngIf="tiposMotores[coche.tipoMotor.idTipoMotor] &&
+        !tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion.sobrealimentacion.turbo &&
+        !tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion.sobrealimentacion.supercargador">
+          Atmosférico
+        </div>
+      </td>
+      <td>
+        <mat-spinner *ngIf="tiposMotores.length==0" color="accent" [diameter]="30" style="margin: auto"></mat-spinner>
+        <div
+          *ngIf="tiposMotores[coche.tipoMotor.idTipoMotor] && tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion">
+            {{tiposMotores[coche.tipoMotor.idTipoMotor].motorCombustion.hp}}
+        </div>
+      </td>
+      <td>{{coche.precio}}</td>
+      <td>
+        <button mdbBtn type="button" class="dusty-grass-gradient btnrounded" rounded="true" size="sm"
+                mdbWavesEffect (click)="openModal(coche)">Editar
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <app-modelo-especifico-admin [coche]="selectedCoche" *ngIf="selectedCoche"></app-modelo-especifico-admin>
+</div>

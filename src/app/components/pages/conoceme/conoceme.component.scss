@@ -5,6 +5,10 @@
   height: auto;
 
 }
+
+h1{
+  text-align: justify;
+}
 .imgfondo{
   display: block;
   max-height: 80%;
@@ -15,6 +19,11 @@
 .author {
   animation: fadeIn;
   animation-duration: 2s;
+}
+.imgKnowme{
+  border-radius: 10px;
+  display:block;
+  margin:auto;
 }
 
 .font {
