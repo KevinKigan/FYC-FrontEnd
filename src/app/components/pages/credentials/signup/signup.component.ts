@@ -103,7 +103,6 @@ export class SignupComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       });
-      console.log(this.usuario);
       this.usuariosService.entrar(this.usuario, false);
       this.usuario = value.user;
       });

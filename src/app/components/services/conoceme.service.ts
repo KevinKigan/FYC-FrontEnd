@@ -18,12 +18,34 @@ export class ConocemeService {
     'que se asemejan a aquel que tengas en mente para poder compararlos, que sientas que tu elección es la más acertada para ti y tener la posibilidad de ' +
     'comunicarte con otras personas que puedan darte consejos en el caso de tener el modelo u opinar al respecto';
 
+
+  private _introWelcomeHome: string = 'Bienvenido a Find Your Car,';
+
+  private _introHome: string = 'Aquí encontrarás una gran variedad de vehiculos para que que tengas la certeza de que el modelo que estás' +
+    ' buscando es el ideal para ti. Podrás ver cuales son sus competidores más directos y asi poder compararlos con tu modelo preferente o perderte e investigar qué ' +
+    'es lo que más te interes.'
+
+  private _introHome2: string = 'Tendrás a tu disposición numerosos filtros para que, sea cual sea el aspecto que te interese, puedas encontrar el modelo que buscas, ya sean ' +
+    'especificaciones del motor, consumos, emisiones y muchos otros. '
+
+
+
   getHeader():string{
     return this.header;
   }
 
   getIntro(): string {
     return this._intro;
+  }
+  getIntroHome(): string {
+    return this._introHome;
+  }
+
+  getIntroHome2(): string {
+    return this._introHome2;
+  }
+  getIntroWelcomeHome(): string {
+    return this._introWelcomeHome;
   }
 
   getIntro2(): string {

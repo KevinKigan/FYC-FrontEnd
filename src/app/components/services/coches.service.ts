@@ -21,7 +21,7 @@ import {
   urlTiposMotores,
   urlMotorElectrico,
   urlMotoresCombustion,
-  urlListConsumo, urlTipoMotor, urlEmisiones, urlCombustibles, urlNormativasConsumos, urlCochesSave, urlVolumen
+  urlListConsumo, urlTipoMotor, urlEmisiones, urlCombustibles, urlNormativasConsumos, urlCochesSave, urlVolumen, urlChartVolumen
 } from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {Modelo} from '../../models/modelo';
@@ -96,14 +96,23 @@ export class CochesService {
       })
     );
   }
+  /**
+   * Metodo para obtener los datos del coche para las graficas
+   *
+   * @param idCoche
+   */
+  getDatosChartVolumen(): Observable<any> {
+    return this.http.get(urlChartVolumen);
+  }
 
   /**
    * Metodo para obtener los datos semejantes al coche dado para las graficas
    *
    * @param idCoche
+   * @param filtro
    */
-  getDatosChartSemejantes(idCoche: number): Observable<any> {
-    return this.http.get<string>(urlChartSemejantes + '/' + idCoche).pipe(
+  getDatosChartSemejantes(idCoche: number, filtro: string): Observable<any> {
+    return this.http.get<string>(urlChartSemejantes + '/' + idCoche + '/' + filtro).pipe(
       map(value => {
         return value as unknown as Map<string, string>;
       })
@@ -378,7 +387,6 @@ export class CochesService {
    * @param pageSize
    */
   filtrar(filtros: any, page: number, pageSize: number): Observable<any> {
-    console.log(filtros);
     return this.http.post<any>(`${urlEndPointModelos}${pageSize}/filtros/page/${page}`, filtros).pipe(
       map((response: any) => {
         (response.content as Modelo[]).map(modelo => {
@@ -445,7 +453,6 @@ export class CochesService {
     let formData = new FormData();
     formData.append('file', file);
     formData.append('id', idModelo)
-    console.log(formData);
     // Creamos httprequest para tener constancia del progreso de la peticion
     const req = new HttpRequest('POST',urlImgUpload+'modelo', formData,{
       reportProgress: true,

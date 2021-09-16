@@ -9,6 +9,12 @@ import {Consumo} from '../../../../../models/consumo';
 import {Volumen} from '../../../../../models/volumen';
 import {MotorCombustion} from '../../../../../models/motorCombustion';
 import {Sobrealimentacion} from '../../../../../models/sobrealimentacion';
+import {Carroceria} from '../../../../../models/carroceria';
+import {TipoEmisiones} from '../../../../../models/tipoEmisiones';
+import {TipoCombustible} from '../../../../../models/tipoCombustible';
+import {Emisiones} from '../../../../../models/emisiones';
+import {MotorElectrico} from '../../../../../models/motorElectrico';
+import {Marca} from '../../../../../models/marca';
 
 
 @Component({
@@ -68,6 +74,125 @@ export class ModeloEspecificoUserComponent implements OnInit {
   private minimoPotencia: any;
   private minimoEmisiones: any;
   private minimoConsumo: any;
+  volumen: Volumen;
+  carrocerias: Carroceria [] = [];
+  tipoEmisiones: TipoEmisiones[];
+  tipoCombustibles: TipoCombustible[];
+  saved: number = 0;
+  emisiones: Emisiones;
+  enableSave: boolean = false;
+  arrayCol: number[] = [0, 1, 2];
+  arraRow: number[] = [0, 1, 2];
+  arrayRow: any[] = [];
+  motorCombustion: MotorCombustion;
+  consumo: Consumo;
+  motorElectrico: MotorElectrico;
+  modelGen: any               [] = [];
+  modelVolumen: any           [] = [];
+  modelMotCombustion: any     [] = [];
+  modelEmiCombustion: any     [] = [];
+  modelConsCombustion: any    [] = [];
+  modelConsAltCombustion: any [] = [];
+  modelConsElectrico: any     [] = [];
+  modelMotElectrico: any      [] = [];
+  modelMotor: any             [] = [];
+  camposGen: string[] = [
+    'Marca',
+    'Modelo',
+    'Carrocería',
+    'Año',
+    'Precio (€)',
+    'Transmisión',
+    'Eje Motriz'
+  ];
+  iconsGen: string[] = [
+    'fas fa-warehouse',
+    'fas fa-car',
+    'fas fa-car-side',
+    'fas fa-hourglass-start',
+    'fas fa-tags',
+    'fas fa-cogs',
+    'fas fa-tractor'
+  ];
+  iconsMotC: string[] = [
+    'fas fa-prescription-bottle',
+    'fas fa-database',
+    'fas fa-dumbbell',
+    'fas fa-truck-monster',
+    'fas fa-dragon',
+    'fas fa-gas-pump'
+  ];
+
+  iconsMotE: string[] = [
+    'fas fa-stopwatch',
+    'fas fa-dumbbell',
+    'fas fa-dumbbell',
+    'fas fa-dumbbell',
+    'fas fa-dumbbell',
+    'fas fa-dumbbell'
+  ];
+  iconsCons: string[] = [
+    'fas fa-water',
+    'fas fa-water',
+    'fas fa-water'
+  ];
+  iconsEmi: string[] = [
+    'fas fa-skull-crossbones',
+    'fas fa-globe-europe'
+  ];
+  iconsVol: string[] = [
+    'fas fa-shuttle-van',
+    'fas fa-shuttle-van'
+  ];
+  camposMotC: string[] = [
+    'Cilindrada (L)',
+    'Cilindros',
+    'Potencia (CV)',
+    'Turbo',
+    'Compresor',
+    'Combustible'
+  ];
+  camposConC: string[] = [
+    'Consumo Ciudad',
+    'Consumo Autopista',
+    'Consumo Mixto'
+  ];
+  camposConAltC: string[] = [
+    'Consumo Alt Ciudad',
+    'Consumo Alt Autopista',
+    'Consumo Alt Mixto'
+  ];
+  camposConE: string[] = [
+    'Consumo Eléctrico Ciudad',
+    'Consumo Eléctrico Autopista',
+    'Consumo Eléctrico Mixto'
+  ];
+
+  camposEmi: string[] = [
+    'CO2',
+    'Normativa Euro'
+  ];
+  camposMotElectrico: string[] = [];
+  camposVol: string[] = [];
+  selects: string[] = ['Carrocería', 'Transmisión', 'Eje Motriz', 'Turbo', 'Compresor', 'Tipo Combustible', 'Normativa Euro'];
+  private marcasString: string[] = [];
+  private modelosString: string[] = [];
+  private carroceriasString: string[] = [];
+  private tipoCombustiblesString: string[] = [];
+  private tipoEmisionesString: string[] = [];
+  private transmisionesString: string[] = ['Automatico', 'Manual'];
+  private booleanString: string[] = ['Si', 'No'];
+  private traccionesString: string[] = ['Total', 'Delantero', 'Trasero'];
+  marcas: Marca[];
+  elements: any[] = [
+    this.marcasString, this.modelosString, this.carroceriasString,
+    this.transmisionesString, this.traccionesString, this.booleanString,
+    this.booleanString, this.tipoCombustiblesString, this.tipoEmisionesString
+  ];
+  private marcaSelected: Marca;
+  private versionesElectricas: number;
+  private itemsToSave: number = 0;
+
 
   center = {lat: 24, lng: 12};
   display?: google.maps.LatLngLiteral;
@@ -75,12 +200,21 @@ export class ModeloEspecificoUserComponent implements OnInit {
 
   constructor(private cochesService: CochesService,
               private activatedRoute: ActivatedRoute,
-              private filtroService: FiltroService,
-              private router: Router) {
+              private filtroService: FiltroService) {
   }
 
   ngOnInit(): void {
     this.iniciar();
+  }
+
+  /**
+   * Metodo para configurar las marcas en listas de 5 elementos
+   * y que se muestren por filas de dichos elementos
+   */
+  configurarItems() {
+    this.configurarGeneral();
+    this.configurarVolumen();
+    this.configurarMotores();
   }
 
   /**
@@ -107,22 +241,27 @@ export class ModeloEspecificoUserComponent implements OnInit {
             this.idsMotor.push(coche.tipoMotor.idTipoMotor);
             this.cocheSeleccionado = coche;
           });
+          this.configurarItems();
           this.cochesService.getListConsumo(this.idsConsumo).subscribe(consumos => {
             this.consumos = consumos;
           });
-          this.cochesService.getDatosChart(this.cocheSeleccionado.idCoche).subscribe(chart => {
-            this.chart = chart;
+          if(this.cocheSeleccionado.precio > 0) {
+            this.cochesService.getDatosChart(this.cocheSeleccionado.idCoche).subscribe(chart => {
+              this.chart = chart;
 
-            this.cochesService.getDatosChartSemejantes(this.cocheSeleccionado.idCoche).subscribe(chartS => {
-              this.asignarValores(chartS);
-              this.formatValues();
-              if(this.precioCS==0 && this.consumoCS==0 && this.cilindradaCS==0 && this.potenciaCS==0 && this.emisionesCS==0){
-                this.semejantes = false;
-              }
-              this.boolChart = true;
-              this.setLoading(false);
+              this.cochesService.getDatosChartSemejantes(this.cocheSeleccionado.idCoche, 'Precio').subscribe(chartS => {
+                this.asignarValores(chartS);
+                this.formatValues();
+                if (this.precioCS == 0 && this.consumoCS == 0 && this.cilindradaCS == 0 && this.potenciaCS == 0 && this.emisionesCS == 0) {
+                  this.semejantes = false;
+                }
+                this.boolChart = true;
+                this.setLoading(false);
+              });
             });
-          });
+          }else{
+            this.setLoading(false);
+          }
           this.cochesService.getListMotoresCombustion(this.idsMotor).subscribe(motores => {
             this.motoresCombustion = motores;
           });
@@ -136,6 +275,7 @@ export class ModeloEspecificoUserComponent implements OnInit {
 
   asignarValores(chartS: Map<string,string>){
     let ids: number[] = [];
+    console.log(chartS);
     ids.push(+chartS['idmodeloConsumoMax']);
     ids.push(+chartS['idmodeloConsumoMin']);
     ids.push(+chartS['idmodeloEmisionesMax']);
@@ -220,7 +360,7 @@ export class ModeloEspecificoUserComponent implements OnInit {
     }
   ];
 
-  public chartLabelsRadar: Array<any> = ['Precio', 'Consumo Medio', 'Cilindrada', 'Potencia (CV)', 'Emisiones (CO2)'];
+  public chartLabelsRadar: Array<any> = ['Precio', 'Consumo Medio', 'Cilindrada', 'Potencia(CV)', 'Emisiones (CO2)'];
 
   public chartColorsRadar: Array<any> = [
     {
@@ -423,8 +563,16 @@ export class ModeloEspecificoUserComponent implements OnInit {
    *
    * @param comparar Parametro de comparacion solicitado
    */
-  compararPor(comparar: string) {
-    this.comparar = comparar;
+  compararPorFiltro() {
+    this.cochesService.getDatosChartSemejantes(this.cocheSeleccionado.idCoche, this.comparar).subscribe(chartS => {
+      this.asignarValores(chartS);
+      this.formatValues();
+      if(this.precioCS==0 && this.consumoCS==0 && this.cilindradaCS==0 && this.potenciaCS==0 && this.emisionesCS==0){
+        this.semejantes = false;
+      }
+      this.boolChart = true;
+      this.setLoading(false);
+    });
   }
 
 
@@ -562,6 +710,195 @@ export class ModeloEspecificoUserComponent implements OnInit {
       document.getElementById(modelo+ind1+ind2).classList.add('noHoverImg');
     }
 
+  }
+
+  /**
+   * Metodo para configurar los modelos generales
+   * @private
+   */
+  private configurarGeneral() {
+    this.modelGen[0] = this.modelo.marca.marcaCoche;
+    this.modelGen[1] = this.modelo.modelo;
+    if(!this.cocheSeleccionado.carroceria.carroceria.includes('NULL')){
+      this.modelGen[2] = this.cocheSeleccionado.carroceria.carroceria;
+    } else{
+      this.modelGen[2] = 'No disponible';
+    }
+    this.modelGen[3] = this.cocheSeleccionado.caryear;
+    if(this.cocheSeleccionado.precio > 0){
+      this.modelGen[4] = this.cocheSeleccionado.precio;
+    } else{
+      this.modelGen[4] = 'No disponible';
+    }
+    this.modelGen[5] = this.cocheSeleccionado.transmision;
+    switch (this.cocheSeleccionado.ejeMotriz) {
+      case 'AWD':
+        this.modelGen[6] = 'Total';
+        break;
+      case 'FWD':
+        this.modelGen[6] = 'Delantero';
+        break;
+      case 'RWD':
+        this.modelGen[6] = 'Trasero';
+        break;
+    }
+    this.configurarColumnas(this.modelGen, 0);
+    this.cochesService.getCarrocerias().subscribe(carrocerias => {
+      this.carrocerias = carrocerias;
+      carrocerias.forEach(carroceria => {
+        this.carroceriasString[this.carroceriasString.length] = carroceria.carroceria;
+      });
+    });
+  }
+
+  /**
+   * Metodos para configurar los modelos relacionados con
+   * el motor como tipo de motor, consumos o emisiones
+   * @private
+   */
+  private configurarMotores() {
+    this.cochesService.getTiposCombustibles().subscribe(combustibles => {
+      this.tipoCombustibles = combustibles.tipos_combustibles;
+      // combustibles[0].forEach(combustible => tipoCombustibles.push(combustible));
+      this.tipoCombustibles.filter(combustible => {
+        if (!combustible.tipoCombustible.includes('Electricidad')) {
+          return combustible;
+        }
+      }).forEach(combustible => {
+        this.tipoCombustiblesString[this.tipoCombustiblesString.length] = combustible.tipoCombustible;
+      });
+    });
+    this.cochesService.getTipoEmisiones().subscribe(normativas => {
+      this.tipoEmisiones = normativas.normativas;
+      this.tipoEmisiones.forEach(normativa => {
+        this.tipoEmisionesString[this.tipoEmisionesString.length] = normativa.tipoEmisiones;
+      });
+    });
+    this.cochesService.getTipoMotor(this.cocheSeleccionado.tipoMotor.idTipoMotor).subscribe(value => {
+      if (value.motorCombustion != null) {
+        this.itemsToSave++;
+        this.motorCombustion = value.motorCombustion;
+        this.modelMotCombustion[0] = this.motorCombustion.cilindrada;
+        this.modelMotCombustion[1] = this.motorCombustion.cilindros;
+        this.modelMotCombustion[2] = this.motorCombustion.hp;
+        this.motorCombustion.sobrealimentacion.turbo == true ? this.modelMotCombustion[3] = 'Si' : this.modelMotCombustion[3] = 'No';
+        this.motorCombustion.sobrealimentacion.supercargador == true ? this.modelMotCombustion[4] = 'Si' : this.modelMotCombustion[4] = 'No';
+        this.modelMotCombustion[5] = this.motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible;
+        this.configurarColumnas(this.modelMotCombustion, 1);
+        if (this.motorCombustion.emisiones) {
+          this.cochesService.getEmisiones(this.motorCombustion.emisiones.idEmisiones).subscribe(value => {
+            this.emisiones = value;
+            if (value.co2 != -1) {
+              this.modelEmiCombustion[0] = value.co2;
+            }
+            if (value.tipoEmisiones != null) {
+              this.modelEmiCombustion[1] = value.tipoEmisiones.tipoEmisiones;
+            }
+            this.configurarColumnas(this.modelEmiCombustion, 6);
+          });
+        }
+
+        this.cochesService.getConsumo(this.cocheSeleccionado.consumo.idConsumo).subscribe(value => {
+          this.consumo = value;
+          this.itemsToSave++;
+          if (this.consumo.idConsumoNormal != null) {
+            this.modelConsCombustion[0] = this.consumo.idConsumoNormal.ciudad;
+            this.modelConsCombustion[1] = this.consumo.idConsumoNormal.autopista;
+            this.modelConsCombustion[2] = this.consumo.idConsumoNormal.combinado;
+            this.configurarColumnas(this.modelConsCombustion, 3);
+          }
+          if (this.consumo.idConsumoAlternativo != null) {
+            this.modelConsAltCombustion[0] = this.consumo.idConsumoAlternativo.ciudad;
+            this.modelConsAltCombustion[1] = this.consumo.idConsumoAlternativo.autopista;
+            this.modelConsAltCombustion[2] = this.consumo.idConsumoAlternativo.combinado;
+            this.configurarColumnas(this.modelConsAltCombustion, 4);
+          }
+          if (this.consumo.idConsumoElectrico != null) {
+            this.modelConsElectrico[0] = this.consumo.idConsumoElectrico.ciudad;
+            this.modelConsElectrico[1] = this.consumo.idConsumoElectrico.autopista;
+            this.modelConsElectrico[2] = this.consumo.idConsumoElectrico.combinado;
+            this.configurarColumnas(this.modelConsElectrico, 5);
+          }
+        });
+      }
+      if (value.motorElectrico != null) {
+        this.itemsToSave++;
+        this.motorElectrico = value.motorElectrico;
+        this.modelMotElectrico[0] = this.motorElectrico.tCarga220v;
+        this.camposMotElectrico[0] = 'Tiempo de Carga 220V (h)';
+        let version: number = 1;
+        this.motorElectrico.hps.forEach(hps => {
+          this.modelMotElectrico[this.modelMotElectrico.length] = hps.hp;
+          this.camposMotElectrico[this.modelMotElectrico.length - 1] = 'Potencia (CV) Versión ' + (version);
+          version++;
+        });
+        version = 1;
+        this.motorElectrico.potenciasElectricas.forEach(kWh => {
+          this.modelMotElectrico[this.modelMotElectrico.length] = kWh.potencia;
+          this.camposMotElectrico[this.modelMotElectrico.length - 1] = 'Potencia (kWh) Versión ' + (version);
+          version++;
+        });
+        this.versionesElectricas = version - 1;
+        this.configurarColumnas(this.modelMotElectrico, 2);
+      }
+    });
+  }
+  private configurarColumnas(model: any[], index: number) {
+    this.arrayRow[index] = [];
+    for (let i = 0; i < model.length / this.arrayCol.length; i++) {
+      this.arrayRow[index][i] = i;
+    }
+  }
+
+  private configurarVolumen() {
+    this.volumen = this.cocheSeleccionado.modelo.volumen;
+    if (this.volumen != null) {
+      this.cochesService.getVolumenById(this.volumen.idVolumen).subscribe(value => {
+        this.volumen = value;
+        this.itemsToSave++;
+        let itms: number = 0;
+        if (value.volumen2p != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenMaletero;
+          itms++;
+        }
+        if (value.volumen4p != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumen4p.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumen4p.volumenMaletero;
+          itms++;
+        }
+        if (value.volumenHatchback != null) {
+          this.modelVolumen[this.modelVolumen.length] = value.volumenHatchback.volumenHabitaculo;
+          this.modelVolumen[this.modelVolumen.length] = value.volumenHatchback.volumenMaletero;
+          itms++;
+        }
+        if (itms == 1) {
+          this.camposVol[this.camposVol.length] = 'Habitáculo (L)';
+          this.camposVol[this.camposVol.length] = 'Maletero (L)';
+        } else if (itms > 1) {
+          for (let i = 0; i < itms; i++) {
+            this.camposVol[this.camposVol.length] = 'Habitáculo Versión' + i + ' (L)';
+            this.camposVol[this.camposVol.length] = 'Maletero Versión' + i + ' (L)';
+          }
+        }
+        this.configurarColumnas(this.modelVolumen, 7);
+      });
+    }
+  }
+
+  /**
+   * Metodo para comprobar si el campo se encuentra
+   * dentro de la lista de elementos que tienen que
+   * ser un select
+   * @param campo Nombre del campo
+   * @param selects Array con los campos
+   */
+  contains(campo: string, selects: string[]) {
+    return selects.includes(campo);
+  }
+
+  screenSize() {
+    return screen.width;
   }
 }
 
