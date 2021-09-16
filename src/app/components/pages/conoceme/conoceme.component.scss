@@ -1,7 +1,11 @@
+$limitInfSizeScreen: 700px;
+$limitMidSizeScreen: 1200px;
+
 .propietario{
   margin:10px auto;
   display:block;
-  width: 400px;
+  max-width: 400px;
+  width: 40%;
   height: auto;
 
 }
@@ -48,8 +52,10 @@ h1{
 .container {
   position: absolute;
   transform: translate(-50%, -50%);
+  width: 50%;
   top: 40%;
   left: 50%;
+  margin-top: 22%
 }
 #app {
   width: 100%;
@@ -64,6 +70,12 @@ h1{
   z-index: 1;
 }
 
+.bodyPerso{
+  background: transparent;
+  padding: 0px 7rem;
+  height: 100%;
+}
+
 #wrapper {
   text-align: center;
 }
@@ -71,6 +83,7 @@ h1{
 .sub {
   color: rgb(220, 204, 100);
   letter-spacing: 1em;
+  font-size: calc(0.5em + 1vw);
 }
 
 /* Our mixin positions a copy of our text
@@ -89,7 +102,7 @@ text set in the data-text attribute. */
 .glitch {
   position: relative;
   color: white;
-  font-size: 4em;
+  font-size: calc(1em + 2.5vw);
   font-family: "Oswald", sans-serif;
 
   // Creates a copy before our text.
@@ -140,6 +153,43 @@ skew to change the 'thickness' of the glitch.*/
       clip: rect(random(100)+px, 9999px, random(100)+px, 0);
       transform: skew((random(100) / 100) + deg);
     }
+  }
+}
+
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen) {
+  .container {
+    width: 65%;
+  }
+}
+
+//Pantallas pequeñas
+@media only screen and (max-width: $limitInfSizeScreen) {
+  .imgfondo{
+    margin-top: 90px;
+  }
+  .imgfondo {
+    width: 100%;
+    height: 300px;
+  }
+
+  .bodyPerso{
+    background: transparent;
+    padding: 0 2rem;
+    height: 100%;
+  }
+
+  .container {
+    width: 85%;
+    height: 25%;
+    margin-top: 38%;
+  }
+  .propietario{
+    margin:36px auto;
+  }
+
+  .glitch{
+    //font-size: 10px;
   }
 }
 

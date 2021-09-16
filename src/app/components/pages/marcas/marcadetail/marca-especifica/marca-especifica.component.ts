@@ -122,6 +122,7 @@ export class MarcaEspecificaComponent implements OnInit {
     this.btn2 = true;
     this.modelosOriginal = [];
     this.carrocerias = [];
+    this.searchText = "";
     this.btn1class = 'peach-gradient';
     this.btn2class = 'peach-gradient';
     this.modalService.closeModal();
@@ -237,7 +238,6 @@ export class MarcaEspecificaComponent implements OnInit {
               this.progress = Math.round((event.loaded / event.total) * 100);
             } else if (event.type === HttpEventType.Response) {
               let response: any = event.body
-              console.log(response);
               if (response.message != undefined) {
                 this.modelos.forEach(mod => {
                   if (mod.idModelo == response.modelo.idModelo) {

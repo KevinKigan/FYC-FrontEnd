@@ -21,13 +21,13 @@ import {FiltroService} from '../../../services/filtro.service';
 })
 export class SidebarComponent implements OnInit {
   @Output() private filtrar = new EventEmitter<boolean>();
-  @Input() loading:boolean;
+  @Input() loading: boolean;
   menus = [];
   submenu = [];
   interval: number = 1;
   precio: string = '';
 
-  constructor(public sidebarservice: SidebarService, public filtroService: FiltroService) {
+  constructor(public sidebarservice: SidebarService) {
     this.menus = sidebarservice.getMenuList();
   }
 
@@ -126,9 +126,8 @@ export class SidebarComponent implements OnInit {
     let menu = submenu.title;
     if (menu == 'Carroceria') {
       this.setCarroceria(value);
-    }
-    else if (menu == 'Sobrealimentacion'){
-      this.setMotor(value,submenu);
+    } else if (menu == 'Sobrealimentacion') {
+      this.setMotor(value, submenu);
     }
   }
 
@@ -147,7 +146,7 @@ export class SidebarComponent implements OnInit {
    * @param submenu
    */
   setPrecio(precio: number, submenu: any) {
-    this.sidebarservice.setPrecio(precio,submenu);
+    this.sidebarservice.setPrecio(precio, submenu);
     this.actualizar();
   }
 
@@ -157,7 +156,7 @@ export class SidebarComponent implements OnInit {
    * @param submenu
    */
   setPotencia(potencia: number, submenu: any) {
-    this.sidebarservice.setPotencia(potencia,submenu);
+    this.sidebarservice.setPotencia(potencia, submenu);
     this.actualizar();
   }
 
@@ -184,34 +183,13 @@ export class SidebarComponent implements OnInit {
   /**
    * Metodo para actualizar filtros y emitir la busqueda
    */
-  actualizar(){
+  actualizar() {
     this.sidebarservice.actualizarFiltros();
     this.filtrar.emit(true);
   }
 
-  // setLoading(load: boolean) {
-  //   this.filtroService.setLoading(load);
-  //   this.loading = this.filtroService.getLoading();
-  // }
-
-
-
-    // actualizarMenuSeleccionado(submenu:any){
-    //   this.submenu = submenu;
-    // }
-
+  resetFilters(){
+    this.menus = this.sidebarservice.resetFilters();
+    this.actualizar();
+  }
 }
-// function cambiarIntervalo(position): number{
-//   // position will be between 0 and 10
-//   var minp = 0;
-//   var maxp = 100;
-//
-//   // The result should be between 100 an 10000000
-//   var minv = Math.log(100);
-//   var maxv = Math.log(100000);
-//
-//   // calculate adjustment factor
-//   var scale = (maxv-minv) / (maxp-minp);
-//
-//   return Math.exp(minv + scale*(position-minp));
-// }

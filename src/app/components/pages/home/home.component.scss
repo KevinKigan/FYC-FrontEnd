@@ -1,3 +1,6 @@
+$limitInfSizeScreen: 600px;
+$limitMidSizeScreen: 1200px;
+
 .carousel img{
   max-height: 500px;
   width: 100%;
@@ -346,3 +349,157 @@
   background-image: -webkit-gradient(linear, left bottom, left top, from(#5ee7df), to(#b490ca));
   background-image: -webkit-linear-gradient(bottom, #5ee7df 0%, #b490ca 100%);
   background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%); }
+
+h1{
+  text-align: justify;
+}
+.imgKnowme{
+  border-radius: 10px;
+  display:block;
+  margin:auto;
+}
+
+$h1:  rgba(45,45,45,1);
+$blue: #98b5cc;
+$yellow: #ffcc00;
+$outline: rgba(#fff, .4);
+$shadow: rgba($yellow, .5);
+
+
+.appName {
+  font-family: 'CoreCircus', sans-serif;
+  font-size: 5vw;
+  text-align: center;
+  display: inline;
+  margin: auto 10px;
+  border-radius: 10px;
+  min-width: 200px;
+  line-height: 1;
+  color: $h1;
+  letter-spacing: -.5rem;
+
+&:before {
+   content: attr(data-heading);
+   position: absolute;
+   overflow: hidden;
+   color: $yellow;
+   z-index: 5;
+   text-shadow: none;
+   text-align: left;
+   animation: title 3s linear infinite;
+ }
+}
+
+@keyframes title {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: .99;
+    text-shadow: -1px -1px 0 $outline, 1px -1px 0 $outline, -1px 1px 0 $outline, 1px 1px 0 $outline, 0 -2px 8px, 0 0 2px, 0 0 5px #ff7e00, 0 0 15px #ff4444, 0 0 2px #ff7e00, 0 2px 3px #000;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@font-face {
+  font-family: 'CoreCircus2DDot1';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.eot');
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.eot?#iefix') format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.woff2') format('woff2'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.woff') format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CoreCircus';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.eot');
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.eot?#iefix') format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.woff2') format('woff2'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.woff') format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.ttf') format('truetype');
+}
+
+.carouselPerso{
+  display: block;
+  width: 50%;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.cardPerso{
+  margin: 100px 200px; border-radius: 15px; box-shadow: 0 0 25px #000000;
+}
+.cardBodyPerso{
+  padding: 0 7rem; height: 100%
+}
+.divPerso{
+  display: block; margin: auto; padding-right: 100px;
+}
+.h1Perso{
+  justify-content: center; line-height : 2.5rem;
+}
+
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen) {
+
+  .cardPerso {
+    justify-content: center;
+    margin: 100px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #000000;
+  }
+  .cardBodyPerso{
+    padding: 0 3rem;
+  }
+  .divPerso{
+    padding: 0;
+  }
+  .h1Perso{
+    justify-content: center;
+    line-height : 1.5rem;
+    font-size: 16px;
+  }
+}
+
+
+//Pantallas pequeñas
+@media only screen and (max-width: $limitInfSizeScreen) {
+  .cardPerso {
+    justify-content: center;
+    margin: 35px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #000000;
+  }
+  .appName{
+    font-size: 9vw;
+    min-width: auto;
+  }
+  &:before {
+    content: attr(data-heading);
+    position: absolute;
+    overflow: hidden;
+    color: $yellow;
+    z-index: 5;
+    text-shadow: none;
+    width: 60px;
+    border-radius: 10px;
+    text-align: left;
+    animation: title 3s linear infinite;
+  }
+  .cardBodyPerso{
+    padding: 0 3rem;
+  }
+  .divPerso{
+    padding: 0;
+  }
+  .h1Perso{
+    justify-content: center;
+    line-height : 1.5rem;
+    font-size: 16px;
+  }
+  .carouselPerso{
+    display: block;
+    width: 85%;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: auto;
+  }
+  #carouselIndicators{
+    margin-top: 62px;
+  }
+}

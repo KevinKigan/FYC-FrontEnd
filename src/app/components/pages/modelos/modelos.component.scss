@@ -231,16 +231,16 @@ mat-slider {
 
 @keyframes slideInR {
   from {
-    transform: translate(-350%, 0);
+    transform: translate(-345%, 0);
   }
   to {
-    transform: translate(175%, 0);
+    transform: translate(180%, 0);
   }
 }
 
 @-webkit-keyframes slideInR {
   from {
-    transform: translate(-350%, 0);
+    transform: translate(-345%, 0);
   }
   to {
     transform: translate(175%, 0);
@@ -252,7 +252,7 @@ mat-slider {
     transform: translate(175%, 0);
   }
   to {
-    transform: translate(-350%, 0);
+    transform: translate(-345%, 0);
   }
 }
 
@@ -261,28 +261,29 @@ mat-slider {
     transform: translate(175%, 0);
   }
   to {
-    transform: translate(-350%, 0);
+    transform: translate(-345%, 0);
   }
 }
 
 @keyframes slideInRAlt {
   from {
-    transform: translate(0, 50%);
+    transform: translate(0%, 38%);
     top: 3%;
   }
   to {
-    transform: translate(1530%, 50%);
+    //transform: translate(1530%, 50%);
+    transform: translate(905%, 38%);
     top: 3%;
   }
 }
 
 @-webkit-keyframes slideInRAlt {
   from {
-    transform: translate(0, 50%);
+    transform: translate(0%, 38%);
     top: 3%;
   }
   to {
-    transform: translate(1530%, 50%);
+    transform: translate(905%, 38%);
     top: 3%;
   }
 }
@@ -290,21 +291,21 @@ mat-slider {
 
 @keyframes slideOutRAlt {
   from {
-    transform: translate(1530%, 50%);
+    transform: translate(905%, 38%);
     top: 3%;
   }
   to {
-    transform: translate(0, 50%);
+    transform: translate(0%, 38%);
     top: 3%;
   }
 }
 
 @-webkit-keyframes slideOutRAlt {
   from {
-    transform: translate(1530%, 50%);
+    transform: translate(905%, 38%);
   }
   to {
-    transform: translate(0, 50%);
+    transform: translate(0%, 38%);
     top: 3%;
   }
 }
@@ -346,7 +347,7 @@ mat-slider {
   font-family: Arial;
   font-size: 15px;
   font-weight: bold;
-  padding: 15px 0px;
+  padding: 30px 6px;
   text-decoration: none;
 }
 
@@ -422,7 +423,7 @@ mdb-card-body input {
 }
 
 //Pantallas grandes
-@media only screen and (min-width: $limitInfSizeScreen) {
+@media only screen and (min-width: $limitMidSizeScreen) {
 
   .cardPerso {
     width: 18rem;
@@ -432,7 +433,6 @@ mdb-card-body input {
 
   h2 {
     font-size: 20px;
-    //padding: 0 0 0 30px;
   }
 
   mdb-card-body input {

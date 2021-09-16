@@ -24,6 +24,7 @@ export const urlCochesPage                  = urlEndPointCoches+"page/";
 export const urlCochesSave                  = urlEndPointCoches+"save";
 export const urlListConsumo                 = urlEndPointCoches+"consumo";
 export const urlCombustibles                = urlEndPointCoches+"tipos_combustibles";
+export const urlChartVolumen                = urlEndPointCoches+"chartVolumen";
 export const urlTiposMotores                = urlEndPointCoches+"tipos_motores";
 export const urlPreciosPagina               = urlEndPointCoches+"precios";
 export const urlMotorElectrico              = urlEndPointCoches+"electrico/";

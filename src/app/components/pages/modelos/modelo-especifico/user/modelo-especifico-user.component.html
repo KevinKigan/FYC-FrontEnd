@@ -1,21 +1,13 @@
-<div >
+<div>
   <img *ngIf="modelo && imagenPrincipal" class="img-fluid imgModelo" src="{{imagenPrincipal}}"
        alt="{{modelo.imagen}}">
 </div>
 <!--Tabla comparativa con modelos similares-->
+<div *ngIf="loading" style="width: 100%;  margin-top: 150px; height: 100px; border-radius: 20px">
+  <app-loading></app-loading>
+</div>
 <div class="row marginPerso"
      style="max-width: 100%; background: white; border-radius: 20px">
-  <div *ngIf="loading" style="width: 100%; height: 100px; background: white; border-radius: 20px">
-    <app-loading></app-loading>
-    <h1>Cargando Datos...</h1>
-  </div>
-
-  <!--  <google-map width="750px"-->
-  <!--              height="450px"-->
-  <!--              [center]="center"-->
-  <!--              [zoom]="zoom">-->
-  <!--  </google-map>-->
-
   <div *ngIf="modelo && boolChart">
     <div class="row">
       <!--    Grafico pentagonal-->
@@ -25,14 +17,14 @@
           <p>Comparar con modelos similares por:</p>
           <mat-form-field class="placeholder" appearance="fill" color="#5ee7df">
             <mat-label>Comparar por</mat-label>
-            <mat-select [(ngModel)]="comparar" name="food">
+            <mat-select [(ngModel)]="comparar" (ngModelChange)="compararPorFiltro()">
               <mat-option *ngFor="let filt of filtros" [value]="filt">
                 {{filt}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <canvas mdbChart
+        <canvas *ngIf="screenSize()>1200" mdbChart
                 [chartType]="chartTypeRadar"
                 [datasets]="chartDatasetsRadar"
                 [labels]="chartLabelsRadar"
@@ -43,7 +35,7 @@
                 (chartClick)="chartClicked($event)">
         </canvas>
         <div style="justify-content: center">
-          <p style="text-align: center; width: 100%; color: darkred; font-size: 10px">*Datos valorados en un rango (0 -
+          <p *ngIf="screenSize()>1200" style="text-align: center; width: 100%; color: darkred; font-size: 10px">*Datos valorados en un rango (0 -
             5)</p>
         </div>
       </div>
@@ -105,87 +97,151 @@
       </div>
     </div>
     <!--  Modelos similares-->
-    <div class="row" style="justify-items: center">
+    <div class="row" style="justify-items: center; display: flex;margin: 30px;justify-content: center;">
       <h1>Modelos Similares</h1>
       <div *ngFor="let fS of filaS;let ind1=index" class="row">
         <div *ngFor="let filaN of fS;let ind2=index" class="col" style="margin-bottom: 5%">
-          <h3>{{filaN.title}}</h3>
-          <div class="imgST1">
-            <mdb-card style=" z-index:0" class="imgST1">
-              <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-                <a>
-                  <img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
-                        style="border-radius: 5px"
-                        src="{{images.get(+filaN.idModelo)}}"
+          <div>
+            <h3>{{filaN.title}}</h3>
+            <div class="imgST1">
+              <mdb-card style=" z-index:0" class="imgST1">
+                <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                  <a>
+                    <img id="{{filaN.modelo}}{{ind1}}{{ind2}}" class="imgST1 imgModeloSemejantes noHoverImg"
+                         style="border-radius: 5px"
+                         src="{{images.get(+filaN.idModelo)}}"
 
-                  alt="{{filaN.idModelo}}"></a>
-                <p>{{urlUploadImg}}/{{filaN.imagen}}</p>
-              </div>
-            </mdb-card>
-            <p [routerLink]="['/redirect/modeloespecifico',filaN.idModelo]"
-               (mouseover)="mouseEnter(filaN.modelo,ind1,ind2)" id="{{filaN.modelo}}Txt{{ind1}}{{ind2}}"
-               (mouseout)="mouseEnter(filaN.modelo,ind1,ind2)"
-               style="height: 12rem;width: 18rem; z-index: 1; color: palegoldenrod; text-align: center; font-size: 20px"
-               class="modelo yHoverTxt flex-center">{{filaN.marca}} {{filaN.modelo}}</p>
+                         alt="{{filaN.idModelo}}"></a>
+                  <p>{{urlUploadImg}}/{{filaN.imagen}}</p>
+                </div>
+              </mdb-card>
+              <p [routerLink]="['/redirect/modeloespecifico',filaN.idModelo]"
+                 (mouseover)="mouseEnter(filaN.modelo,ind1,ind2)" id="{{filaN.modelo}}Txt{{ind1}}{{ind2}}"
+                 (mouseout)="mouseEnter(filaN.modelo,ind1,ind2)"
+                 style="height: 12rem;width: 18rem; z-index: 1; color: palegoldenrod; text-align: center; font-size: 20px"
+                 class="modelo yHoverTxt flex-center">{{filaN.marca}} {{filaN.modelo}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<div style="margin-top: 40%;" class="container">
-  <table *ngIf="consumos.length>0" class="styleA">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>Consumo Autopista</th>
-      <th>Consumo Mixto</th>
-      <th>Consumo Ciudad</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let consumo of consumos; let index = index">
-      <td>{{index + 1}}</td>
-      <td>{{consumo.idConsumoNormal.autopista}}</td>
-      <td>{{consumo.idConsumoNormal.combinado}}</td>
-      <td>{{consumo.idConsumoNormal.ciudad}}</td>
-    </tr>
-    </tbody>
-  </table>
+<div *ngIf="modelGen.length>0" class="specs models">
+  <div *ngIf="modelGen.length>0">
+    <h3 class="specsH3">General</h3>
+    <hr>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[0]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelGen.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposGen[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsGen[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelGen[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelVolumen.length>0" class="models my-1">
+    <h3 class="specsH3">Volúmenes</h3>
+    <hr>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[7]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelVolumen.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposVol[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsVol[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelVolumen[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelMotCombustion.length>0" class="models my-1">
+    <h3 class="specsH3">Motor Combustión</h3>
+    <hr>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[1]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelMotCombustion.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposMotC[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsMotC[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelMotCombustion[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelMotElectrico.length>0" class="models my-1">
+    <h3 class="specsH3">Motor Eléctrico</h3>
+    <hr>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[2]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelMotElectrico.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposMotElectrico[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsMotE[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelMotElectrico[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelConsCombustion.length>0" class="models my-1">
+    <h3 class="specsH3">Consumos</h3>
+    <hr>
+    <div *ngIf="modelConsAltCombustion.length>0 || modelConsElectrico.length>0"
+         style="width: 180px;margin-top: 40px;">
+      <h3 *ngIf="motorCombustion.combustible.tipoCombustibleNormal"
+          class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}
+        (L/100Km)</h3>
+      <hr class="subHr">
+    </div>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[3]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelConsCombustion.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposConC[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsCons[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelConsCombustion[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelConsAltCombustion.length>0" class="models my-1">
+    <div style="width: 180px">
+      <h3 class="colorLabelMultiple">{{motorCombustion.combustible.tipoCombustibleAlternativo.tipoCombustible}}
+        (L/100Km)</h3>
+      <hr class="subHr">
+    </div>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[4]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelConsAltCombustion.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposConC[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsCons[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelConsAltCombustion[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelConsElectrico.length>0" class="models my-1">
+    <div *ngIf="modelConsAltCombustion.length>0 || modelConsElectrico.length>0" style="width: 180px">
+      <h3 class="colorLabelMultiple my-2">Eléctrico (kW/h)</h3>
+      <hr class="subHr">
+    </div>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[5]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelConsElectrico.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposConC[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsCons[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelConsElectrico[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="modelEmiCombustion.length>0" class="models my-1">
+    <h3 class="specsH3">Emisiones CO2 (g/Km)</h3>
+    <hr>
+    <div class="row rowPerso" *ngFor="let i of arrayRow[6]">
+      <div class="col" *ngFor="let j of arrayCol">
+        <div *ngIf="modelEmiCombustion.length> j+i*arrayCol.length">
+          <h2 class="h2perso">{{camposEmi[j + i * arrayCol.length]}} <i *ngIf="screenSize()>1200"
+            class="{{iconsEmi[j + i * arrayCol.length]}}"></i></h2>
+          <p>{{modelEmiCombustion[j + i * arrayCol.length]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div style="margin-top: 0; height: 50px"></div>
-<div class="container">
-
-  <table class="styleA">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>Cilindrada</th>
-      <th>Cilindros</th>
-      <th>Potencia (CV)</th>
-      <th>Emisiones (CO2)</th>
-      <th>Combustible</th>
-      <th>Tipo de Sobrealimentacion</th>
-      <th>Año</th>
-    </tr>
-    </thead>
-    <tbody>
-    <td *ngIf="motoresCombustion.length<1" style="width: 200px">
-      Cargando datos...
-    </td>
-    <tr *ngFor="let motorCombustion of motoresCombustion; let index = index">
-      <td>{{index + 1}}</td>
-      <td>{{motorCombustion.cilindrada}}</td>
-      <td>{{motorCombustion.cilindros}}</td>
-      <td>{{motorCombustion.hp}}</td>
-      <td>{{motorCombustion.emisiones.co2}}</td>
-      <td>{{motorCombustion.combustible.tipoCombustibleNormal.tipoCombustible}}</td>
-      <td>{{sobreAlimentacion(motorCombustion.sobrealimentacion)}}</td>
-      <td>{{coches[index].caryear}}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-
