@@ -1,10 +1,43 @@
+$limitInfSizeScreen: 600px;
+$limitMidSizeScreen: 1200px;
+
 .imgModelo {
   display: block;
   max-height: 100%;
   min-width: 100%;
   z-index: 1;
   left: 50%;
-  //transform: translatey(-25%);
+  border-radius: 0 0 20px 20px;
+}
+
+.specs {
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid orange;
+  border-radius: 25px;
+  margin: auto;
+}
+
+hr {
+  border: 2px solid rgb(255, 99, 0);
+  margin: 3px 0 0 0;
+}
+
+.h1Perso {
+  height: 100px;
+  width: 80%;
+  margin: auto;
+  font-size: 2vw;
+  text-align: left;
+  color: #ffb437;
+}
+
+.specsH3 {
+  font-size: 22px;
+}
+
+.models {
+  padding: 30px 30px 0 30px;
 }
 
 .canvas {
@@ -30,12 +63,6 @@ table {
   margin: 5%;
   width: 70%;
   border-radius: 20px;
-  //background: rgb(75,75,75);
-  //background: -moz-radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
-  //background: -webkit-radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
-  //background: radial-gradient(circle, rgba(75,75,75,0.6220154494382022) 0%, rgba(180,190,0,0.4731390449438202) 94%);
-  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4b4b4b",endColorstr="#b4be00",GradientType=1);
-  background: url("src/assets/images/tableBack.jpg");
   font-family: sans-serif;
   font-weight: 100;
   border-collapse: collapse;
@@ -193,55 +220,165 @@ tbody {
   animation-duration: 0.5s;
 }
 
-.yHoverTxt{
+.yHoverTxt {
   animation: brilloOutTxt;
   transform: translatey(-100%);
   filter: opacity(0);
-  animation-duration: 0.5s ;
+  animation-duration: 0.5s;
 }
 
-.noHoverTxt{
+.noHoverTxt {
   transform: translatey(-100%);
   filter: opacity(1);
   animation: brilloInTxt;
   animation-duration: 0.5s;
 
 }
+
 @keyframes brilloIn {
-  from {filter: brightness(30%);}
-  to {filter: brightness(100%);}
+  from {
+    filter: brightness(30%);
+  }
+  to {
+    filter: brightness(100%);
+  }
 }
 
 @-webkit-keyframes brilloIn {
-  from {filter: brightness(30%);}
-  to {filter: brightness(100%);}
+  from {
+    filter: brightness(30%);
+  }
+  to {
+    filter: brightness(100%);
+  }
 }
 
 @keyframes brilloOut {
-  from {filter: brightness(100%);}
-  to  {filter: brightness(30%);}
+  from {
+    filter: brightness(100%);
+  }
+  to {
+    filter: brightness(30%);
+  }
 }
 
 @-webkit-keyframes brilloOut {
-  from {filter: brightness(100%);}
-  to {filter: brightness(30%);}
+  from {
+    filter: brightness(100%);
+  }
+  to {
+    filter: brightness(30%);
+  }
 }
+
 @keyframes brilloInTxt {
-  from{filter:opacity(0);}
-  to   {filter:opacity(1);}
+  from {
+    filter: opacity(0);
+  }
+  to {
+    filter: opacity(1);
+  }
 }
 
 @-webkit-keyframes brilloInTxt {
-  from {filter:opacity(0);}
-  to  {filter:opacity(1);}
+  from {
+    filter: opacity(0);
+  }
+  to {
+    filter: opacity(1);
+  }
 }
 
 @keyframes brilloOutTxt {
-  from {filter:opacity(1);}
-  to  {filter:opacity(0);}
+  from {
+    filter: opacity(1);
+  }
+  to {
+    filter: opacity(0);
+  }
 }
 
 @-webkit-keyframes brilloOutTxt {
-  from {filter:opacity(1);}
-  to  {filter:opacity(0);}
+  from {
+    filter: opacity(1);
+  }
+  to {
+    filter: opacity(0);
+  }
+}
+
+
+
+//Pantallas medianas
+@media only screen and (max-width: $limitMidSizeScreen) and (min-width: $limitInfSizeScreen) {
+
+  .cardPerso {
+    justify-content: center;
+    margin: 100px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #000000;
+  }
+  .cardBodyPerso{
+    padding: 0 3rem;
+  }
+  .canvas{
+    width: auto;
+  }
+  .divPerso{
+    padding: 0;
+  }
+  .h1Perso{
+    justify-content: center;
+    line-height : 1.5rem;
+    font-size: 16px;
+  }
+}
+
+.h2perso{
+  color: orange;
+  font-size: 18px
+}
+.rowPerso{
+  margin: 3rem 40px;
+  text-align: center;
+}
+
+//Pantallas pequeñas
+@media only screen and (max-width: $limitInfSizeScreen) {
+  .specs{
+    width: 90%;
+    padding: 30px 2% 0 2%;
+  }
+  .h2perso{
+    font-size: 16px
+  }
+  .canvas{
+    width: auto;
+  }
+
+  .rowPerso{
+    margin: 3rem 0;
+  }
+  .col{
+    padding: 1px;
+  }
+  .models{
+    padding: 30px 2% 0 2%;
+  }
+
+
+  .cardPerso {
+    justify-content: center;
+    margin: 35px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #000000;
+  }
+  .cardBodyPerso{
+    padding: 0 3rem;
+  }
+  .h1Perso{
+    justify-content: center;
+    line-height : 1.5rem;
+    font-size: 16px;
+  }
 }

@@ -1,6 +1,7 @@
 <div class="scrolling-navbar scrollbar-lady-lips">
   <div class="force-overflow">
-    <div id="carouselExampleIndicators" class="carousel slide img-fluid" style="min-width: 100%; max-height: 75%"
+    <div id="carouselIndicators" class="carousel slide img-fluid"
+         style="min-width: 100%; max-height: 75%; overflow: hidden; border-radius: 0 0 15px 15px"
          data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -21,17 +22,67 @@
     </div>
 
   </div>
+  <mdb-card class="cardPerso">
+    <mdb-card-title *ngIf="screenSize()>600" style="padding: 0 7rem; height: 100%; margin: 60px 0;">
+      <div style="display: flex; justify-content: center;">
+        <h1 class="appName" data-heading="F">Find</h1>
+        <h1 class="appName" data-heading="Y">Your</h1>
+        <h1 class="appName" data-heading="C">Car</h1>
+      </div>
+    </mdb-card-title>
+    <mdb-card-body *ngIf="screenSize()>600" class="cardBodyPerso">
+      <div class="row justify-content-center" style="margin: 5% 0;">
+        <div class="col-6 divPerso">
+          <h1 class="h1Perso">{{_introWelcome}}</h1>
+          <h1 class="h1Perso">{{_intro}}</h1>
+        </div>
+        <div class="col-6" style="padding-left: 5%; margin: auto">
+          <img class="imgKnowme" style="max-width: 100%" src="assets/images/coches1.jpg">
+        </div>
+      </div>
+      <div class="row justify-content-center" style="margin: 10% 0;">
+        <div class="col-6" style="margin: auto">
+          <img class="imgKnowme" style="max-width: 100%" src="assets/images/coches2.jpg">
+        </div>
+        <div class="col-6" style="display: block; margin: auto; padding-left: 100px;">
+          <h1 class="h1Perso">{{_intro2}}</h1>
+        </div>
+      </div>
+      <!--Text-->
+      <mdb-card-text>
+      </mdb-card-text>
+    </mdb-card-body>
+    <mdb-card-title *ngIf="screenSize()<600" style="padding: 0 7rem; height: 100%; margin: 60px 0;">
+      <div style="display: flex; justify-content: center;">
+        <h1 class="appName" data-heading="F">Find</h1>
+        <h1 class="appName" data-heading="Y">Your</h1>
+        <h1 class="appName" data-heading="C">Car</h1>
+      </div>
+    </mdb-card-title>
+    <mdb-card-body *ngIf="screenSize()<600" class="cardBodyPerso">
+      <img class="imgKnowme" style="width: 120%; display:block; margin-left:-10%; margin-right: -10%; margin-bottom: 30px" src="assets/images/coches1.jpg">
+      <h1 class="h1Perso">{{_introWelcome}}</h1>
+      <h1 class="h1Perso">{{_intro}}</h1>
+      <img class="imgKnowme" style="width: 120%; display:block; margin-left:-10%; margin-right: -10%; margin-bottom: 30px" src="assets/images/coches2.jpg">
+      <h1 class="h1Perso">{{_intro2}}</h1>
+      <mdb-card-text>
+      </mdb-card-text>
+    </mdb-card-body>
+  </mdb-card>
 
-  <div style="display: block; background-color: white">
-    <canvas mdbChart
-            [chartType]="chartType"
-            [datasets]="chartDatasets"
-            [labels]="chartLabels"
-            [colors]="chartColors"
-            [options]="chartOptions"
-            [legend]="true"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
-    </canvas>
-  </div>
+  <mdb-carousel *ngIf="itemsCarrousel.length>0" [isControls]="true" class="carousel carouselPerso slide carousel-fade"
+                [animation]="'fade'">
+    <mdb-carousel-item (click)="redirectToItemPage(item.path)" *ngFor="let item of itemsCarrousel">
+      <div class="view">
+        <img src="assets/images/{{item.image}}" style="width: 100%; height: 100%">
+        <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
+        <div class="carousel-caption">
+          <div class="animated fadeInDown delay-1s">
+            <h3 class="h3-responsive">{{item.title}}</h3>
+            <p>{{item.text}}</p>
+          </div>
+        </div>
+      </div>
+    </mdb-carousel-item>
+  </mdb-carousel>
 </div>

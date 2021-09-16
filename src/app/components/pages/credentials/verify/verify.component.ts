@@ -23,7 +23,7 @@ export class VerifyComponent implements OnInit {
 
   reenviarCodigo() {
     this.usuariosService.sendCodeVerification(String(this.usuario.id),this.tipo).subscribe(value => {
-      console.log('recibido');
+      console.log('');
     });
     swal.fire({
       position: 'center',
@@ -41,7 +41,6 @@ export class VerifyComponent implements OnInit {
 
   verificarCodigo() {
     this.usuariosService.checkCodeVerification(this.usuario.id, this.codigo).subscribe(value => {
-      console.log(value);
       if(value.message!=null || value.message!=undefined){
         swal.fire({
           position: 'center',

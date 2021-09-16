@@ -1,14 +1,13 @@
 <mdb-card>
   <!--Card image-->
   <div style="position:relative">
-    <mdb-card-img class="imgfondo" src="{{urlImgBackKnowme}}" alt="imagen"></mdb-card-img>
+    <img class="imgfondo" src="{{urlImgBackKnowme}}" alt="imagen">
     <div style="position:absolute; top:10%; width: 100%">
       <img class="propietario" src="{{urlImgPropietario}}">
-      <div class="container font author" style="margin-top: 22%">
+      <div class="container font author">
         <div style="width: 100%;height: 50%" class="hijo">
           <div id="app">
             <div id="wrapper">
-
               <h1 class="glitch" data-text="Kevin Gómez Aguado">Kevin Gómez Aguado</h1>
               <span class="sub">DESARROLLADOR</span>
             </div>
@@ -18,12 +17,12 @@
     </div>
   </div>
 
-  <mdb-card-body style="background: transparent; padding: 0 7rem; height: 100%">
+  <mdb-card-body class="bodyPerso">
     <!--Title-->
     <mdb-card-title>
-      <p style="text-align: center;font-size: 4rem;">Find Your Car</p>
+      <p style="text-align: center;font-size: calc(2em + 3vw);">Find Your Car</p>
     </mdb-card-title>
-    <div class="row justify-content-center" style="margin: 100px auto">
+    <div *ngIf="window(700,-1)" class="row justify-content-center" style="margin: 100px auto">
       <div class="col-6">
         <h1>{{header}}</h1>
         <h1 style="justify-content: center">{{intro}}</h1>
@@ -35,12 +34,37 @@
     <!--Text-->
     <mdb-card-text>
     </mdb-card-text>
-    <div class="row justify-content-center" style="margin: 100px auto">
+    <div *ngIf="window(700,-1)" class="row justify-content-center" style="margin: 100px auto">
       <div class="col-6">
-        <img class="imgKnowme" style="max-height: 400px" src="assets/images/wall2.jpg">
+        <img class="imgKnowme" style="max-width: 85%" src="assets/images/wall2.jpg">
       </div>
       <div class="col-6" style="display: block; margin: auto">
         <h1>{{intro2}}</h1>
+      </div>
+    </div>
+
+
+
+
+
+    <div *ngIf="window(0,700)" class="justify-content-center" style="margin: 100px auto">
+      <div>
+        <h1>{{header}}</h1>
+        <h1 style="justify-content: center">{{intro}}</h1>
+      </div>
+      <div>
+        <img class="imgKnowme" style="max-width: 100%;margin-top: 50px;" src="assets/images/wall1.jpg">
+      </div>
+    </div>
+    <!--Text-->
+    <mdb-card-text>
+    </mdb-card-text>
+    <div *ngIf="window(0,700)" class="justify-content-center" style="margin: 100px auto">
+      <div style="display: block; margin: auto">
+        <h1>{{intro2}}</h1>
+      </div>
+      <div>
+        <img class="imgKnowme" style="max-width: 100%;margin-top: 50px;" src="assets/images/wall2.jpg">
       </div>
     </div>
   </mdb-card-body>

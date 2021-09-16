@@ -746,7 +746,6 @@ export class ModeloEspecificoAdminComponent implements OnInit {
         this.volumen = value;
         this.itemsToSave++;
         let itms: number = 0;
-        console.log(this.volumen);
         if (value.volumen2p != null) {
           this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenHabitaculo;
           this.modelVolumen[this.modelVolumen.length] = value.volumen2p.volumenMaletero;

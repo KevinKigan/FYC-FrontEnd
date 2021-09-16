@@ -24,4 +24,19 @@ export class ConocemeComponent implements OnInit {
     this.intro2 = this.conocemeService.getIntro2();
   }
 
+  window(min: number, max: number) {
+
+    if(max < 0){
+      if(screen.width > min){
+        return true;
+      }
+      if(screen.width < min){
+        return false;
+      }
+    }
+
+    if(max > 0) {
+      return screen.width > min && screen.width < max;
+    }
+  }
 }

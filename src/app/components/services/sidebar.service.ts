@@ -202,33 +202,7 @@ export class SidebarService {
     this.carroceria,
     this.motor,
     this.consumo,
-    this.potencia,
-    {
-      title: 'Extra',
-      type: 'header'
-    },
-    {
-      title: '¿Añadir nuevo filtro?',
-      icon: 'fa fa-book',
-      active: false,
-      type: 'simple',
-      badge: {
-        text: '¿?',
-        class: 'badge-primary'
-      },
-    },
-    {
-      title: '¿Añadir nuevo filtro?',
-      icon: 'fa fa-calendar',
-      active: false,
-      type: 'simple'
-    },
-    {
-      title: '¿Añadir nuevo filtro?',
-      icon: 'fa fa-folder',
-      active: false,
-      type: 'simple'
-    }
+    this.potencia
   ];
 
 
@@ -339,14 +313,19 @@ export class SidebarService {
         precio = Math.round(val / 1000) + 'k';
       }
       this.precio.submenus[0].value = value.toString();
-      if (this.precio.submenus[1].badge.text != 'Max ') {
-        this.precio.submenus[1].minimo = val.toString();
-        this.precio.submenus[1].badge.text = precio;
-        precios[1] = precio;
-        this.precio.submenus[1].badge.text = precio;
+      if (this.precio.submenus[1].badge.text != 'Max') {
+        let minimo = (+this.precio.submenus[0].value) + 1000
+        this.precio.submenus[1].minimo = String(minimo);
+        precios[1] = this.precio.submenus[1].badge.text;
         this.precio.badge.text = precios[0] + ' - ' + precios[1];
       }
-
+      if(this.precio.submenus[0].value >= this.precio.submenus[1].value){
+        this.precio.submenus[1].value = String(10000000);
+        this.precio.submenus[1].minimo = this.precio.submenus[0].value;
+        this.precio.submenus[1].badge.text = 'Max';
+        precios[1] = 'Max';
+        this.precio.badge.text = precios[0] + ' - '+ precios[1];
+      }
 
     } else if (tipo == 'Hasta') {
       precios[1] = precio;
@@ -413,7 +392,7 @@ export class SidebarService {
             class: '',
             selected: false
           }
-          this.carrocerias.push(menuCarroceria)
+          if(menuCarroceria.title != 'NULL') this.carrocerias.push(menuCarroceria)
         });
       });
     }
@@ -461,5 +440,183 @@ export class SidebarService {
     this.filtroService.setMotor(this.motor.submenus)
     this.filtroService.setConsumo(this.consumo.submenus)
     this.filtroService.setPotencia(this.potencia.submenus)
+  }
+
+  resetFilters(): any[] {
+    this.filtroService.reset('todos');
+    this.carrocerias = [];
+    this.sobrealimentaciones.forEach(sobre => {
+      this.motor.submenus[2].badge.text = FiltroService.CUALQUIERA;
+      this.motor.submenus[2].value = FiltroService.CUALQUIERA;
+      sobre.selected = false;
+      sobre.class = '';
+    });
+    this.getCarrocerias()
+    this.precio = {
+      title: 'Precio',
+      icon: 'fas fa-tags',
+      active: false,
+      type: 'dropdown',
+      slider: true,
+      badge: {
+        text: 'Min - Max ',
+        class: 'bg-warning text-dark'
+      },
+      submenus: [
+        {
+          title: 'Desde',
+          slider: true,
+          minimo: '1',
+          maximo: '100000',
+          value: '1',
+          interval: '1000',
+          badge: {
+            text: 'Min ',
+            class: 'bg-info text-dark badgePerso'
+          }
+        },
+        {
+          title: 'Hasta',
+          slider: true,
+          minimo: '1',
+          value: '100000',
+          maximo: '100000',
+          interval: '1000',
+          badge: {
+            text: 'Max ',
+            class: 'bg-info text-dark badgePerso'
+          }
+        }
+      ]
+    };
+    this.carroceria = {
+      title: 'Carroceria',
+      icon: 'fas fa-car',
+      active: false,
+      type: 'dropdown',
+      slider: false,
+      value: FiltroService.CUALQUIERA,
+      badge: {
+        text: 'Todas',
+        class: 'badge-danger'
+      },
+      submenus: this.carrocerias
+    };
+    this.motor = {
+      title: 'Motor',
+      icon: 'fas fa-wrench',
+      active: false,
+      type: 'dropdown',
+      slider: true,
+      badge: {
+        text: 'Sin Filtro ',
+        class: 'badge-danger'
+      },
+      submenus: [
+        {
+          title: 'Cilindrada (L)',
+          slider: true,
+          minimo: '0.5',
+          interval: '0.1',
+          maximo: '12',
+          value: FiltroService.CUALQUIERA,
+          badge: {
+            text: FiltroService.CUALQUIERA,
+            class: 'bg-info text-dark'
+          }
+        },
+        {
+          title: 'Cilindros ',
+          slider: true,
+          minimo: '2',
+          maximo: '12',
+          value: FiltroService.CUALQUIERA,
+          badge: {
+            text: FiltroService.CUALQUIERA,
+            class: 'bg-info text-dark'
+          }
+        },
+        {
+          title: 'Sobrealimentacion',
+          slider: false,
+          icon: 'fas fa-wrench',
+          active: false,
+          type: 'dropdown',
+          value: FiltroService.CUALQUIERA,
+          badge: {
+            text: FiltroService.CUALQUIERA,
+            class: 'bg-info text-dark'
+          },
+          subs: this.sobrealimentaciones
+        }
+      ]
+    };
+    this.consumo = {
+      title: 'Consumo',
+      icon: 'fas fa-gas-pump',
+      active: false,
+      type: 'dropdown',
+      slider: true,
+      badge: {
+        text: FiltroService.CUALQUIERA,
+        class: 'bg-info text-dark'
+      },
+      submenus: [
+        {
+          title: 'Límite de consumo medio:',
+          minimo: '0.1',
+          maximo: '25.0',
+          value: FiltroService.CUALQUIERA,
+          interval: '0.5',
+          slider: true,
+        }
+      ]
+    };
+    this.potencia = {
+      title: 'Potencia',
+      icon: 'fas fa-tachometer-alt',
+      active: false,
+      type: 'dropdown',
+      slider: true,
+      badge: {
+        text: 'Min - Max ',
+        class: 'bg-warning text-dark'
+      },
+      submenus: [
+        {
+          title: 'Desde',
+          slider: true,
+          minimo: '1',
+          maximo: '1000',
+          value: FiltroService.MINIMO,
+          interval: '10',
+          badge: {
+            text: 'Min ',
+            class: 'bg-info text-dark badgePerso'
+          }
+        },
+        {
+          title: 'Hasta',
+          slider: true,
+          minimo: '1',
+          value: FiltroService.MAXIMO,
+          maximo: '1000',
+          interval: '10',
+          badge: {
+            text: 'Max ',
+            class: 'bg-info text-dark badgePerso'
+          }
+        }
+      ]
+    };
+    this.menus = [
+      this.header,
+      this.precio,
+      this.carroceria,
+      this.motor,
+      this.consumo,
+      this.potencia
+    ];
+    return this.menus;
   }
 }
